@@ -75,15 +75,15 @@
                 <button class="add-to-cart add-btn">Agregar al carrito</button>
             </div>
         </div>
-        <div id="cart-container" class="cart-container">
-            <h2>Carrito de Compras</h2>
-            <div id="cart-items" class="cart-items"></div>
-            <p id="cart-total">Total: $0 MXN</p>
-            <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
-        </div>
-        <button id="finalize-order" class="finalize-btn">Finalizar pedido</button>
-    </div>
-    <script>
+            <!-- Ejemplo: 9forty.html -->
+            <div id="cart-container" class="cart-container">
+                <button id="toggle-cart" class="toggle-cart-btn">Minimizar Carrito</button>
+                <h2>Carrito de Compras</h2>
+                <div id="cart-items" class="cart-items"></div>
+                <p id="cart-total">Total: $0 MXN</p>
+                <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+            </div>
+        <script>
         // Stock inicial (simulado)
         let stock = JSON.parse(localStorage.getItem('stock')) || {
             'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
