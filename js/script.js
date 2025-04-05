@@ -165,15 +165,17 @@ if (nextPage) {
     });
 }
 
-// Nuevo: Alternar minimizar/maximizar carrito
-const cartContainer = document.getElementById('cart-container');
-const toggleCartBtn = document.getElementById('toggle-cart');
-if (cartContainer && toggleCartBtn) {
-    toggleCartBtn.addEventListener('click', () => {
-        cartContainer.classList.toggle('minimized');
-        toggleCartBtn.textContent = cartContainer.classList.contains('minimized') ? 'Maximizar Carrito' : 'Minimizar Carrito';
-    });
-}
+// Asegura que el DOM esté cargado antes de agregar el evento
+document.addEventListener('DOMContentLoaded', () => {
+    const cartContainer = document.getElementById('cart-container');
+    const toggleCartBtn = document.getElementById('toggle-cart');
+    if (cartContainer && toggleCartBtn) {
+        toggleCartBtn.addEventListener('click', () => {
+            cartContainer.classList.toggle('minimized');
+            toggleCartBtn.textContent = cartContainer.classList.contains('minimized') ? 'Maximizar Carrito' : 'Minimizar Carrito';
+        });
+    }
+});
 
 // Inicialización
 if (typeof products !== 'undefined') {
