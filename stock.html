@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Disponible - GatorCaps</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header>
+        <a href="Gatorcaps99.html">
+            <img src="Imagenes/Logos/LogoGatorCaps.png" alt="GatorCaps Logo">
+        </a>
+    </header>
+    <button class="back-btn" onclick="history.back()">Regresar</button>
+    <div class="container">
+        <h1>Stock Disponible</h1>
+        <p>Explora nuestro stock exclusivo disponible ahora mismo.</p>
+        
+        <div class="gallery">
+            <!-- Modelo 1 -->
+            <div class="gallery-item" data-product-id="pirates-pittsburgh">
+                <img src="Imagenes/Catalogo/Stock/28dfe4500a0f4d45b6677f6d5ab11bcd_pixian_ai.png" alt="Pirates">
+                <p class="title">Pirates Pittsburgh</p>
+                <p class="price">Precio: $500 MXN</p>
+                <div class="size-options" style="margin-bottom: 10px;">
+                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                </div>
+                <button class="add-to-cart add-btn">Agregar al carrito</button>
+            </div>
+            <!-- Modelo 2 -->
+            <div class="gallery-item" data-product-id="houston-texans">
+                <img src="Imagenes/Catalogo/Stock/432ef84eeffa4c598415a03ca7da430c_pixian_ai.png" alt="Texans">
+                <p class="title">Houston Texans</p>
+                <p class="price">Precio: $500 MXN</p>
+                <div class="size-options" style="margin-bottom: 10px;">
+                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                </div>
+                <button class="add-to-cart add-btn">Agregar al carrito</button>
+            </div>
+            <!-- Modelo 3 -->
+            <div class="gallery-item" data-product-id="la-dodgers">
+                <img src="Imagenes/Catalogo/Stock/53d61ecebe0c4c8ba0be8b7c8aa7a400_pixian_ai.png" alt="Dodgers">
+                <p class="title">LA Dodgers</p>
+                <p class="price">Precio: $500 MXN</p>
+                <div class="size-options" style="margin-bottom: 10px;">
+                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                </div>
+                <button class="add-to-cart add-btn">Agregar al carrito</button>
+            </div>
+            <!-- Modelo 4 (Snapback) -->
+            <div class="gallery-item" data-product-id="sf-giants">
+                <img src="Imagenes/Catalogo/Stock/aaa_pixian_ai.png" alt="Giants">
+                <p class="title">SF Giants World Series (Ajustable)</p>
+                <p class="price">Precio: $450 MXN</p>
+                <div class="size-options" style="margin-bottom: 10px;">
+                    <button class="add-to-cart size-btn" data-size="Ajustable">Ajustable</button>
+                </div>
+                <button class="add-to-cart add-btn">Agregar al carrito</button>
+            </div>
+            <!-- Modelo 5 (Snapback) -->
+            <div class="gallery-item" data-product-id="ny-yankees">
+                <img src="Imagenes/Catalogo/Stock/3a587271504946dba64ebd3fb883d0e6_pixian_ai.png" alt="Yankees">
+                <p class="title">NY Yankees World Series (Ajustable)</p>
+                <p class="price">Precio: $450 MXN</p>
+                <div class="size-options" style="margin-bottom: 10px;">
+                    <button class="add-to-cart size-btn" data-size="Ajustable">Ajustable</button>
+                </div>
+                <button class="add-to-cart add-btn">Agregar al carrito</button>
+            </div>
+        </div>
+        <div id="cart-container" class="cart-container">
+            <h2>Carrito de Compras</h2>
+            <div id="cart-items" class="cart-items"></div>
+            <p id="cart-total">Total: $0 MXN</p>
+            <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        </div>
+        <button id="finalize-order" class="finalize-btn">Finalizar pedido</button>
+    </div>
+    <script>
+        // Stock inicial (simulado)
+        let stock = JSON.parse(localStorage.getItem('stock')) || {
+            'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+            'houston-texans': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+            'la-dodgers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+            'sf-giants': { 'Ajustable': 1 },
+            'ny-yankees': { 'Ajustable': 1 }
+        };
+
+        const cart = [];
+
+        // Actualizar la disponibilidad de tallas al cargar la página
+        function updateStockDisplay() {
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                const productId = item.getAttribute('data-product-id');
+                const sizeButtons = item.querySelectorAll('.size-btn');
+                sizeButtons.forEach(button => {
+                    const size = button.getAttribute('data-size');
+                    const available = stock[productId][size] > 0;
+                    button.disabled = !available;
+                    button.textContent = available ? size : `${size} (Agotado)`;
+                });
+            });
+        }
+
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let count500 = 0; // Contador para productos de $500
+            let count450 = 0; // Contador para productos de $450
+
+            // Contar productos por precio
+            cart.forEach(item => {
+                if (item.price === 500) count500 += item.quantity;
+                if (item.price === 450) count450 += item.quantity;
+                total += item.price * item.quantity;
+            });
+
+            // Aplicar descuentos
+            let discount = 0;
+            if (count500 === 2) discount += 100;
+            else if (count500 >= 3) discount += 150;
+            if (count450 === 2) discount += 50;
+            else if (count450 >= 3) discount += 100;
+
+            total -= discount;
+
+            // Mostrar ítems en el carrito
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <p>${item.name} (${item.size}) - $${item.price} MXN</p>
+                    <div class="cart-item-controls">
+                        <button onclick="changeQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity(${index}, 1)">+</button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            document.getElementById('cart-total').innerText = `Total: $${total} MXN (Descuento: $${discount})`;
+        }
+
+        function addToCart(name, price, image, size, productId) {
+            if (stock[productId][size] <= 0) {
+                alert('Lo siento, esta talla está agotada.');
+                return;
+            }
+
+            const existingItem = cart.find(item => item.name === name && item.size === size);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, image, size, productId, quantity: 1 });
+            }
+            updateCartDisplay();
+            alert(`Se agregó al carrito: ${name} (${size})`);
+        }
+
+        function changeQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartDisplay();
+        }
+
+        // Manejo de selección de talla
+        document.querySelectorAll('.size-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const size = button.getAttribute('data-size');
+                const item = button.closest('.gallery-item');
+                // Desmarcar otros botones y marcar el seleccionado
+                item.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                });
+                button.style.backgroundColor = 'var(--pure-white)';
+                button.style.color = 'var(--deep-black)';
+                // Guardar la talla seleccionada en el elemento
+                item.dataset.selectedSize = size;
+            });
+        });
+
+        document.querySelectorAll('.add-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.gallery-item');
+                const name = item.querySelector('.title').innerText;
+                const priceText = item.querySelector('.price').innerText;
+                const price = parseFloat(priceText.replace('Precio: $', '').replace(' MXN', ''));
+                const image = item.querySelector('img').src;
+                const selectedSize = item.dataset.selectedSize;
+                const productId = item.getAttribute('data-product-id');
+
+                if (!selectedSize) {
+                    alert('Por favor, selecciona una talla antes de agregar al carrito.');
+                    return;
+                }
+
+                addToCart(name, price, image, selectedSize, productId);
+            });
+        });
+
+        document.getElementById('clear-cart').addEventListener('click', () => {
+            cart.length = 0;
+            updateCartDisplay();
+        });
+
+        document.getElementById('finalize-order').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            // Reducir el stock
+            cart.forEach(item => {
+                stock[item.productId][item.size] -= item.quantity;
+            });
+
+            // Guardar el stock actualizado
+            localStorage.setItem('stock', JSON.stringify(stock));
+            updateStockDisplay();
+
+            // Generar mensaje para WhatsApp
+            let message = 'Hola, quiero confirmar mi pedido:\n';
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.size}) - $${item.price} MXN x ${item.quantity}\n`;
+            });
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let discount = 0;
+            let count500 = cart.reduce((sum, item) => item.price === 500 ? sum + item.quantity : sum, 0);
+            let count450 = cart.reduce((sum, item) => item.price === 450 ? sum + item.quantity : sum, 0);
+            if (count500 === 2) discount += 100;
+            else if (count500 >= 3) discount += 150;
+            if (count450 === 2) discount += 50;
+            else if (count450 >= 3) discount += 100;
+            message += `Total: $${total - discount} MXN (Descuento: $${discount})`;
+
+            // Enviar a WhatsApp
+            const whatsappUrl = `https://wa.me/525576070822?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Limpiar el carrito después de confirmar
+            cart.length = 0;
+            updateCartDisplay();
+        });
+
+        // Inicializar la visualización del stock
+        updateStockDisplay();
+    </script>
+</body>
+</html>

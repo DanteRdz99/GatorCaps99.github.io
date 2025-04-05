@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación del Carrito - GatorCaps</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #222;
+            padding: 20px;
+        }
+        header img {
+            width: 150px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .cart-item img {
+            width: 50px;
+            border-radius: 5px;
+        }
+        .cart-item p {
+            margin: 0;
+            font-size: 14px;
+        }
+        #cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .confirm-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .confirm-btn:hover {
+            background-color: #1ebe5d;
+        }
+        .back-btn {
+            background-color: #ff4444;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .back-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="Gatorcaps99.html">
+            <img src="Imagenes/Logos/LogoGatorCaps.png" alt="GatorCaps Logo">
+        </a>
+    </header>
+    <div class="container">
+        <h1>Confirmación del Pedido</h1>
+        <p>Revisa tu carrito antes de enviar el pedido:</p>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN</p>
+        <button id="confirm-order" class="confirm-btn">Confirmar y Enviar por WhatsApp</button>
+        <button id="back-to-shop" class="back-btn">Regresar</button>
+    </div>
+    <script>
+        // Recuperar el carrito de localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Mostrar los elementos del carrito
+        const cartItemsContainer = document.getElementById('cart-items');
+        let total = 0;
+        cart.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <p>${item.name} - $${item.price} MXN (x${item.quantity})</p>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+            total += item.price * item.quantity;
+        });
+        document.getElementById('cart-total').innerText = `Total: $${total} MXN`;
+
+        // Confirmar y enviar a WhatsApp
+        document.getElementById('confirm-order').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            const message = encodeURIComponent(`Hola, quiero pedir las siguientes gorras:\n${cart.map(item => `- ${item.name} (x${item.quantity})`).join('\n')}\nTotal: $${total} MXN`);
+            const whatsappUrl = `https://wa.me/525576070822?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            // Limpiar localStorage después de confirmar (opcional)
+            localStorage.removeItem('cart');
+        });
+
+        // Regresar a la página principal (Gatorcaps99.html)
+        document.getElementById('back-to-shop').addEventListener('click', () => {
+            window.location.href = 'Gatorcaps99.html';
+        });
+    </script>
+</body>
+</html>
