@@ -3,46 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GatorCaps - Inicio</title>
+    <title>GatorCaps - Gorras Exclusivas</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
     <header>
-        <a href="index.html">
-            <img src="Imagenes/Logos/LogoGatorCaps.png" alt="GatorCaps Logo">
-        </a>
-    </header>
-    <button class="back-btn" onclick="history.back()">Regresar</button>
-    <div class="container">
-        <h1>¡Bienvenidos a GatorCaps!</h1>
-        <div class="about-section">
-            <p>Tu lugar para encontrar gorras exclusivas. Aquí te cuento qué nos hace especiales y cómo puedes llevarte una de nuestras piezas únicas.</p>
-            <a href="stock.html"><button class="finalize-btn">Stock Disponible</button></a>
-            
-            <h2>¿Qué es GatorCaps?</h2>
-            <p>En GatorCaps traemos gorras de marcas top y diseños que no encuentras en cualquier lado. Tenemos opciones en <span class="highlight">stock inmediato</span> y modelos bajo pedido para los que buscan algo más exclusivo.</p>
-            <p>💥 ¡Nuestro catálogo no para de crecer! Siempre estamos sumando nuevos estilos para mantenerte a la vanguardia.</p>
-            
-            <h2>¿Cómo comprar?</h2>
-            <p>- <span class="highlight">Stock inmediato</span>: Elige, paga y llévatela al instante.</p>
-            <p>- <span class="highlight">Sobre pedido</span>: Si tu gorra ideal no está en stock, la traemos para ti en unas <span class="highlight">3-4 semanas</span>. Te mantengo al tanto de cada paso para que estés tranquilo.</p>
-            <p><span class="highlight">Nota</span>: Necesitamos un anticipo del <span class="highlight">50%</span> para arrancar el pedido.</p>
-            
-            <h2>Métodos de pago</h2>
-            <p>Paga como prefieras:</p>
-            <p>- Transferencia bancaria<br>- Depósito en OXXO<br>- Efectivo al recibir (solo en puntos acordados)</p>
-            
-            <h2>Entregas</h2>
-            <p>Te llevamos tu gorra a:</p>
-            <p>- Zona Ciudad Universitaria<br>- Estaciones del Metro (a coordinar)<br>- Colonias cerca de Apodaca</p>
-            <p><span class="highlight">Envíos a otras ciudades</span>: Costo extra por paquetería a partir de 10 piezas.</p>
-            
-            <h2>Síguenos</h2>
-            <p>Conéctate con nosotros en Instagram: <a href="https://www.instagram.com/gatorcaps99/" target="_blank">@GatorCaps99</a>. Ahí encontrarás nuevos lanzamientos, promos y más.</p>
-            
-            <p><span class="highlight">¡Gracias por elegir GatorCaps99!</span> Estoy aquí para ayudarte. Si tienes dudas o quieres pedir algo, escríbeme y lo hacemos realidad.</p>
+        <div class="header-content">
+            <a href="index.html">
+                <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <h1>¡Bienvenido a GatorCaps!</h1>
+                <a href="stock.html" class="cta-btn stock-btn">Stock</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-btn">Instagram</a>
+                <a href="https://wa.me/525576070822" target="_blank" class="social-btn">WhatsApp</a>
+            </div>
         </div>
-        <a href="catalogo.html"><button class="finalize-btn">Ver Catálogo Completo</button></a>
+    </header>
+    <div class="container">
+        <section class="featured">
+            <h2>Productos Destacados</h2>
+            <div class="gallery">
+                <!-- Gorra de 9Forty -->
+                <div class="gallery-item" data-product-id="ny-yankees-9forty">
+                    <img src="Imagenes/Catalogo/MLB/9FORTY/DIAMONDS1.png" alt="Diamonds Backs">
+                    <p class="title">Arizona DiamondBacks</p>
+                    <p class="price">Precio: $450 MXN</p>
+                </div>
+                <!-- Gorra de Stock -->
+                <div class="gallery-item" data-product-id="Delta Tigers">
+                    <img src="Imagenes/Catalogo/StockDisp/DTDB.jpg" alt="Delta Tigers">
+                    <p class="title">Delta Tigers DuckBill</p>
+                    <p class="price">Precio: $500 MXN</p>
+                </div>
+                <!-- Gorra de NBA -->
+                <div class="gallery-item" data-product-id="la-lakers-nba">
+                    <img src="Imagenes/Catalogo/NBA/LAKERS3_pixian_ai.png" alt="LA Lakers NBA">
+                    <p class="title">LA Lakers NBA</p>
+                    <p class="price">Precio: $400 MXN</p>
+                </div>
+                <!-- Gorra de Stock -->
+                <div class="gallery-item" data-product-id="sf-giants">
+                    <img src="Imagenes/Catalogo/StockDisp/SFA.jpg" alt="SF Giants">
+                    <p class="title">SF Giants World Series (Ajustable)</p>
+                    <p class="price">Precio: $450 MXN</p>
+                </div>
+            </div>
+            <a href="stock.html" class="cta-btn catalog-btn">Nuestro Catálogo</a>
+        </section>
+        <section class="about">
+            <h2>Sobre Nosotros</h2>
+            <p>En GatorCaps, manejamos <strong>sobrepedidos</strong> para que tengas la gorra de tus sueños. Si no encuentras lo que buscas en nuestro stock, contáctanos por <a href="https://www.instagram.com/gatorcaps99" target="_blank">Instagram</a> o <a href="https://wa.me/525576070822" target="_blank">WhatsApp</a>. Realizamos pedidos personalizados con nuestros proveedores en Estados Unidos, y tu gorra llegará en aproximadamente <strong>15-20 días hábiles</strong>. ¡Haz tu pedido y forma parte de la familia GatorCaps!</p>
+        </section>
     </div>
+    <footer>
+        <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
+    <div id="cart-container" class="cart-container">
+        <button id="toggle-cart" class="toggle-cart-btn">↓</button>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN</p>
+        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
+    </div>
+    <script src="js/stock.js"></script>
 </body>
 </html>

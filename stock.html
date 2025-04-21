@@ -8,81 +8,96 @@
 </head>
 <body>
     <header>
-        <a href="index.html">
-            <img src="Imagenes/Logos/LogoGatorCaps.png" alt="GatorCaps Logo">
-        </a>
+        <div class="header-content">
+            <a href="index.html">
+                <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <h1>Stock Disponible</h1>
+                <a href="stock.html" class="cta-btn stock-btn">Stock</a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-btn">Instagram</a>
+                <a href="https://wa.me/525576070822" target="_blank" class="social-btn">WhatsApp</a>
+            </div>
+        </div>
     </header>
-    <button class="back-btn" onclick="history.back()">Regresar</button>
+    <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <h1>Stock Disponible</h1>
         <p>Explora nuestro stock exclusivo disponible ahora mismo.</p>
         
         <div class="gallery">
             <!-- Modelo 1 -->
             <div class="gallery-item" data-product-id="pirates-pittsburgh">
-                <img src="Imagenes/Catalogo/Stock/28dfe4500a0f4d45b6677f6d5ab11bcd_pixian_ai.png" alt="Pirates">
+                <img src="Imagenes/Catalogo/StockDisp/PTS59F.jpg" alt="Pirates">
                 <p class="title">Pirates Pittsburgh</p>
                 <p class="price">Precio: $500 MXN</p>
-                <div class="size-options" style="margin-bottom: 10px;">
-                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                <div class="size-options">
+                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
                 </div>
-                <button class="add-to-cart add-btn">Agregar al carrito</button>
+                <button class="add-btn" style="display: none;">Agregar al carrito</button>
             </div>
             <!-- Modelo 2 -->
             <div class="gallery-item" data-product-id="houston-texans">
-                <img src="Imagenes/Catalogo/Stock/432ef84eeffa4c598415a03ca7da430c_pixian_ai.png" alt="Texans">
+                <img src="Imagenes/Catalogo/StockDisp/TR59F.jpg" alt="Texans">
                 <p class="title">Houston Texans</p>
                 <p class="price">Precio: $500 MXN</p>
-                <div class="size-options" style="margin-bottom: 10px;">
-                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                <div class="size-options">
+                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
                 </div>
-                <button class="add-to-cart add-btn">Agregar al carrito</button>
+                <button class="add-btn" style="display: none;">Agregar al carrito</button>
             </div>
             <!-- Modelo 3 -->
             <div class="gallery-item" data-product-id="la-dodgers">
-                <img src="Imagenes/Catalogo/Stock/53d61ecebe0c4c8ba0be8b7c8aa7a400_pixian_ai.png" alt="Dodgers">
+                <img src="Imagenes/Catalogo/StockDisp/LA59F.jpg" alt="Dodgers">
                 <p class="title">LA Dodgers</p>
                 <p class="price">Precio: $500 MXN</p>
-                <div class="size-options" style="margin-bottom: 10px;">
-                    <button class="add-to-cart size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="add-to-cart size-btn" data-size="7 1/2">7 1/2</button>
+                <div class="size-options">
+                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
+                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
                 </div>
-                <button class="add-to-cart add-btn">Agregar al carrito</button>
+                <button class="add-btn" style="display: none;">Agregar al carrito</button>
             </div>
-            <!-- Modelo 4 (Snapback) -->
+            <!-- Modelo 4 (Ajustable) -->
             <div class="gallery-item" data-product-id="sf-giants">
-                <img src="Imagenes/Catalogo/Stock/aaa_pixian_ai.png" alt="Giants">
+                <img src="Imagenes/Catalogo/StockDisp/SFA.jpg" alt="Giants">
                 <p class="title">SF Giants World Series (Ajustable)</p>
                 <p class="price">Precio: $450 MXN</p>
-                <div class="size-options" style="margin-bottom: 10px;">
-                    <button class="add-to-cart size-btn" data-size="Ajustable">Ajustable</button>
-                </div>
-                <button class="add-to-cart add-btn">Agregar al carrito</button>
+                <div class="size-options" style="display: none;"></div>
+                <button class="add-btn">Agregar al carrito</button>
             </div>
-            <!-- Modelo 5 (Snapback) -->
-            <div class="gallery-item" data-product-id="ny-yankees">
-                <img src="Imagenes/Catalogo/Stock/3a587271504946dba64ebd3fb883d0e6_pixian_ai.png" alt="Yankees">
-                <p class="title">NY Yankees World Series (Ajustable)</p>
-                <p class="price">Precio: $450 MXN</p>
-                <div class="size-options" style="margin-bottom: 10px;">
-                    <button class="add-to-cart size-btn" data-size="Ajustable">Ajustable</button>
+            <!-- Modelo 5 (Ajustable) -->
+            <div class="gallery-item" data-product-id="sf-giants-duckbill">
+                <img src="Imagenes/Catalogo/StockDisp/SFDB.jpg" alt="SF Giants Duckbill">
+                <p class="title">SF Giants Duckbill AllStar Game (Ajustable)</p>
+                <p class="price">Precio: $500 MXN</p>
+                <div class="size-options" style="display: none;"></div>
+                <button class="add-btn">Agregar al carrito</button>
+            </div>
+            <!-- Modelo 6 (No ajustable) -->
+            <div class="gallery-item" data-product-id="delta-tigers-duckbill">
+                <img src="Imagenes/Catalogo/StockDisp/DTDB.jpg" alt="Delta Tigers Duckbill">
+                <p class="title">Delta Tigers DuckBill AllStar Game</p>
+                <p class="price">Precio: $500 MXN</p>
+                <div class="size-options">
+                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
+                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
                 </div>
-                <button class="add-to-cart add-btn">Agregar al carrito</button>
+                <button class="add-btn" style="display: none;">Agregar al carrito</button>
             </div>
         </div>
         <div id="cart-container" class="cart-container">
-            <button id="toggle-cart" class="toggle-cart-btn">Minimizar Carrito</button>
+            <button id="toggle-cart" class="toggle-cart-btn">↓</button>
             <h2>Carrito de Compras</h2>
             <div id="cart-items" class="cart-items"></div>
             <p id="cart-total">Total: $0 MXN</p>
             <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+            <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
         </div>
-        <button id="finalize-order" class="finalize-btn">Finalizar pedido</button>
     </div>
     <script src="js/stock.js"></script>
 </body>

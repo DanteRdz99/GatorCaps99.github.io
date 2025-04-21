@@ -165,23 +165,21 @@ if (nextPage) {
     });
 }
 
-// Asegura que el DOM esté cargado antes de agregar el evento
+// ... (código anterior sin cambios hasta el evento del carrito)
 document.addEventListener('DOMContentLoaded', () => {
     const cartContainer = document.getElementById('cart-container');
     const toggleCartBtn = document.getElementById('toggle-cart');
     if (cartContainer && toggleCartBtn) {
         toggleCartBtn.addEventListener('click', () => {
             cartContainer.classList.toggle('minimized');
-            toggleCartBtn.textContent = cartContainer.classList.contains('minimized') ? 'Maximizar Carrito' : 'Minimizar Carrito';
+            toggleCartBtn.textContent = cartContainer.classList.contains('minimized') ? '↓' : '↑';
         });
     }
+    if (typeof products !== 'undefined') {
+        filteredProducts = [...products];
+        populateTeamFilter();
+        createGallery();
+    } else {
+        console.error('Error: "products" no está definido en esta página.');
+    }
 });
-
-// Inicialización
-if (typeof products !== 'undefined') {
-    filteredProducts = [...products];
-    populateTeamFilter();
-    createGallery();
-} else {
-    console.error('Error: "products" no está definido en esta página.');
-}
