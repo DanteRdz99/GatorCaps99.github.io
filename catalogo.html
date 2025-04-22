@@ -17,10 +17,10 @@
             </div>
             <div class="social-links">
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/Instagram.png" alt="Instagram" class="social-logo">
+                    <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/Whatsapp.png" alt="WhatsApp" class="social-logo">
+                <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
+                    <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
         </div>
@@ -28,20 +28,23 @@
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
         <p>Selecciona una categoría:</p>
-        <div class="categories">
+        <div class="categories button-group">
             <button class="cta-btn" onclick="window.location.href='mlb.html'">MLB</button>
             <button class="cta-btn" onclick="window.location.href='nfl.html'">NFL</button>
             <button class="cta-btn" onclick="window.location.href='nba.html'">NBA</button>
         </div>
     </div>
-    <div id="cart-container" class="cart-container">
-        <button id="toggle-cart" class="toggle-cart-btn">↓</button>
+    <footer>
+        <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
+    <div id="cart-container" class="cart-container minimized">
+        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
         <h2>Carrito de Compras</h2>
         <div id="cart-items" class="cart-items"></div>
         <p id="cart-total">Total: $0 MXN</p>
         <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
         <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
-    <script src="js/stock.js"></script>
+    <script src="js/catalogo.js"></script>
 </body>
 </html>

@@ -20,59 +20,56 @@
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
+                <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
         </div>
     </header>
+    <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
         <section class="featured">
             <h2>Productos Destacados</h2>
             <div class="gallery">
                 <!-- Gorra de 9Forty -->
-                <div class="gallery-item" data-product-id="ny-yankees-9forty">
-                    <img src="Imagenes/Catalogo/MLB/9FORTY/DIAMONDS1.png" alt="Diamonds Backs">
+                <a href="mlb_9forty.html" class="gallery-item" data-product-id="ny-yankees-9forty">
+                    <img src="Imagenes/Catalogo/MLB/9FORTY/DIAMONDS1.png" alt="Arizona DiamondBacks">
                     <p class="title">Arizona DiamondBacks</p>
-                    <p class="price">Precio: $450 MXN</p>
-                </div>
+                </a>
                 <!-- Gorra de Stock -->
-                <div class="gallery-item" data-product-id="Delta Tigers">
+                <a href="stock.html" class="gallery-item" data-product-id="Delta Tigers">
                     <img src="Imagenes/Catalogo/StockDisp/DTDB.jpg" alt="Delta Tigers">
                     <p class="title">Delta Tigers DuckBill</p>
-                    <p class="price">Precio: $500 MXN</p>
-                </div>
+                </a>
                 <!-- Gorra de NBA -->
-                <div class="gallery-item" data-product-id="la-lakers-nba">
+                <a href="nba.html" class="gallery-item" data-product-id="la-lakers-nba">
                     <img src="Imagenes/Catalogo/NBA/LAKERS3_pixian_ai.png" alt="LA Lakers NBA">
                     <p class="title">LA Lakers NBA</p>
-                    <p class="price">Precio: $400 MXN</p>
-                </div>
+                </a>
                 <!-- Gorra de Stock -->
-                <div class="gallery-item" data-product-id="sf-giants">
+                <a href="stock.html" class="gallery-item" data-product-id="sf-giants">
                     <img src="Imagenes/Catalogo/StockDisp/SFA.jpg" alt="SF Giants">
                     <p class="title">SF Giants World Series (Ajustable)</p>
-                    <p class="price">Precio: $450 MXN</p>
-                </div>
+                </a>
             </div>
             <a href="catalogo.html" class="cta-btn catalog-btn">Nuestro Catálogo</a>
         </section>
         <section class="about">
             <h2>Sobre Nosotros</h2>
-            <p>En GatorCaps, manejamos <strong>sobrepedidos</strong> para que tengas la gorra de tus sueños. Si no encuentras lo que buscas en nuestro stock, contáctanos por <a href="https://www.instagram.com/gatorcaps99" target="_blank">Instagram</a> o <a href="https://wa.me/525576070822" target="_blank">WhatsApp</a>. Realizamos pedidos personalizados con nuestros proveedores en Estados Unidos, y tu gorra llegará en aproximadamente <strong>15-20 días hábiles</strong>. ¡Haz tu pedido y forma parte de la familia GatorCaps!</p>
+            <p>En GatorCaps, manejamos <strong>sobrepedidos</strong> para que tengas la gorra de tus sueños. Si no encuentras lo que buscas en nuestro stock, contáctanos por <a href="https://www.instagram.com/gatorcaps99" target="_blank">Instagram</a> o <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank">WhatsApp</a>. Realizamos pedidos personalizados con nuestros proveedores en Estados Unidos, y tu gorra llegará en aproximadamente <strong>15-20 días hábiles</strong>. ¡Haz tu pedido y forma parte de la familia GatorCaps!</p>
         </section>
     </div>
     <footer>
         <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
     </footer>
-    <div id="cart-container" class="cart-container">
-        <button id="toggle-cart" class="toggle-cart-btn">↓</button>
+    <div id="cart-container" class="cart-container minimized">
+        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
         <h2>Carrito de Compras</h2>
         <div id="cart-items" class="cart-items"></div>
         <p id="cart-total">Total: $0 MXN</p>
         <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
         <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
-    <script src="js/stock.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
