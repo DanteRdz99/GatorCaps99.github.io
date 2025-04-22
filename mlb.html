@@ -8,20 +8,41 @@
 </head>
 <body>
     <header>
-        <a href="index.html">
-            <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo">
-        </a>
+        <div class="header-content">
+            <a href="index.html">
+                <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <h1>Catálogo MLB</h1>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
+                    <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
+                </a>
+                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
+                    <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
+                </a>
+            </div>
+        </div>
     </header>
-    <button class="back-btn" onclick="history.back()">Regresar</button>
+    <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
         <img src="Imagenes/Logos/MLB logo.png" alt="MLB Logo">
-        <h1>Catálogo MLB</h1>
         <p>Selecciona un estilo:</p>
         <div class="subcategories">
-            <button class="finalize-btn" onclick="window.location.href='mlb_59fifty.html'">59FIFTY</button>
-            <button class="finalize-btn" onclick="window.location.href='mlb_9forty.html'">9FORTY</button>
-            <button class="finalize-btn" onclick="window.location.href='mlb_trucker.html'">TRUCKER</button>
+            <button class="cta-btn" onclick="window.location.href='mlb_59fifty.html'">59FIFTY</button>
+            <button class="cta-btn" onclick="window.location.href='mlb_9forty.html'">9FORTY</button>
+            <button class="cta-btn" onclick="window.location.href='mlb_trucker.html'">TRUCKER</button>
         </div>
     </div>
+    <div id="cart-container" class="cart-container">
+        <button id="toggle-cart" class="toggle-cart-btn">↓</button>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN</p>
+        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
+    </div>
+    <script src="js/mlb.js"></script>
 </body>
 </html>

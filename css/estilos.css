@@ -41,7 +41,8 @@ header {
 }
 
 header img.logo {
-    width: 120px;
+    width: 120px !important; /* Forzar tamaño del logo */
+    height: auto;
     margin: 0;
     padding: 5px;
     border-radius: var(--border-radius);
@@ -66,19 +67,22 @@ header img.logo {
     gap: 10px;
 }
 
-.social-btn {
-    background: var(--pure-black);
-    color: var(--pure-white);
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: var(--border-radius);
+.social-icon {
+    display: inline-block;
     text-decoration: none;
-    box-shadow: var(--box-shadow);
+}
+
+.social-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 5px;
+    background: var(--pure-white);
+    border: 1px solid var(--pure-black);
     transition: var(--transition);
 }
 
-.social-btn:hover {
+.social-logo:hover {
     background: var(--dark-gray);
     box-shadow: 0 6px 20px var(--deep-shadow);
 }
@@ -90,6 +94,14 @@ header img.logo {
     background: var(--pure-white);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 16px var(--deep-shadow);
+}
+
+.subtheme {
+    font-size: 18px;
+    color: var(--dark-gray);
+    text-align: center;
+    margin: 20px 0;
+    font-style: italic;
 }
 
 /* Featured Products */
@@ -137,9 +149,11 @@ header img.logo {
     width: 100%;
     max-width: 200px;
     height: auto;
+    min-height: 150px; /* Asegura tamaño mínimo */
     border-radius: var(--border-radius);
     margin: 0 auto;
     border: 1px solid var(--mid-gray);
+    object-fit: contain; /* Evita distorsión */
 }
 
 .gallery-item p {
@@ -242,8 +256,8 @@ button:disabled {
     color: var(--pure-white);
     border: none;
     text-transform: uppercase;
-    font-size: 14px; /* Más pequeño */
-    padding: 8px 16px; /* Más pequeño */
+    font-size: 14px;
+    padding: 8px 16px;
 }
 
 .stock-btn:hover {
@@ -543,6 +557,6 @@ button:disabled {
 
     .gallery-item img {
         max-width: 170px;
-        height: auto;
+        min-height: 130px; /* Ajuste para móviles */
     }
 }
