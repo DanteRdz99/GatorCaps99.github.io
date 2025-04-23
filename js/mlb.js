@@ -1,14 +1,14 @@
-// js/mlb.js
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('GatorCaps MLB Loaded');
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const clearCartBtn = document.getElementById('clear-cart');
-    const finalizeOrderBtn = document.getElementById('finalize-order');
-    const toggleCartBtn = document.getElementById('toggle-cart');
     const cartContainer = document.getElementById('cart-container');
 
+    // Inicializar el carrito en estado minimizado
+    cartContainer.classList.add('minimized');
+
     function updateCartDisplay() {
+        const cartItemsContainer = document.getElementById('cart-items');
         cartItemsContainer.innerHTML = '';
         let total = 0;
 
@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             total += item.price * item.quantity;
         });
 
-        cartTotal.innerText = `Total: $${total} MXN`;
-        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart-total').innerText = `Total: $${total} MXN`;
     }
 
     function changeQuantity(index, change) {
@@ -37,15 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cart[index].quantity <= 0) {
             cart.splice(index, 1);
         }
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
     }
 
-    clearCartBtn.addEventListener('click', () => {
+    document.getElementById('clear-cart').addEventListener('click', () => {
         cart.length = 0;
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
     });
 
-    finalizeOrderBtn.addEventListener('click', () => {
+    document.getElementById('finalize-order').addEventListener('click', () => {
         if (cart.length === 0) {
             alert('Tu carrito está vacío');
             return;
@@ -54,9 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'confirmation.html';
     });
 
-    toggleCartBtn.addEventListener('click', () => {
-        cartContainer.classList.toggle('active');
-        toggleCartBtn.textContent = cartContainer.classList.contains('active') ? '↑' : '↓';
+    document.getElementById('toggle-cart').addEventListener('click', () => {
+        cartContainer.classList.toggle('visible');
+        cartContainer.classList.toggle('minimized');
     });
 
     updateCartDisplay();

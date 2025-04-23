@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFL - GatorCaps</title>
+    <meta name="description" content="Explora nuestra colección de gorras NFL en GatorCaps">
+    <title>Catálogo NFL - GatorCaps</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -19,7 +21,7 @@
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
+                <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
@@ -27,11 +29,22 @@
     </header>
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <img src="Imagenes/Logos/NFL logo.png" alt="NFL Logo">
-        <p>Selecciona un estilo:</p>
-        <div class="subcategories">
-            <button class="cta-btn" onclick="window.location.href='nfl_59fifty.html'">59FIFTY</button>
-            <button class="cta-btn" onclick="window.location.href='nfl_9seventy.html'">9SEVENTY</button>
+        <img src="Imagenes/Logos/NFL logo.png" alt="NFL Logo" class="league-logo">
+        <p>Explora nuestra colección de gorras NFL.</p>
+        <div class="filters">
+            <label for="team-filter">Filtrar por equipo:</label>
+            <select id="team-filter">
+                <option value="">Todos los equipos</option>
+                <!-- Opciones generadas dinámicamente por JavaScript -->
+            </select>
+        </div>
+        <div class="gallery" id="gallery">
+            <!-- Productos generados dinámicamente por JavaScript -->
+        </div>
+        <div class="pagination">
+            <button id="prev-page" class="pagination-btn" disabled>Anterior</button>
+            <span id="page-info">Página 1 de 1</span>
+            <button id="next-page" class="pagination-btn">Siguiente</button>
         </div>
     </div>
     <div id="cart-container" class="cart-container">
@@ -42,6 +55,9 @@
         <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
         <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
+    <footer>
+        <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
     <script src="js/nfl.js"></script>
 </body>
 </html>

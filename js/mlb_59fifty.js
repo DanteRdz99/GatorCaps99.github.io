@@ -1,112 +1,75 @@
-// js/mlb_59fifty.js
 document.addEventListener('DOMContentLoaded', () => {
-    const products = [
-        // New York Yankees
-        { name: "New York Yankees 1", anniversary: "World Series Edition", color: "Navy Blue and White", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/NY1.png" },
-        // Añade NY2.png a NY21.png
-        // Boston Red Sox
-        { name: "Boston Red Sox 1", anniversary: "Championship Edition", color: "Red and Navy", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/BRS1.png" },
-        // Añade BRS2.png a BRS5.png
-        // Chicago White Sox
-        { name: "Chicago White Sox 1", anniversary: "Classic Edition", color: "Black and White", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/CWS1.png" },
-        // Añade CWS2.png a CWS6.png
-        // Detroit Tigers
-        { name: "Detroit Tigers 1", anniversary: "Team Edition", color: "Navy and Orange", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/DT1.png" },
-        // Añade DT2.png, DT3.png
-        // Atlanta Braves
-        { name: "Atlanta Braves 1", anniversary: "Championship Edition", color: "Navy and Red", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/BRAVES1.png" },
-        // Añade BRAVES2.png, BRAVES3.png
-        // Chicago Cubs
-        { name: "Chicago Cubs 1", anniversary: "100th Anniversary", color: "Blue and Red", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/Cubs1.png" },
-        // Añade Cubs2.png
-        // Pittsburgh Pirates
-        { name: "Pittsburgh Pirates 1", anniversary: "Team Edition", color: "Black and Yellow", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/PTSB1.png" },
-        // Arizona Diamondbacks
-        { name: "Arizona Diamondbacks 1", anniversary: "Team Edition", color: "Red and Black", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/Diamonds1.png" },
-        // Los Angeles Dodgers
-        { name: "Los Angeles Dodgers 1", anniversary: "50th Anniversary", color: "Blue and White", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/LA1.png" },
-        // Añade LA2.png a LA26.png
-        // San Diego Padres
-        { name: "San Diego Padres 1", anniversary: "Team Edition", color: "Brown and Yellow", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/SD1.png" },
-        // Añade SD2.png a SD4.png
-        // San Francisco Giants
-        { name: "San Francisco Giants 1", anniversary: "World Series Edition", color: "Black and Orange", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/SF1.png" },
-        // Añade SF2.png
-        // Houston Astros
-        { name: "Houston Astros 1", anniversary: "Championship Edition", color: "Navy and Orange", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/ATS1.png" },
-        // Añade ATS2.png a ATS4.png
-        // Oakland Athletics
-        { name: "Oakland Athletics 1", anniversary: "Team Edition", color: "Green and Yellow", type: "FITTED", adjustable: false, price: 450, image: "Imagenes/Catalogo/MLB/59FIFTY/ATHS1.png" },
-        // Añade ATHS2.png a ATHS5.png
-    ];
+    console.log('GatorCaps MLB 59FIFTY Loaded');
 
-    const ITEMS_PER_PAGE = 12;
-    let currentPage = 1;
-    let filteredProducts = [...products];
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartContainer = document.getElementById('cart-container');
     const gallery = document.getElementById('gallery');
     const teamFilter = document.getElementById('team-filter');
     const prevPageBtn = document.getElementById('prev-page');
     const nextPageBtn = document.getElementById('next-page');
     const pageInfo = document.getElementById('page-info');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const clearCartBtn = document.getElementById('clear-cart');
-    const finalizeOrderBtn = document.getElementById('finalize-order');
-    const toggleCartBtn = document.getElementById('toggle-cart');
-    const cartContainer = document.getElementById('cart-container');
 
-    function populateTeamFilter() {
-        const teams = [...new Set(products.map(p => p.name.split(' ').slice(0, -1).join(' ')))];
-        teams.forEach(team => {
-            const option = document.createElement('option');
-            option.value = team;
-            option.textContent = team;
-            teamFilter.appendChild(option);
-        });
-    }
+    // Inicializar el carrito en estado minimizado
+    cartContainer.classList.add('minimized');
 
-    function createGallery() {
-        gallery.innerHTML = '';
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const end = start + ITEMS_PER_PAGE;
-        const paginatedProducts = filteredProducts.slice(start, end);
+    // Lista fija de equipos para el filtro (mismos que mlb_9forty.html)
+    const teams = [
+        'New York Yankees',
+        'Boston Red Sox',
+        'Tampa Bay Rays',
+        'Chicago White Sox',
+        'Detroit Tigers',
+        'Atlanta Braves',
+        'Chicago Cubs',
+        'Pittsburgh Pirates',
+        'Los Angeles Angels',
+        'Los Angeles Dodgers',
+        'San Diego Padres',
+        'San Francisco Giants',
+        'Houston Astros',
+        'Oakland Athletics'
+    ];
 
-        paginatedProducts.forEach(product => {
-            const item = document.createElement('div');
-            item.classList.add('gallery-item');
-            item.innerHTML = `
-                <img src="${product.image}" alt="${product.name}" loading="lazy">
-                <p class="title">${product.name}</p>
-                <p>${product.anniversary}</p>
-                <p>${product.color}</p>
-                <p>${product.type}</p>
-                <p>${product.adjustable ? 'Ajustable' : 'Talla fija'}</p>
-                <p class="price">Precio: $${product.price} MXN</p>
-                <button class="add-to-cart">Agregar al carrito</button>
-            `;
-            gallery.appendChild(item);
-        });
+    // Generar opciones de filtro por equipo
+    teams.forEach(team => {
+        const option = document.createElement('option');
+        option.value = team;
+        option.textContent = team;
+        teamFilter.appendChild(option);
+    });
 
-        updatePagination();
-        addCartListeners();
-    }
+    // Lista de 22 gorras (editables)
+    const caps = [
+        { name: "Nombre Gorra 1", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra1.png", size: "7 1/8", price: 650, team: "New York Yankees" },
+        { name: "Nombre Gorra 2", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra2.png", size: "7 1/4", price: 650, team: "Los Angeles Dodgers" },
+        { name: "Nombre Gorra 3", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra3.png", size: "7 1/8", price: 650, team: "Boston Red Sox" },
+        { name: "Nombre Gorra 4", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra4.png", size: "7 1/4", price: 650, team: "Chicago White Sox" },
+        { name: "Nombre Gorra 5", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra5.png", size: "7 1/8", price: 650, team: "Atlanta Braves" },
+        { name: "Nombre Gorra 6", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra6.png", size: "7 1/4", price: 650, team: "Los Angeles Angels" },
+        { name: "Nombre Gorra 7", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra7.png", size: "7 1/8", price: 650, team: "San Diego Padres" },
+        { name: "Nombre Gorra 8", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra8.png", size: "7 1/4", price: 650, team: "Houston Astros" },
+        { name: "Nombre Gorra 9", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra9.png", size: "7 1/8", price: 650, team: "Oakland Athletics" },
+        { name: "Nombre Gorra 10", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra10.png", size: "7 1/4", price: 650, team: "New York Yankees" },
+        { name: "Nombre Gorra 11", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra11.png", size: "7 1/8", price: 650, team: "Los Angeles Dodgers" },
+        { name: "Nombre Gorra 12", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra12.png", size: "7 1/4", price: 650, team: "Boston Red Sox" },
+        { name: "Nombre Gorra 13", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra13.png", size: "7 1/8", price: 650, team: "Chicago Cubs" },
+        { name: "Nombre Gorra 14", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra14.png", size: "7 1/4", price: 650, team: "San Francisco Giants" },
+        { name: "Nombre Gorra 15", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra15.png", size: "7 1/8", price: 650, team: "Detroit Tigers" },
+        { name: "Nombre Gorra 16", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra16.png", size: "7 1/4", price: 650, team: "Tampa Bay Rays" },
+        { name: "Nombre Gorra 17", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra17.png", size: "7 1/8", price: 650, team: "Pittsburgh Pirates" },
+        { name: "Nombre Gorra 18", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra18.png", size: "7 1/4", price: 650, team: "New York Yankees" },
+        { name: "Nombre Gorra 19", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra19.png", size: "7 1/8", price: 650, team: "Los Angeles Dodgers" },
+        { name: "Nombre Gorra 20", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra20.png", size: "7 1/4", price: 650, team: "Atlanta Braves" },
+        { name: "Nombre Gorra 21", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra21.png", size: "7 1/8", price: 650, team: "Houston Astros" },
+        { name: "Nombre Gorra 22", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra22.png", size: "7 1/4", price: 650, team: "San Diego Padres" }
+    ];
 
-    function updatePagination() {
-        const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-        prevPageBtn.disabled = currentPage === 1;
-        nextPageBtn.disabled = currentPage === totalPages;
-    }
-
-    function filterProducts() {
-        const team = teamFilter.value;
-        filteredProducts = team ? products.filter(p => p.name.startsWith(team)) : [...products];
-        currentPage = 1;
-        createGallery();
-    }
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    let filteredCaps = caps;
 
     function updateCartDisplay() {
+        const cartItemsContainer = document.getElementById('cart-items');
         cartItemsContainer.innerHTML = '';
         let total = 0;
 
@@ -126,19 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             total += item.price * item.quantity;
         });
 
-        cartTotal.innerText = `Total: $${total} MXN`;
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    function addToCart(name, price, image) {
-        const existingItem = cart.find(item => item.name === name && item.image === image);
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({ name, price, image, quantity: 1 });
-        }
-        updateCartDisplay();
-        alert(`Se agregó al carrito: ${name}`);
+        document.getElementById('cart-total').innerText = `Total: $${total} MXN`;
     }
 
     function changeQuantity(index, change) {
@@ -146,28 +97,46 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cart[index].quantity <= 0) {
             cart.splice(index, 1);
         }
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
     }
 
-    function addCartListeners() {
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
-                const item = button.closest('.gallery-item');
-                const name = item.querySelector('.title').innerText;
-                const priceText = item.querySelector('.price').innerText;
-                const price = parseFloat(priceText.replace('Precio: $', '').replace(' MXN', ''));
-                const image = item.querySelector('img').src;
-                addToCart(name, price, image);
-            });
+    function renderGallery() {
+        gallery.innerHTML = '';
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedCaps = filteredCaps.slice(start, end);
+
+        paginatedCaps.forEach(cap => {
+            const galleryItem = document.createElement('div');
+            galleryItem.classList.add('gallery-item');
+            galleryItem.setAttribute('data-size', cap.size);
+            galleryItem.innerHTML = `
+                <img src="${cap.image}" alt="${cap.name}">
+                <p class="title">${cap.name}</p>
+                <p class="price">Precio: $${cap.price} MXN</p>
+                <p class="size">Talla: ${cap.size}</p>
+                <div class="button-group">
+                    <button class="add-to-cart" data-name="${cap.name}" data-price="${cap.price}" data-image="${cap.image}">Agregar al carrito</button>
+                    <a href="#" class="whatsapp-btn"><img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo"></a>
+                </div>
+            `;
+            gallery.appendChild(galleryItem);
         });
+
+        const totalPages = Math.ceil(filteredCaps.length / itemsPerPage);
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage === totalPages;
     }
 
-    clearCartBtn.addEventListener('click', () => {
+    document.getElementById('clear-cart').addEventListener('click', () => {
         cart.length = 0;
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
     });
 
-    finalizeOrderBtn.addEventListener('click', () => {
+    document.getElementById('finalize-order').addEventListener('click', () => {
         if (cart.length === 0) {
             alert('Tu carrito está vacío');
             return;
@@ -176,26 +145,67 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'confirmation.html';
     });
 
-    teamFilter.addEventListener('change', filterProducts);
+    document.getElementById('toggle-cart').addEventListener('click', () => {
+        cartContainer.classList.toggle('visible');
+        cartContainer.classList.toggle('minimized');
+    });
+
+    // Manejar botones de agregar al carrito
+    gallery.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart')) {
+            const button = e.target;
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            const image = button.getAttribute('data-image');
+
+            const cartItem = cart.find(item => item.name === name);
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ name, price, image, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+    });
+
+    // Manejar botones de WhatsApp con talla
+    gallery.addEventListener('click', (e) => {
+        if (e.target.closest('.whatsapp-btn')) {
+            const button = e.target.closest('.whatsapp-btn');
+            const item = button.closest('.gallery-item');
+            const name = item.querySelector('.title').innerText;
+            const size = item.getAttribute('data-size');
+            const message = `Hola, me gustaría pedir ${name} (${size})`;
+            button.href = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
+        }
+    });
+
+    // Manejar filtro por equipo
+    teamFilter.addEventListener('change', () => {
+        const selectedTeam = teamFilter.value;
+        filteredCaps = selectedTeam ? caps.filter(cap => cap.team === selectedTeam) : caps;
+        currentPage = 1;
+        renderGallery();
+    });
+
+    // Manejar paginación
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            createGallery();
+            renderGallery();
         }
     });
+
     nextPageBtn.addEventListener('click', () => {
-        if (currentPage < Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)) {
+        const totalPages = Math.ceil(filteredCaps.length / itemsPerPage);
+        if (currentPage < totalPages) {
             currentPage++;
-            createGallery();
+            renderGallery();
         }
     });
 
-    toggleCartBtn.addEventListener('click', () => {
-        cartContainer.classList.toggle('active');
-        toggleCartBtn.textContent = cartContainer.classList.contains('active') ? '↑' : '↓';
-    });
-
-    populateTeamFilter();
-    createGallery();
     updateCartDisplay();
+    renderGallery();
 });

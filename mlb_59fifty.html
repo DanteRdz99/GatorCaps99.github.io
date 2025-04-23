@@ -20,7 +20,7 @@
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
+                <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
@@ -28,7 +28,7 @@
     </header>
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <img src="Imagenes/Logos/MLB logo.png" alt="MLB Logo">
+        <img src="Imagenes/Logos/MLB logo.png" alt="MLB Logo" class="league-logo">
         <p>Explora nuestra colección de gorras MLB 59FIFTY.</p>
         <div class="filters">
             <label for="team-filter">Filtrar por equipo:</label>
@@ -42,14 +42,17 @@
             <span id="page-info">Página 1 de 1</span>
             <button id="next-page">Siguiente</button>
         </div>
-        <div id="cart-container" class="cart-container">
-            <button id="toggle-cart" class="toggle-cart-btn">↓</button>
-            <h2>Carrito de Compras</h2>
-            <div id="cart-items" class="cart-items"></div>
-            <p id="cart-total">Total: $0 MXN</p>
-            <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
-            <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
-        </div>
+    </div>
+    <footer>
+        <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
+    <div id="cart-container" class="cart-container minimized">
+        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN</p>
+        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
     <script src="js/mlb_59fifty.js"></script>
 </body>

@@ -22,6 +22,7 @@ body {
     background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
     color: var(--dark-gray);
     min-height: 100vh;
+    padding-bottom: 60px; /* Espacio para el footer fijo */
 }
 
 header {
@@ -90,6 +91,7 @@ header img.logo {
     background: var(--pure-white);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 16px var(--deep-shadow);
+    text-align: center; /* Centrar contenido */
 }
 
 .subtheme {
@@ -175,14 +177,46 @@ header img.logo {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-.categories {
+.categories, .subcategories {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 30px;
     margin: 20px 0;
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: 150px; /* Altura mínima para alinear botones */
+}
+
+/* Logo de la liga (para páginas como nba.html, mlb.html) */
+.league-logo {
+    max-width: 200px;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+/* Logo de la liga para categorías (en catalogo.html) */
+.category-league-logo {
+    width: 100px; /* Tamaño mediano y uniforme */
+    height: 100px; /* Altura fija para uniformidad */
+    margin: 0 auto;
+    display: block;
+    object-fit: contain; /* Mantener proporciones */
+    transition: var(--transition);
+}
+
+.category-league-logo:hover {
+    transform: scale(1.1);
 }
 
 /* About Section */
@@ -221,10 +255,15 @@ footer {
     background: var(--pure-black);
     padding: 20px;
     color: var(--light-gray);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 footer p {
     font-size: 14px;
+    text-align: center;
 }
 
 /* Buttons */
@@ -621,9 +660,14 @@ button:disabled {
         max-height: 120px;
     }
 
-    .categories {
+    .categories, .subcategories {
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 20px;
+    }
+
+    .category-league-logo {
+        width: 80px; /* Tamaño mediano en móviles */
+        height: 80px; /* Altura fija en móviles */
     }
 }
