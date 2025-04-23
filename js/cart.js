@@ -21,18 +21,22 @@ function initializeCart() {
         let count500 = 0;
         let count450 = 0;
         let count650 = 0;
+        let count400 = 0;
         cart.forEach(item => {
             if (item.price === 500) count500 += item.quantity;
             if (item.price === 450) count450 += item.quantity;
             if (item.price === 650) count650 += item.quantity;
+            if (item.price === 400) count400 += item.quantity;
         });
         let discount = 0;
         if (count500 === 2) discount += 100;
         else if (count500 >= 3) discount += 150;
         if (count450 === 2) discount += 50;
         else if (count450 >= 3) discount += 100;
-        if (count650 === 2) discount += 150; // Ajustado para 9FORTY
+        if (count650 === 2) discount += 150;
         else if (count650 >= 3) discount += 200;
+        if (count400 === 2) discount += 50;
+        else if (count400 >= 3) discount += 100;
         return discount;
     }
 
@@ -71,8 +75,6 @@ function initializeCart() {
         const decreaseButtons = document.querySelectorAll('.decrease-quantity');
         const increaseButtons = document.querySelectorAll('.increase-quantity');
         const removeButtons = document.querySelectorAll('.remove-item');
-
-        console.log('Decrease buttons:', decreaseButtons.length, 'Increase buttons:', increaseButtons.length);
 
         decreaseButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -123,24 +125,9 @@ function initializeCart() {
             alert('Tu carrito está vacío');
             return;
         }
-
-        console.log('Finalizing order:', cart);
-        let message = 'Hola, quiero confirmar mi pedido:\n';
-        cart.forEach(item => {
-            const sizeText = item.size ? ` (${item.size})` : '';
-            message += `- ${item.name}${sizeText} - $${item.price} MXN x ${item.quantity}\n`;
-        });
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const discount = calculateDiscount();
-        message += `Total: $${total - discount} MXN (Descuento: $${discount})`;
-
-        const whatsappUrl = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-
-        cart.length = 0;
+        console.log('Redirecting to confirmation.html');
         localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartDisplay();
-        window.location.href = 'confirmation.html'; // Compatible con mlb_9forty
+        window.location.href = 'confirmation.html';
     });
 
     window.cart = {

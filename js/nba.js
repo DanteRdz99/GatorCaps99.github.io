@@ -1,6 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('GatorCaps NBA Loaded');
-
+    
+    if (!window.cart) {
+        console.error('Error: cart.js no está cargado o window.cart no está definido');
+        return;
+    }
+    
+    const gallery = document.getElementById('gallery');
+    const teamFilter = document.getElementById('team-filter');
+    const prevPageBtn = document.getElementById('prev-page');
+    const nextPageBtn = document.getElementById('next-page');
+    const pageInfo = document.getElementById('page-info');
     // Corregido: Eliminé 'rsss' en price y corregí el nombre de la imagen GRIZZLIES
     const caps = [
         { name: "Philadelphia 76ers", type: "9TWENTY", price: 400, image: "Imagenes/Catalogo/NBA/76ERS_pixian_ai.png", team: "Philadelphia 76ers" },
@@ -33,18 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Toronto Raptors", type: "9TWENTY", price: 400, image: "Imagenes/Catalogo/NBA/RAPTORS_pixian_ai.png", team: "Toronto Raptors" }
     ];
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartContainer = document.getElementById('cart-container');
-    const gallery = document.getElementById('gallery');
-    const teamFilter = document.getElementById('team-filter');
-    const prevPageBtn = document.getElementById('prev-page');
-    const nextPageBtn = document.getElementById('next-page');
-    const pageInfo = document.getElementById('page-info');
-
-    // Inicializar el carrito en estado minimizado
-    cartContainer.classList.add('minimized');
-
-    // Generar opciones de filtro por equipo
     const teams = [...new Set(caps.map(cap => cap.team))].sort();
     teams.forEach(team => {
         const option = document.createElement('option');
@@ -57,39 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemsPerPage = 12;
     let filteredCaps = caps;
 
-    function updateCartDisplay() {
-        const cartItemsContainer = document.getElementById('cart-items');
-        cartItemsContainer.innerHTML = '';
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <p>${item.name} - $${item.price} MXN</p>
-                <div class="cart-item-controls">
-                    <button onclick="changeQuantity(${index}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button onclick="changeQuantity(${index}, 1)">+</button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(cartItem);
-            total += item.price * item.quantity;
-        });
-
-        document.getElementById('cart-total').innerText = `Total: $${total} MXN`;
-    }
-
-    function changeQuantity(index, change) {
-        cart[index].quantity += change;
-        if (cart[index].quantity <= 0) {
-            cart.splice(index, 1);
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartDisplay();
-    }
-
     function renderGallery() {
         gallery.innerHTML = '';
         const start = (currentPage - 1) * itemsPerPage;
@@ -101,10 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryItem.classList.add('gallery-item');
             galleryItem.innerHTML = `
                 <img src="${cap.image}" alt="${cap.name}">
-                <p class="title">${cap.name} ${cap.type} (Ajustable)</p>
+                <p class="title">${cap.name}</p>
                 <p class="price">Precio: $${cap.price} MXN</p>
                 <div class="button-group">
-                    <button class="add-to-cart" data-name="${cap.name} ${cap.type} (Ajustable)" data-price="${cap.price}" data-image="${cap.image}">Agregar al carrito</button>
+                    <button class="add-to-cart" data-name="${cap.name}" data-price="${cap.price}" data-image="${cap.image}">Agregar al carrito</button>
                     <a href="#" class="whatsapp-btn"><img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo"></a>
                 </div>
             `;
@@ -117,27 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nextPageBtn.disabled = currentPage === totalPages;
     }
 
-    document.getElementById('clear-cart').addEventListener('click', () => {
-        cart.length = 0;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartDisplay();
-    });
-
-    document.getElementById('finalize-order').addEventListener('click', () => {
-        if (cart.length === 0) {
-            alert('Tu carrito está vacío');
-            return;
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        window.location.href = 'confirmation.html';
-    });
-
-    document.getElementById('toggle-cart').addEventListener('click', () => {
-        cartContainer.classList.toggle('visible');
-        cartContainer.classList.toggle('minimized');
-    });
-
-    // Manejar botones de agregar al carrito
     gallery.addEventListener('click', (e) => {
         if (e.target.classList.contains('add-to-cart')) {
             const button = e.target;
@@ -145,31 +89,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const price = parseFloat(button.getAttribute('data-price'));
             const image = button.getAttribute('data-image');
 
-            const cartItem = cart.find(item => item.name === name);
-            if (cartItem) {
-                cartItem.quantity += 1;
-            } else {
-                cart.push({ name, price, image, quantity: 1 });
-            }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-            alert(`Se agregó al carrito: ${name}`);
+            console.log(`Adding to cart: ${name}`);
+            window.cart.addToCart({ name, price, image });
         }
-    });
 
-    // Manejar botones de WhatsApp
-    gallery.addEventListener('click', (e) => {
         if (e.target.closest('.whatsapp-btn')) {
             const button = e.target.closest('.whatsapp-btn');
             const item = button.closest('.gallery-item');
-            const name = item.querySelector('.title').innerText;
+            const name = item.querySelector('.title').textContent;
             const message = `Hola, me gustaría pedir ${name}`;
             button.href = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
         }
     });
 
-    // Manejar filtro por equipo
     teamFilter.addEventListener('change', () => {
         const selectedTeam = teamFilter.value;
         filteredCaps = selectedTeam ? caps.filter(cap => cap.team === selectedTeam) : caps;
@@ -177,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderGallery();
     });
 
-    // Manejar paginación
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -193,6 +124,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    updateCartDisplay();
     renderGallery();
 });

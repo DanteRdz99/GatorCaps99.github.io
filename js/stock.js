@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
     ];
 
-    // Cargar stock desde localStorage o usar predeterminado
     let stock = JSON.parse(localStorage.getItem('stock')) || {
         'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
         'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
     };
 
-    // Validar formato de stock
     console.log('Loaded stock:', stock);
     Object.keys(stock).forEach(productId => {
         if (!stock[productId] || typeof stock[productId] !== 'object') {

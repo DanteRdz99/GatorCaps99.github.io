@@ -22,7 +22,7 @@ body {
     background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
     color: var(--dark-gray);
     min-height: 100vh;
-    padding-bottom: 60px; /* Espacio para el footer fijo */
+    padding-bottom: 80px; /* Aumentado para dejar espacio para el footer */
 }
 
 header {
@@ -176,7 +176,8 @@ header img.logo {
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
     margin-top: 10px;
 }
 
@@ -378,49 +379,52 @@ button:disabled {
 }
 
 /* Carrito */
-.cart-container {
+#cart-container {
     position: fixed;
-    bottom: 20px;
+    bottom: 60px; /* Ajustado para quedar por encima del footer */
     right: 20px;
+    width: 350px;
     background: var(--pure-white);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
     padding: 15px;
-    max-height: 500px;
-    z-index: 1000;
+    max-height: 80vh;
+    z-index: 2000; /* Mayor que el footer para evitar superposición */
     box-shadow: 0 6px 20px var(--deep-shadow);
     transition: all 0.3s ease;
 }
 
-.cart-container.minimized {
+#cart-container.minimized {
     width: 50px;
+    height: 50px;
     padding: 10px;
     overflow: hidden;
     transform: translateX(0);
     opacity: 1;
 }
 
-.cart-container.visible {
+#cart-container.visible {
     transform: translateX(0);
     width: 350px;
     padding: 15px;
     opacity: 1;
 }
 
-.cart-container.minimized h2,
-.cart-container.minimized #cart-items,
-.cart-container.minimized #cart-total,
-.cart-container.minimized .clear-cart-btn,
-.cart-container.minimized .finalize-btn {
+#cart-container.minimized h2,
+#cart-container.minimized #cart-items,
+#cart-container.minimized #cart-total,
+#cart-container.minimized .clear-cart-btn,
+#cart-container.minimized .finalize-btn {
     display: none;
 }
 
-.cart-container.minimized .toggle-cart-btn {
+#cart-container.minimized .toggle-cart-btn {
     margin-bottom: 0;
 }
 
 .cart-items {
     max-height: 300px;
+    overflow-y: auto;
     margin-bottom: 15px;
 }
 
@@ -446,6 +450,21 @@ button:disabled {
     gap: 8px;
 }
 
+.cart-item-controls button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: var(--pure-black);
+    color: var(--pure-white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 12px;
+}
+
+.cart-item-controls .remove-item {
+    padding: 3px 6px; /* Botón Eliminar más pequeño */
+    font-size: 12px;
+}
+
 .cart-item-controls span {
     font-weight: bold;
 }
@@ -455,6 +474,18 @@ button:disabled {
     font-weight: bold;
     margin: 10px 0;
     color: var(--pure-black);
+}
+
+.clear-cart-btn, .finalize-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--pure-black);
+    color: var(--pure-white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .back-btn {
@@ -573,8 +604,8 @@ button:disabled {
 .size-options {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 10px;
+    margin: 10px 0;
 }
 
 .size-btn {
@@ -582,7 +613,7 @@ button:disabled {
     color: var(--pure-black);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
-    padding: 8px;
+    padding: 8px 12px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
@@ -610,18 +641,32 @@ button:disabled {
     box-shadow: 0 4px 12px var(--deep-shadow);
 }
 
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.whatsapp-btn img {
+    width: 50px; /* Tamaño fijo para el logo */
+    height: 50px;
+    vertical-align: middle;
+}
+
 @media (max-width: 600px) {
-    .cart-container {
+    #cart-container {
         width: 280px;
-        bottom: 10px;
+        bottom: 70px; /* Ajustado para móviles */
         right: 10px;
     }
 
-    .cart-container.minimized {
+    #cart-container.minimized {
         width: 50px;
+        height: 50px;
     }
 
-    .cart-container.visible {
+    #cart-container.visible {
         width: 280px;
     }
 
@@ -670,68 +715,4 @@ button:disabled {
         width: 80px; /* Tamaño mediano en móviles */
         height: 80px; /* Altura fija en móviles */
     }
-}
-/* Añadir en la sección de Botones o al final */
-.whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
-
-.whatsapp-btn img {
-    width: 50px; /* Tamaño fijo para el logo */
-    height: 50px;
-    vertical-align: middle;
-}
-
-/* Modificar .button-group si existe, o añadir */
-.button-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-/* Asegurar que .size-btn esté actualizado */
-.size-btn {
-    background: var(--pure-white);
-    color: var(--pure-black);
-    border: 1px solid var(--pure-black);
-    border-radius: var(--border-radius);
-    padding: 8px 12px; /* Ajustado para mejor espaciado */
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: var(--box-shadow);
-    transition: var(--transition);
-}
-
-.size-btn:hover:not(:disabled) {
-    background: var(--pure-black);
-    color: var(--pure-white);
-    box-shadow: 0 4px 12px var(--deep-shadow);
-}
-
-.size-btn:disabled {
-    background: var(--light-gray);
-    border-color: var(--mid-gray);
-    color: var(--mid-gray);
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-.size-btn.active {
-    background: var(--pure-black);
-    color: var(--pure-white);
-    box-shadow: 0 4px 12px var(--deep-shadow);
-}
-
-/* Asegurar que .size-options esté actualizado */
-.size-options {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Aumentado para mejor separación */
-    margin: 10px 0;
 }

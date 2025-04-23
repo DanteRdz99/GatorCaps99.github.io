@@ -1,7 +1,66 @@
-// js/nfl_9seventy.js
 document.addEventListener('DOMContentLoaded', () => {
-   
-    const products = [
+    console.log('GatorCaps NFL 9SEVENTY Loaded');
+
+    // Definir window.cart si no está presente
+    if (!window.cart) {
+        window.cart = {
+            items: JSON.parse(localStorage.getItem('cart')) || [],
+            addToCart(item) {
+                const existingItem = this.items.find(i => i.name === item.name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    item.quantity = 1;
+                    this.items.push(item);
+                }
+                this.saveCart();
+                this.renderCart();
+            },
+            removeFromCart(name) {
+                this.items = this.items.filter(item => item.name !== name);
+                this.saveCart();
+                this.renderCart();
+            },
+            clearCart() {
+                this.items = [];
+                this.saveCart();
+                this.renderCart();
+            },
+            saveCart() {
+                localStorage.setItem('cart', JSON.stringify(this.items));
+            },
+            getTotal() {
+                return this.items.reduce((total, item) => total + item.price * item.quantity, 0);
+            },
+            renderCart() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                if (!cartItemsContainer || !cartTotal) return;
+
+                cartItemsContainer.innerHTML = '';
+                this.items.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <p>${item.name}</p>
+                            <p>$${item.price} MXN x ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="remove-item" data-name="${item.name}">Eliminar</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                cartTotal.textContent = `Total: $${this.getTotal()} MXN`;
+            }
+        };
+    }
+
+    const gallery = document.getElementById('gallery');
+    const caps = [
         { id: 1, name: "Chicago Bears 9SEVENTY", price: 450, image: "Imagenes/Catalogo/NFL/9SEVENTY/BEARS1.png", team: "Bears" },
         { id: 2, name: "Cincinnati Bengals 9SEVENTY", price: 450, image: "Imagenes/Catalogo/NFL/9SEVENTY/BENGALS1.png", team: "Bengals" },
         { id: 3, name: "Buffalo Bills 9SEVENTY", price: 450, image: "Imagenes/Catalogo/NFL/9SEVENTY/BILLS1.png", team: "Bills" },
@@ -35,40 +94,101 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 31, name: "Washington Commanders 9SEVENTY", price: 450, image: "Imagenes/Catalogo/NFL/9SEVENTY/WASHINGTON.png", team: "Commanders" }
     ];
 
-
-    const gallery = document.getElementById('gallery');
-
-    function renderProducts() {
+    function renderGallery() {
         gallery.innerHTML = '';
-        products.forEach(product => {
-            const productElement = document.createElement('div');
-            productElement.classList.add('gallery-item');
-            productElement.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
-                <p class="title">${product.name}</p>
-                <p class="price">$${product.price} MXN</p>
+        caps.forEach(cap => {
+            const galleryItem = document.createElement('div');
+            galleryItem.classList.add('gallery-item');
+            galleryItem.innerHTML = `
+                <img src="${cap.image}" alt="${cap.name}">
+                <p class="title">${cap.name}</p>
+                <p class="price">Precio: $${cap.price} MXN</p>
                 <div class="button-group">
-                    <button class="add-to-cart" data-id="${product.id}">Añadir al carrito</button>
-                    <a href="https://wa.me/+525576070822?text=Quiero%20consultar%20sobre%20${encodeURIComponent(product.name)}" target="_blank" class="whatsapp-btn">
-                        <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp">
-                    </a>
+                    <button class="add-to-cart" data-name="${cap.name}" data-price="${cap.price}" data-image="${cap.image}">Agregar al carrito</button>
+                    <a href="#" class="whatsapp-btn"><img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo"></a>
                 </div>
             `;
-            gallery.appendChild(productElement);
-        });
-        attachAddToCartListeners();
-    }
-
-    function attachAddToCartListeners() {
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
-                const productId = parseInt(button.dataset.id);
-                const product = products.find(p => p.id === productId);
-                window.cart.addToCart(product);
-                alert(`Se agregó al carrito: ${product.name}`);
-            });
+            gallery.appendChild(galleryItem);
         });
     }
 
-    renderProducts();
+    // Inicializar el carrito
+    function initializeCart() {
+        const cartContainer = document.getElementById('cart-container');
+        const toggleCartBtn = document.getElementById('toggle-cart');
+        const clearCartBtn = document.getElementById('clear-cart');
+        const finalizeBtn = document.getElementById('finalize-order');
+
+        if (!cartContainer || !toggleCartBtn || !clearCartBtn || !finalizeBtn) {
+            console.error('Error: Elementos del carrito no encontrados en el DOM');
+            return;
+        }
+
+        // Renderizar carrito inicial
+        window.cart.renderCart();
+
+        // Evento para minimizar/maximizar carrito
+        toggleCartBtn.addEventListener('click', () => {
+            cartContainer.classList.toggle('minimized');
+            cartContainer.classList.toggle('visible');
+        });
+
+        // Evento para vaciar carrito
+        clearCartBtn.addEventListener('click', () => {
+            window.cart.clearCart();
+        });
+
+        // Evento para finalizar compra
+        finalizeBtn.addEventListener('click', () => {
+            if (window.cart.items.length === 0) {
+                alert('El carrito está vacío');
+                return;
+            }
+            const message = `Hola, quiero finalizar mi compra:\n${window.cart.items
+                .map(item => `${item.name} x${item.quantity} - $${item.price * item.quantity} MXN`)
+                .join('\n')}\nTotal: $${window.cart.getTotal()} MXN`;
+            window.open(`https://wa.me/+525576070822?text=${encodeURIComponent(message)}`, '_blank');
+            window.cart.clearCart();
+        });
+
+        // Evento para eliminar ítems
+        cartContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-item')) {
+                const name = e.target.getAttribute('data-name');
+                window.cart.removeFromCart(name);
+            }
+        });
+    }
+
+    // Eventos de la galería
+    gallery.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart')) {
+            const button = e.target;
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            const image = button.getAttribute('data-image');
+
+            console.log(`Adding to cart: ${name}`);
+            window.cart.addToCart({ name, price, image });
+
+            // Asegurar que el carrito esté visible al agregar un ítem
+            const cartContainer = document.getElementById('cart-container');
+            if (cartContainer.classList.contains('minimized')) {
+                cartContainer.classList.remove('minimized');
+                cartContainer.classList.add('visible');
+            }
+        }
+
+        if (e.target.closest('.whatsapp-btn')) {
+            const button = e.target.closest('.whatsapp-btn');
+            const item = button.closest('.gallery-item');
+            const name = item.querySelector('.title').textContent;
+            const message = `Hola, me gustaría pedir ${name}`;
+            button.href = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
+        }
+    });
+
+    // Renderizar galería e inicializar carrito
+    renderGallery();
+    initializeCart();
 });

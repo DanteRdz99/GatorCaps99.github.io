@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explora nuestra colección de gorras NBA en GatorCaps">
-    <title>Catálogo NBA - GatorCaps</title>
+    <title>NBA - GatorCaps</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -29,35 +28,33 @@
     </header>
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <img src="Imagenes/Logos/NBA logo.png" alt="NBA Logo" class="league-logo" style="max-width: 200px;">
+        <img src="Imagenes/Logos/NBA logo.png" alt="NBA Logo" class="league-logo">
         <p>Explora nuestra colección de gorras NBA.</p>
         <div class="filters">
             <label for="team-filter">Filtrar por equipo:</label>
             <select id="team-filter">
-                <option value="">Todos los equipos</option>
-                <!-- Opciones generadas dinámicamente por JavaScript -->
+                <option value="">Todos</option>
             </select>
         </div>
-        <div class="gallery" id="gallery">
-            <!-- Productos generados dinámicamente por JavaScript -->
-        </div>
+        <div class="gallery" id="gallery"></div>
         <div class="pagination">
-            <button id="prev-page" class="pagination-btn" disabled>Anterior</button>
+            <button id="prev-page" disabled>Anterior</button>
             <span id="page-info">Página 1 de 1</span>
-            <button id="next-page" class="pagination-btn">Siguiente</button>
+            <button id="next-page">Siguiente</button>
         </div>
-    </div>
-    <div id="cart-container" class="cart-container minimized">
-        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
-        <h2>Carrito de Compras</h2>
-        <div id="cart-items" class="cart-items"></div>
-        <p id="cart-total">Total: $0 MXN</p>
-        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
-        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
     <footer>
         <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
     </footer>
+    <div id="cart-container" class="cart-container minimized">
+        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN (Descuento: $0)</p>
+        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
+    </div>
+    <script src="js/cart.js"></script>
     <script src="js/nba.js"></script>
 </body>
 </html>
