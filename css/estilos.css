@@ -671,3 +671,67 @@ button:disabled {
         height: 80px; /* Altura fija en móviles */
     }
 }
+/* Añadir en la sección de Botones o al final */
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.whatsapp-btn img {
+    width: 50px; /* Tamaño fijo para el logo */
+    height: 50px;
+    vertical-align: middle;
+}
+
+/* Modificar .button-group si existe, o añadir */
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Asegurar que .size-btn esté actualizado */
+.size-btn {
+    background: var(--pure-white);
+    color: var(--pure-black);
+    border: 1px solid var(--pure-black);
+    border-radius: var(--border-radius);
+    padding: 8px 12px; /* Ajustado para mejor espaciado */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.size-btn:hover:not(:disabled) {
+    background: var(--pure-black);
+    color: var(--pure-white);
+    box-shadow: 0 4px 12px var(--deep-shadow);
+}
+
+.size-btn:disabled {
+    background: var(--light-gray);
+    border-color: var(--mid-gray);
+    color: var(--mid-gray);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.size-btn.active {
+    background: var(--pure-black);
+    color: var(--pure-white);
+    box-shadow: 0 4px 12px var(--deep-shadow);
+}
+
+/* Asegurar que .size-options esté actualizado */
+.size-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Aumentado para mejor separación */
+    margin: 10px 0;
+}

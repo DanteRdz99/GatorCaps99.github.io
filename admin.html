@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Stock - GatorCaps</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html">
+                <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
+            </a>
+            <div class="header-text">
+                <h1>Administrar Stock</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h2>Stock Actual</h2>
+        <div id="stock-list"></div>
+        <h2>Reponer Stock</h2>
+        <form id="restock-form">
+            <label for="product-id">Producto:</label>
+            <select id="product-id">
+                <option value="pirates-pittsburgh">Pirates Pittsburgh 59FIFTY</option>
+                <option value="texas-rangers">Texas Rangers 59FIFTY</option>
+                <option value="la-dodgers">LA Dodgers 59FIFTY</option>
+                <option value="sf-giants">SF Giants World Series 9FORTY (Ajustable)</option>
+                <option value="sf-giants-duckbill">SF Giants Duckbill AllStar Game 59FIFTY</option>
+                <option value="delta-tigers-duckbill">Delta Tigers DuckBill AllStar Game 59FIFTY</option>
+            </select>
+            <label for="size">Talla:</label>
+            <select id="size">
+                <option value="7 1/8">7 1/8</option>
+                <option value="7 3/8">7 3/8</option>
+                <option value="7 1/2">7 1/2</option>
+                <option value="Ajustable">Ajustable</option>
+            </select>
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" min="0" value="1">
+            <button type="submit" class="cta-btn">Reponer</button>
+        </form>
+    </div>
+    <script>
+        function displayStock() {
+            const stock = JSON.parse(localStorage.getItem('stock')) || {};
+            const stockList = document.getElementById('stock-list');
+            stockList.innerHTML = '';
+            for (const [productId, sizes] of Object.entries(stock)) {
+                const item = document.createElement('div');
+                item.innerHTML = `<strong>${productId}</strong>:`;
+                for (const [size, qty] of Object.entries(sizes)) {
+                    item.innerHTML += `<p>${size}: ${qty} unidades</p>`;
+                }
+                stockList.appendChild(item);
+            }
+        }
+
+        document.getElementById('restock-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const productId = document.getElementById('product-id').value;
+            const size = document.getElementById('size').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            let stock = JSON.parse(localStorage.getItem('stock')) || {};
+            if (!stock[productId]) stock[productId] = {};
+            stock[productId][size] = (stock[productId][size] || 0) + quantity;
+            localStorage.setItem('stock', JSON.stringify(stock));
+            displayStock();
+            alert(`Se repuso ${quantity} unidades de ${productId} en talla ${size}`);
+        });
+
+        document.addEventListener('DOMContentLoaded', displayStock);
+    </script>
+</body>
+</html>

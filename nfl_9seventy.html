@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFL 9SEVENTY - GatorCaps</title>
+    <meta name="description" content="Explora nuestra colección de gorras NFL 9SEVENTY en GatorCaps">
+    <title>Catálogo NFL 9SEVENTY - GatorCaps</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -13,13 +15,13 @@
                 <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
             </a>
             <div class="header-text">
-                <h1>Catálogo NFL - 9SEVENTY</h1>
+                <h1>Catálogo NFL 9SEVENTY</h1>
             </div>
             <div class="social-links">
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
+                <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
                     <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
@@ -27,28 +29,24 @@
     </header>
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <img src="Imagenes/Logos/NFL logo.png" alt="NFL Logo">
+        <img src="Imagenes/Logos/NFL logo.png" alt="NFL Logo" class="league-logo">
         <p>Explora nuestra colección de gorras NFL 9SEVENTY.</p>
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="Imagenes/Catalogo/NFL/9SEVENTY/49ers 9SEVENTY_pixian_ai.png" alt="49ers">
-                <p>San Francisco 49ers</p>
-                <p>9SEVENTY</p>
-                <p class="price">Precio: $430 MXN</p>
-                <p>Ajustable</p>
-                <button class="add-to-cart">Agregar al carrito</button>
-            </div>
-            <!-- Resto de la galería sin cambios -->
-        </div>
-        <div id="cart-container" class="cart-container">
-            <button id="toggle-cart" class="toggle-cart-btn">↓</button>
-            <h2>Carrito de Compras</h2>
-            <div id="cart-items" class="cart-items"></div>
-            <p id="cart-total">Total: $0 MXN</p>
-            <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
-            <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
+        <div class="gallery" id="gallery">
+            <!-- Productos generados dinámicamente por JavaScript -->
         </div>
     </div>
+    <div id="cart-container" class="cart-container minimized">
+        <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN</p>
+        <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
+        <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
+    </div>
+    <footer>
+        <p>© 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/cart.js"></script>
     <script src="js/nfl_9seventy.js"></script>
 </body>
 </html>

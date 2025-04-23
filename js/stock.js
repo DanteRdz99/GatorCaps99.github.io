@@ -1,209 +1,143 @@
 // js/stock.js
-let stock = JSON.parse(localStorage.getItem('stock')) || {
-    'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-    'houston-texans': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-    'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
-    'sf-giants': { 'Ajustable': 1 },
-    'sf-giants-duckbill': { 'Ajustable': 1 },
-    'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
-};
-
-const cart = [];
-
-function showCart() {
-    const cartContainer = document.getElementById('cart-container');
-    if (cartContainer) {
-        cartContainer.classList.add('visible');
-    }
-}
-
-function updateStockDisplay() {
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        const productId = item.getAttribute('data-product-id');
-        const sizeOptions = item.querySelector('.size-options');
-        const addBtn = item.querySelector('.add-btn');
-
-        if (stock[productId] && Object.keys(stock[productId]).includes('Ajustable')) {
-            sizeOptions.style.display = 'none';
-            addBtn.style.display = 'block';
-        } else {
-            sizeOptions.style.display = 'flex';
-            addBtn.style.display = 'none';
-            const sizeButtons = sizeOptions.querySelectorAll('.size-btn');
-            sizeButtons.forEach(button => {
-                const size = button.getAttribute('data-size');
-                const available = stock[productId][size] > 0;
-                button.disabled = !available;
-                button.textContent = available ? size : `${size} (Agotado)`;
-            });
-        }
-    });
-}
-
-function updateCartDisplay() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    if (!cartItemsContainer) return;
-    cartItemsContainer.innerHTML = '';
-    let total = 0;
-    let count500 = 0;
-    let count450 = 0;
-
-    cart.forEach(item => {
-        if (item.price === 500) count500 += item.quantity;
-        if (item.price === 450) count450 += item.quantity;
-        total += item.price * item.quantity;
-    });
-
-    let discount = 0;
-    if (count500 === 2) discount += 100;
-    else if (count500 >= 3) discount += 150;
-    if (count450 === 2) discount += 50;
-    else if (count450 >= 3) discount += 100;
-
-    total -= discount;
-
-    cart.forEach((item, index) => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <p>${item.name} (${item.size}) - $${item.price} MXN</p>
-            <div class="cart-item-controls">
-                <button onclick="changeQuantity(${index}, -1)">-</button>
-                <span>${item.quantity}</span>
-                <button onclick="changeQuantity(${index}, 1)">+</button>
-            </div>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-    });
-
-    const cartTotal = document.getElementById('cart-total');
-    if (cartTotal) cartTotal.innerText = `Total: $${total} MXN (Descuento: $${discount})`;
-}
-
-function addToCart(name, price, image, size, productId) {
-    if (stock[productId][size] <= 0) {
-        return;
-    }
-
-    const existingItem = cart.find(item => item.name === name && item.size === size);
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ name, price, image, size, productId, quantity: 1 });
-    }
-    stock[productId][size] -= 1;
-    localStorage.setItem('stock', JSON.stringify(stock));
-    updateStockDisplay();
-    updateCartDisplay();
-    showCart(); // Mostrar carrito al agregar
-}
-
-function changeQuantity(index, change) {
-    const item = cart[index];
-    if (change > 0 && stock[item.productId][item.size] <= 0) {
-        return;
-    }
-    item.quantity += change;
-    if (change > 0) {
-        stock[item.productId][item.size] -= 1;
-    } else if (change < 0) {
-        stock[item.productId][item.size] += 1;
-    }
-    if (item.quantity <= 0) {
-        cart.splice(index, 1);
-    }
-    localStorage.setItem('stock', JSON.stringify(stock));
-    updateStockDisplay();
-    updateCartDisplay();
-}
-
-// Selección de talla
-document.querySelectorAll('.size-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const size = button.getAttribute('data-size');
-        const item = button.closest('.gallery-item');
-        item.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        item.dataset.selectedSize = size;
-        item.querySelector('.add-btn').style.display = 'block';
-        showCart(); // Mostrar carrito al seleccionar talla
-    });
-});
-
-// Agregar al carrito
-document.querySelectorAll('.add-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const item = button.closest('.gallery-item');
-        const name = item.querySelector('.title').innerText;
-        const priceText = item.querySelector('.price').innerText;
-        const price = parseFloat(priceText.replace('Precio: $', '').replace(' MXN', ''));
-        const image = item.querySelector('img').src;
-        const productId = item.getAttribute('data-product-id');
-        const isAdjustable = stock[productId] && Object.keys(stock[productId]).includes('Ajustable');
-        const selectedSize = isAdjustable ? 'Ajustable' : item.dataset.selectedSize;
-
-        if (!isAdjustable && !selectedSize) {
-            return;
-        }
-
-        addToCart(name, price, image, selectedSize, productId);
-    });
-});
-
-const clearCartBtn = document.getElementById('clear-cart');
-if (clearCartBtn) {
-    clearCartBtn.addEventListener('click', () => {
-        cart.forEach(item => {
-            stock[item.productId][item.size] += item.quantity;
-        });
-        cart.length = 0;
-        localStorage.setItem('stock', JSON.stringify(stock));
-        updateStockDisplay();
-        updateCartDisplay();
-    });
-}
-
-const finalizeOrderBtn = document.getElementById('finalize-order');
-if (finalizeOrderBtn) {
-    finalizeOrderBtn.addEventListener('click', () => {
-        if (cart.length === 0) {
-            alert('Tu carrito está vacío');
-            return;
-        }
-
-        let message = 'Hola, quiero confirmar mi pedido:\n';
-        cart.forEach(item => {
-            message += `- ${item.name} (${item.size}) - $${item.price} MXN x ${item.quantity}\n`;
-        });
-        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        let discount = 0;
-        let count500 = cart.reduce((sum, item) => item.price === 500 ? sum + item.quantity : sum, 0);
-        let count450 = cart.reduce((sum, item) => item.price === 450 ? sum + item.quantity : sum, 0);
-        if (count500 === 2) discount += 100;
-        else if (count500 >= 3) discount += 150;
-        if (count450 === 2) discount += 50;
-        else if (count450 >= 3) discount += 100;
-        message += `Total: $${total - discount} MXN (Descuento: $${discount})`;
-
-        const whatsappUrl = `https://wa.me/525576070822?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-
-        cart.length = 0;
-        updateStockDisplay();
-        updateCartDisplay();
-    });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const cartContainer = document.getElementById('cart-container');
-    const toggleCartBtn = document.getElementById('toggle-cart');
-    if (cartContainer && toggleCartBtn) {
-        toggleCartBtn.addEventListener('click', () => {
-            cartContainer.classList.toggle('minimized');
-            toggleCartBtn.textContent = cartContainer.classList.contains('minimized') ? '↑' : '↓';
+    // Verificar que cart.js está cargado
+    if (!window.cart) {
+        console.error('Error: cart.js no está cargado o window.cart no está definido');
+        alert('Error: No se pudo cargar el carrito. Verifica que cart.js esté incluido.');
+        return;
+    }
+
+    const products = [
+        { id: 1, name: "Pirates Pittsburgh 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/PTS59F.jpg", productId: "pirates-pittsburgh" },
+        { id: 2, name: "Texas Rangers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/TR59F.jpg", productId: "texas-rangers" },
+        { id: 3, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA59F.jpg", productId: "la-dodgers" },
+        { id: 4, name: "SF Giants World Series 9FORTY (Ajustable)", price: 450, image: "Imagenes/Catalogo/StockDisp/SFA.jpg", productId: "sf-giants" },
+        { id: 5, name: "SF Giants Duckbill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/SFDB.jpg", productId: "sf-giants-duckbill" },
+        { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
+    ];
+
+    let stock = JSON.parse(localStorage.getItem('stock')) || {
+        'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+        'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+        'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
+        'sf-giants': { 'Ajustable': 1 },
+        'sf-giants-duckbill': { '7 3/8': 1 },
+        'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
+    };
+
+    const gallery = document.getElementById('gallery');
+    if (!gallery) {
+        console.error('Error: #gallery no encontrado en stock.html');
+        alert('Error: No se encontró el contenedor de la galería.');
+        return;
+    }
+
+    function getTotalStock(productId) {
+        const sizes = stock[productId] || {};
+        return Object.values(sizes).reduce((total, qty) => total + qty, 0);
+    }
+
+    function renderProducts() {
+        console.log('Rendering products:', products);
+        console.log('Current stock:', stock);
+        gallery.innerHTML = '';
+        products.forEach(product => {
+            const totalStock = getTotalStock(product.productId);
+            const available = totalStock > 0;
+            const isAdjustable = product.productId === 'sf-giants';
+            console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Available: ${available}, Sizes:`, stock[product.productId] || 'No stock');
+
+            const productElement = document.createElement('div');
+            productElement.classList.add('gallery-item');
+            productElement.setAttribute('data-product-id', product.productId);
+
+            let sizeButtons = '';
+            if (!isAdjustable && stock[product.productId]) {
+                console.log(`Rendering sizes for ${product.name}:`, stock[product.productId]);
+                const sizes = stock[product.productId];
+                sizeButtons = Object.keys(sizes)
+                    .map(size => {
+                        const disabled = sizes[size] <= 0 ? 'disabled' : '';
+                        const text = sizes[size] <= 0 ? `${size} (Agotado)` : size;
+                        return `<button class="size-btn" data-size="${size}" ${disabled}>${text}</button>`;
+                    })
+                    .join('');
+            } else if (!isAdjustable) {
+                console.warn(`No sizes found for ${product.name}`);
+            }
+
+            productElement.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <p class="title">${product.name}</p>
+                <p class="price">$${product.price} MXN</p>
+                <div class="size-options" style="${isAdjustable ? 'display: none;' : 'display: flex;'}">
+                    ${sizeButtons}
+                </div>
+                <div class="button-group">
+                    <button class="add-to-cart" data-id="${product.id}" style="display: ${isAdjustable && available ? 'block' : 'none'};">
+                        Añadir al carrito
+                    </button>
+                    <a href="https://wa.me/+525576070822?text=Quiero%20consultar%20sobre%20${encodeURIComponent(product.name)}" target="_blank" class="whatsapp-btn">
+                        <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp">
+                    </a>
+                </div>
+            `;
+            gallery.appendChild(productElement);
+        });
+        attachSizeListeners();
+        attachAddToCartListeners();
+    }
+
+    function attachSizeListeners() {
+        document.querySelectorAll('.size-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.gallery-item');
+                const productId = item.getAttribute('data-product-id');
+                const size = button.getAttribute('data-size');
+                if (!stock[productId] || stock[productId][size] <= 0) {
+                    console.log(`Size ${size} not available for ${productId}`);
+                    return;
+                }
+
+                console.log(`Selected size ${size} for ${productId}`);
+                item.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                item.setAttribute('data-selected-size', size);
+
+                const addBtn = item.querySelector('.add-to-cart');
+                if (addBtn) addBtn.style.display = 'block';
+            });
         });
     }
-    updateStockDisplay();
-    updateCartDisplay();
+
+    function attachAddToCartListeners() {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = parseInt(button.dataset.id);
+                const product = products.find(p => p.id === productId);
+                const item = button.closest('.gallery-item');
+                const selectedSize = item.getAttribute('data-selected-size') || 'Ajustable';
+
+                if (!selectedSize || (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] <= 0))) {
+                    console.log(`Invalid size selection for ${product.name}: ${selectedSize}`);
+                    alert('Por favor, selecciona una talla disponible');
+                    return;
+                }
+
+                console.log(`Adding to cart: ${product.name} (${selectedSize})`);
+                stock[product.productId][selectedSize] -= 1;
+                localStorage.setItem('stock', JSON.stringify(stock));
+                window.cart.addToCart({ ...product, size: selectedSize });
+                alert(`Se agregó al carrito: ${product.name} (${selectedSize})`);
+
+                const cartContainer = document.getElementById('cart-container');
+                cartContainer.classList.remove('minimized');
+                cartContainer.classList.add('visible');
+
+                renderProducts();
+            });
+        });
+    }
+
+    renderProducts();
 });

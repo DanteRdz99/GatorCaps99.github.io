@@ -15,93 +15,19 @@
             <div class="header-text">
                 <h1>Stock Disponible</h1>
             </div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
-                </a>
-                <a href="https://wa.me/525576070822" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
-                </a>
-            </div>
         </div>
     </header>
-    <button class="back-btn" onclick="history.back()">←</button>
     <div class="container">
-        <p class="subtheme">Explora nuestro stock exclusivo disponible ahora mismo.</p>
-        
-        <div class="gallery">
-            <!-- Modelo 1 -->
-            <div class="gallery-item" data-product-id="pirates-pittsburgh">
-                <img src="Imagenes/Catalogo/StockDisp/PTS59F.jpg" alt="Pirates">
-                <p class="title">Pirates Pittsburgh</p>
-                <p class="price">Precio: $500 MXN</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
-                </div>
-                <button class="add-btn" style="display: none;">Agregar al carrito</button>
-            </div>
-            <!-- Modelo 2 -->
-            <div class="gallery-item" data-product-id="houston-texans">
-                <img src="Imagenes/Catalogo/StockDisp/TR59F.jpg" alt="Texans">
-                <p class="title">Houston Texans</p>
-                <p class="price">Precio: $500 MXN</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
-                </div>
-                <button class="add-btn" style="display: none;">Agregar al carrito</button>
-            </div>
-            <!-- Modelo 3 -->
-            <div class="gallery-item" data-product-id="la-dodgers">
-                <img src="Imagenes/Catalogo/StockDisp/LA59F.jpg" alt="Dodgers">
-                <p class="title">LA Dodgers</p>
-                <p class="price">Precio: $500 MXN</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="7 1/8">7 1/8</button>
-                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
-                </div>
-                <button class="add-btn" style="display: none;">Agregar al carrito</button>
-            </div>
-            <!-- Modelo 4 (Ajustable) -->
-            <div class="gallery-item" data-product-id="sf-giants">
-                <img src="Imagenes/Catalogo/StockDisp/SFA.jpg" alt="Giants">
-                <p class="title">SF Giants World Series (Ajustable)</p>
-                <p class="price">Precio: $450 MXN</p>
-                <div class="size-options" style="display: none;"></div>
-                <button class="add-btn">Agregar al carrito</button>
-            </div>
-            <!-- Modelo 5 (Ajustable) -->
-            <div class="gallery-item" data-product-id="sf-giants-duckbill">
-                <img src="Imagenes/Catalogo/StockDisp/SFDB.jpg" alt="SF Giants Duckbill">
-                <p class="title">SF Giants Duckbill AllStar Game (Ajustable)</p>
-                <p class="price">Precio: $500 MXN</p>
-                <div class="size-options" style="display: none;"></div>
-                <button class="add-btn">Agregar al carrito</button>
-            </div>
-            <!-- Modelo 6 (No ajustable) -->
-            <div class="gallery-item" data-product-id="delta-tigers-duckbill">
-                <img src="Imagenes/Catalogo/StockDisp/DTDB.jpg" alt="Delta Tigers Duckbill">
-                <p class="title">Delta Tigers DuckBill AllStar Game</p>
-                <p class="price">Precio: $500 MXN</p>
-                <div class="size-options">
-                    <button class="size-btn" data-size="7 3/8">7 3/8</button>
-                    <button class="size-btn" data-size="7 1/2">7 1/2</button>
-                </div>
-                <button class="add-btn" style="display: none;">Agregar al carrito</button>
-            </div>
-        </div>
-        <div id="cart-container" class="cart-container">
-            <button id="toggle-cart" class="toggle-cart-btn">↓</button>
-            <h2>Carrito de Compras</h2>
-            <div id="cart-items" class="cart-items"></div>
-            <p id="cart-total">Total: $0 MXN</p>
-            <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
-            <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
-        </div>
+        <div class="gallery" id="gallery"></div>
     </div>
+    <div id="cart-container" class="minimized">
+        <button id="toggle-cart">🛒</button>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total: $0 MXN (Descuento: $0)</p>
+        <button id="clear-cart">Vaciar Carrito</button>
+        <button id="finalize-order">Finalizar Pedido</button>
+    </div>
+    <script src="js/cart.js"></script>
     <script src="js/stock.js"></script>
 </body>
 </html>
