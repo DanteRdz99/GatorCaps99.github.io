@@ -1,9 +1,7 @@
 // js/stock.js
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar que cart.js está cargado
     if (!window.cart) {
         console.error('Error: cart.js no está cargado o window.cart no está definido');
-        alert('Error: No se pudo cargar el carrito. Verifica que cart.js esté incluido.');
         return;
     }
 
@@ -16,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
     ];
 
+    // Cargar stock desde localStorage o usar predeterminado
     let stock = JSON.parse(localStorage.getItem('stock')) || {
         'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
         'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
@@ -25,10 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
         'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
     };
 
+    // Validar formato de stock
+    console.log('Loaded stock:', stock);
+    Object.keys(stock).forEach(productId => {
+        if (!stock[productId] || typeof stock[productId] !== 'object') {
+            console.warn(`Invalid stock format for ${productId}, resetting to default`);
+            stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants' 
+                ? { 'Ajustable': 1 } 
+                : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
+        }
+        Object.keys(stock[productId]).forEach(size => {
+            if (typeof stock[productId][size] !== 'number' || stock[productId][size] < 0) {
+                console.warn(`Invalid stock value for ${productId} size ${size}, setting to 0`);
+                stock[productId][size] = 0;
+            }
+        });
+    });
+    localStorage.setItem('stock', JSON.stringify(stock));
+
     const gallery = document.getElementById('gallery');
     if (!gallery) {
-        console.error('Error: #gallery no encontrado en stock.html');
-        alert('Error: No se encontró el contenedor de la galería.');
+        console.error('Error: #gallery no encontrado');
         return;
     }
 
@@ -45,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalStock = getTotalStock(product.productId);
             const available = totalStock > 0;
             const isAdjustable = product.productId === 'sf-giants';
-            console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Available: ${available}, Sizes:`, stock[product.productId] || 'No stock');
+            console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Sizes:`, stock[product.productId]);
 
             const productElement = document.createElement('div');
             productElement.classList.add('gallery-item');
@@ -53,17 +69,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let sizeButtons = '';
             if (!isAdjustable && stock[product.productId]) {
-                console.log(`Rendering sizes for ${product.name}:`, stock[product.productId]);
                 const sizes = stock[product.productId];
                 sizeButtons = Object.keys(sizes)
-                    .map(size => {
-                        const disabled = sizes[size] <= 0 ? 'disabled' : '';
-                        const text = sizes[size] <= 0 ? `${size} (Agotado)` : size;
-                        return `<button class="size-btn" data-size="${size}" ${disabled}>${text}</button>`;
-                    })
+                    .map(size => `
+                        <button class="size-btn" data-size="${size}" ${sizes[size] <= 0 ? 'disabled' : ''}>
+                            ${sizes[size] <= 0 ? `${size} (Agotado)` : size}
+                        </button>
+                    `)
                     .join('');
-            } else if (!isAdjustable) {
-                console.warn(`No sizes found for ${product.name}`);
             }
 
             productElement.innerHTML = `
@@ -105,7 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.setAttribute('data-selected-size', size);
 
                 const addBtn = item.querySelector('.add-to-cart');
-                if (addBtn) addBtn.style.display = 'block';
+                if (addBtn) {
+                    addBtn.style.display = 'block';
+                    console.log(`Add to cart button enabled for ${productId}, size: ${size}`);
+                }
             });
         });
     }
@@ -118,23 +134,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const item = button.closest('.gallery-item');
                 const selectedSize = item.getAttribute('data-selected-size') || 'Ajustable';
 
-                if (!selectedSize || (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] <= 0))) {
-                    console.log(`Invalid size selection for ${product.name}: ${selectedSize}`);
-                    alert('Por favor, selecciona una talla disponible');
+                console.log(`Attempting to add to cart: ${product.name}, Size: ${selectedSize}`);
+                console.log(`Stock for ${product.productId}:`, stock[product.productId]);
+
+                if (!selectedSize) {
+                    console.error(`No size selected for ${product.name}`);
                     return;
                 }
 
-                console.log(`Adding to cart: ${product.name} (${selectedSize})`);
-                stock[product.productId][selectedSize] -= 1;
-                localStorage.setItem('stock', JSON.stringify(stock));
-                window.cart.addToCart({ ...product, size: selectedSize });
-                alert(`Se agregó al carrito: ${product.name} (${selectedSize})`);
+                if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
+                    console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
+                    return;
+                }
 
-                const cartContainer = document.getElementById('cart-container');
-                cartContainer.classList.remove('minimized');
-                cartContainer.classList.add('visible');
-
-                renderProducts();
+                try {
+                    stock[product.productId][selectedSize] -= 1;
+                    localStorage.setItem('stock', JSON.stringify(stock));
+                    window.cart.addToCart({ ...product, size: selectedSize });
+                    console.log(`Added to cart: ${product.name} (${selectedSize})`);
+                    renderProducts();
+                } catch (error) {
+                    console.error('Error adding to cart:', error);
+                }
             });
         });
     }

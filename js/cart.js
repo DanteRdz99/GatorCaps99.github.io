@@ -8,25 +8,36 @@ function initializeCart() {
     const finalizeOrderBtn = document.getElementById('finalize-order');
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    console.log('Initializing cart.js'); // Depuración
+    console.log('Initializing cart.js, Cart:', cart);
+
+    if (!cartContainer || !cartItemsContainer || !cartTotal || !toggleCartBtn || !clearCartBtn || !finalizeOrderBtn) {
+        console.error('Error: Cart elements not found:', {
+            cartContainer, cartItemsContainer, cartTotal, toggleCartBtn, clearCartBtn, finalizeOrderBtn
+        });
+        return;
+    }
 
     function calculateDiscount() {
         let count500 = 0;
         let count450 = 0;
+        let count650 = 0;
         cart.forEach(item => {
             if (item.price === 500) count500 += item.quantity;
             if (item.price === 450) count450 += item.quantity;
+            if (item.price === 650) count650 += item.quantity;
         });
         let discount = 0;
         if (count500 === 2) discount += 100;
         else if (count500 >= 3) discount += 150;
         if (count450 === 2) discount += 50;
         else if (count450 >= 3) discount += 100;
+        if (count650 === 2) discount += 150; // Ajustado para 9FORTY
+        else if (count650 >= 3) discount += 200;
         return discount;
     }
 
     function updateCartDisplay() {
-        console.log('Updating cart display:', cart); // Depuración
+        console.log('Updating cart display:', cart);
         cartItemsContainer.innerHTML = '';
         let total = 0;
 
@@ -34,9 +45,10 @@ function initializeCart() {
             total += item.price * item.quantity;
             const cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
+            const sizeText = item.size ? ` (${item.size})` : '';
             cartItem.innerHTML = `
                 <img src="${item.image}" alt="${item.name}">
-                <p>${item.name} (${item.size}) - $${item.price} MXN</p>
+                <p>${item.name}${sizeText} - $${item.price} MXN x ${item.quantity}</p>
                 <div class="cart-item-controls">
                     <button class="decrease-quantity" data-index="${index}">-</button>
                     <span>${item.quantity}</span>
@@ -49,16 +61,23 @@ function initializeCart() {
 
         const discount = calculateDiscount();
         total -= discount;
-
         cartTotal.textContent = `Total: $${total} MXN (Descuento: $${discount})`;
         localStorage.setItem('cart', JSON.stringify(cart));
         attachCartItemListeners();
     }
 
     function attachCartItemListeners() {
-        document.querySelectorAll('.decrease-quantity').forEach(button => {
+        console.log('Attaching cart item listeners');
+        const decreaseButtons = document.querySelectorAll('.decrease-quantity');
+        const increaseButtons = document.querySelectorAll('.increase-quantity');
+        const removeButtons = document.querySelectorAll('.remove-item');
+
+        console.log('Decrease buttons:', decreaseButtons.length, 'Increase buttons:', increaseButtons.length);
+
+        decreaseButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const index = parseInt(button.dataset.index);
+                console.log(`Decreasing item ${index}:`, cart[index]);
                 if (cart[index].quantity > 1) {
                     cart[index].quantity -= 1;
                 } else {
@@ -68,17 +87,19 @@ function initializeCart() {
             });
         });
 
-        document.querySelectorAll('.increase-quantity').forEach(button => {
+        increaseButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const index = parseInt(button.dataset.index);
+                console.log(`Increasing item ${index}:`, cart[index]);
                 cart[index].quantity += 1;
                 updateCartDisplay();
             });
         });
 
-        document.querySelectorAll('.remove-item').forEach(button => {
+        removeButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const index = parseInt(button.dataset.index);
+                console.log(`Removing item ${index}:`, cart[index]);
                 cart.splice(index, 1);
                 updateCartDisplay();
             });
@@ -88,9 +109,11 @@ function initializeCart() {
     toggleCartBtn.addEventListener('click', () => {
         cartContainer.classList.toggle('minimized');
         cartContainer.classList.toggle('visible');
+        console.log('Toggled cart visibility');
     });
 
     clearCartBtn.addEventListener('click', () => {
+        console.log('Clearing cart');
         cart.length = 0;
         updateCartDisplay();
     });
@@ -101,13 +124,15 @@ function initializeCart() {
             return;
         }
 
+        console.log('Finalizing order:', cart);
         let message = 'Hola, quiero confirmar mi pedido:\n';
         cart.forEach(item => {
-            message += `- ${item.name} (${item.size}) - $${item.price} MXN x ${item.quantity}\n`;
+            const sizeText = item.size ? ` (${item.size})` : '';
+            message += `- ${item.name}${sizeText} - $${item.price} MXN x ${item.quantity}\n`;
         });
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         const discount = calculateDiscount();
-        message += `Total: $${total - discount} MXN (Descuento: $${discount})`;
+        
 
         const whatsappUrl = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
@@ -115,13 +140,15 @@ function initializeCart() {
         cart.length = 0;
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartDisplay();
+        window.location.href = 'confirmation.html'; // Compatible con mlb_9forty
     });
 
     window.cart = {
         getCart: () => cart,
         addToCart: (product) => {
-            console.log('Adding to cart:', product); // Depuración
-            const existingItem = cart.find(item => item.id === product.id && item.size === product.size);
+            console.log('Adding to cart:', product);
+            const key = product.id ? `${product.id}-${product.size || 'Ajustable'}` : product.name;
+            const existingItem = cart.find(item => (item.id && item.id === product.id && item.size === product.size) || (!item.id && item.name === product.name));
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -129,6 +156,8 @@ function initializeCart() {
             }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartDisplay();
+            cartContainer.classList.remove('minimized');
+            cartContainer.classList.add('visible');
         },
         updateCartDisplay
     };
