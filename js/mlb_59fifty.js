@@ -16,18 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const teams = [
         'New York Yankees',
         'Boston Red Sox',
-        'Tampa Bay Rays',
         'Chicago White Sox',
         'Detroit Tigers',
         'Atlanta Braves',
-        'Chicago Cubs',
         'Pittsburgh Pirates',
         'Los Angeles Angels',
         'Los Angeles Dodgers',
         'San Diego Padres',
         'San Francisco Giants',
         'Houston Astros',
-        'Oakland Athletics'
+        'Oakland Athletics',
+        'Miami Marlins',
+        'Seattle Mariners',
+        'Texas Rangers'
     ];
 
     // Generar opciones de filtro por equipo
@@ -40,28 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de 22 gorras (editables)
     const caps = [
-        { name: "Nombre Gorra 1", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra1.png", size: "7 1/8", price: 650, team: "New York Yankees" },
-        { name: "Nombre Gorra 2", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra2.png", size: "7 1/4", price: 650, team: "Los Angeles Dodgers" },
-        { name: "Nombre Gorra 3", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra3.png", size: "7 1/8", price: 650, team: "Boston Red Sox" },
-        { name: "Nombre Gorra 4", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra4.png", size: "7 1/4", price: 650, team: "Chicago White Sox" },
-        { name: "Nombre Gorra 5", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra5.png", size: "7 1/8", price: 650, team: "Atlanta Braves" },
-        { name: "Nombre Gorra 6", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra6.png", size: "7 1/4", price: 650, team: "Los Angeles Angels" },
-        { name: "Nombre Gorra 7", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra7.png", size: "7 1/8", price: 650, team: "San Diego Padres" },
-        { name: "Nombre Gorra 8", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra8.png", size: "7 1/4", price: 650, team: "Houston Astros" },
-        { name: "Nombre Gorra 9", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra9.png", size: "7 1/8", price: 650, team: "Oakland Athletics" },
-        { name: "Nombre Gorra 10", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra10.png", size: "7 1/4", price: 650, team: "New York Yankees" },
-        { name: "Nombre Gorra 11", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra11.png", size: "7 1/8", price: 650, team: "Los Angeles Dodgers" },
-        { name: "Nombre Gorra 12", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra12.png", size: "7 1/4", price: 650, team: "Boston Red Sox" },
-        { name: "Nombre Gorra 13", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra13.png", size: "7 1/8", price: 650, team: "Chicago Cubs" },
-        { name: "Nombre Gorra 14", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra14.png", size: "7 1/4", price: 650, team: "San Francisco Giants" },
-        { name: "Nombre Gorra 15", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra15.png", size: "7 1/8", price: 650, team: "Detroit Tigers" },
-        { name: "Nombre Gorra 16", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra16.png", size: "7 1/4", price: 650, team: "Tampa Bay Rays" },
-        { name: "Nombre Gorra 17", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra17.png", size: "7 1/8", price: 650, team: "Pittsburgh Pirates" },
-        { name: "Nombre Gorra 18", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra18.png", size: "7 1/4", price: 650, team: "New York Yankees" },
-        { name: "Nombre Gorra 19", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra19.png", size: "7 1/8", price: 650, team: "Los Angeles Dodgers" },
-        { name: "Nombre Gorra 20", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra20.png", size: "7 1/4", price: 650, team: "Atlanta Braves" },
-        { name: "Nombre Gorra 21", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra21.png", size: "7 1/8", price: 650, team: "Houston Astros" },
-        { name: "Nombre Gorra 22", image: "Imagenes/Catalogo/MLB/59FIFTY/gorra22.png", size: "7 1/4", price: 650, team: "San Diego Padres" }
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA1.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA2.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA3.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA4.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA5.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers ", image: "Imagenes/Catalogo/MLB/59FIFTY/LA6.png", size: "7 a 8", price: 500, team: "Los Angeles Dodgers" },
+        { name: "Boston Red Sox", image: "Imagenes/Catalogo/MLB/59FIFTY/BRS1.png", size: "7 a 8", price: 500, team: "Boston Red Sox" },
+        { name: "Boston Red Sox", image: "Imagenes/Catalogo/MLB/59FIFTY/BRS2.png", size: "7 a 8", price: 500, team: "Boston Red Sox" },
+        { name: "Chicago White Sox", image: "Imagenes/Catalogo/MLB/59FIFTY/CWS1.png", size: "7 a 8", price: 500, team: "Chicago White Sox" },
+        { name: "LA Angels", image: "Imagenes/Catalogo/MLB/59FIFTY/Angels.png", size: "7 a 8", price: 500, team: "Los Angeles Angels" },
+        { name: "SD Padres", image: "Imagenes/Catalogo/MLB/59FIFTY/SD.png", size: "7 a 8", price: 500, team: "San Diego Padres" },
+        { name: "Oakland Athletics", image: "Imagenes/Catalogo/MLB/59FIFTY/ATHS1.png", size: "7 a 8", price: 500, team: "Oakland Athletics" },
+        { name: "NY Yankees", image: "Imagenes/Catalogo/MLB/59FIFTY/NT1.png", size: "7 a 8", price: 500, team: "New York Yankees" },
+        { name: "NY Yankees", image: "Imagenes/Catalogo/MLB/59FIFTY/NY2.png", size: "7 a 8", price: 500, team: "New York Yankees" },
+        { name: "NY Yankees", image: "Imagenes/Catalogo/MLB/59FIFTY/NY3.png", size: "7 a 8", price: 500, team: "New York Yankees" },
+        { name: "NY Yankees", image: "Imagenes/Catalogo/MLB/59FIFTY/NY4.png", size: "7 a 8", price: 500, team: "New York Yankees" },
+        { name: "SF Giants", image: "Imagenes/Catalogo/MLB/59FIFTY/SF1.png", size: "7 a 8", price: 500, team: "San Francisco Giants" },
+        { name: "Detroit Tigers", image: "Imagenes/Catalogo/MLB/59FIFTY/DT.png", size: "7 a 8", price: 500, team: "Detroit Tigers" },
+        { name: "Pittsburgh Pirates", image: "Imagenes/Catalogo/MLB/59FIFTY/PTS1.png", size: "7 a 8", price: 500, team: "Pittsburgh Pirates" },
+        { name: "Seattle Mariners", image: "Imagenes/Catalogo/MLB/59FIFTY/Mariners.png", size: "7 a 8", price: 500, team: "Seattle Mariners" },
+        { name: "Miami Marlins", image: "Imagenes/Catalogo/MLB/59FIFTY/MTS1.png", size: "7 a 8", price: 500, team: "Miami Marlins" },
+        { name: "Texas Rangers", image: "Imagenes/Catalogo/MLB/59FIFTY/TXS1.png", size: "7 a 8", price: 500, team: "Texas Rangers" },
+        
     ];
 
     let currentPage = 1;

@@ -16,18 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const teams = [
         'New York Yankees',
         'Boston Red Sox',
-        'Tampa Bay Rays',
-        'Chicago White Sox',
+        'Toronto Blue Jays',
         'Detroit Tigers',
         'Atlanta Braves',
-        'Chicago Cubs',
-        'Pittsburgh Pirates',
-        'Los Angeles Angels',
         'Los Angeles Dodgers',
-        'San Diego Padres',
-        'San Francisco Giants',
-        'Houston Astros',
-        'Oakland Athletics'
+        'Oakland Athletics',
+        'Seattle Mariners',
+        'St. Louis Cardinals'
     ];
 
     // Generar opciones de filtro por equipo
@@ -40,16 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de 10 gorras (editables)
     const caps = [
-        { name: "Houston Astros TRUCKER ASTROS TRUCKER", image: "Imagenes/Catalogo/MLB/TRUCKER/ASTROS TRUCKER_pixian_ai.png", price: 420, team: "Houston Astros" },
-        { name: "Nombre Gorra 2", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker2.png", price: 420, team: "New York Yankees" },
-        { name: "Nombre Gorra 3", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker3.png", price: 420, team: "Los Angeles Dodgers" },
-        { name: "Nombre Gorra 4", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker4.png", price: 420, team: "Boston Red Sox" },
-        { name: "Nombre Gorra 5", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker5.png", price: 420, team: "Chicago White Sox" },
-        { name: "Nombre Gorra 6", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker6.png", price: 420, team: "Atlanta Braves" },
-        { name: "Nombre Gorra 7", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker7.png", price: 420, team: "Los Angeles Angels" },
-        { name: "Nombre Gorra 8", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker8.png", price: 420, team: "San Diego Padres" },
-        { name: "Nombre Gorra 9", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker9.png", price: 420, team: "San Francisco Giants" },
-        { name: "Nombre Gorra 10", image: "Imagenes/Catalogo/MLB/TRUCKER/trucker10.png", price: 420, team: "Oakland Athletics" }
+        { name: "NY Yankees (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/NY1.png", price: 420, team: "New York Yankees" },
+        { name: "NY Yankees (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/NY2.png", price: 420, team: "New York Yankees" },
+        { name: "LA Dodgers (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/LA1.png", price: 420, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/LA2.png", price: 420, team: "Los Angeles Dodgers" },
+        { name: "LA Dodgers (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/LA3.png", price: 420, team: "Los Angeles Dodgers" },
+        { name: "Atlanta Braves (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/ATHS1.png", price: 420, team: "Atlanta Braves" },
+        { name: "Toronto Blue Jays (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/BLUEJAYS.png", price: 420, team: "Toronto Blue Jays" },
+        { name: "Detroit Tigers (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/DT.png", price: 420, team: "Detroit Tigers" },
+        { name: "Seattle Mariners (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/MARINERS1.png", price: 420, team: "Seattle Mariners" },
+        { name: "St. Louis Cardinals (Ajustable)", image: "Imagenes/Catalogo/MLB/TRUCKER/STL.png", price: 420, team: "ST. Louis Cardinals" },
+        
     ];
 
     let currentPage = 1;

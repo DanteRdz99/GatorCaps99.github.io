@@ -132,7 +132,7 @@ function initializeCart() {
         });
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         const discount = calculateDiscount();
-        
+        message += `Total: $${total - discount} MXN (Descuento: $${discount})`;
 
         const whatsappUrl = `https://wa.me/+525576070822?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
