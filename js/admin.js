@@ -1,22 +1,26 @@
-// js/admin.js (actualizado con selector dinámico de tallas)
+// js/admin.js
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('admin.js loaded');
     const ADMIN_PASSWORD = 'Linces99!';
     const loginForm = document.getElementById('login-form');
     const adminContent = document.getElementById('admin-content');
     const passwordInput = document.getElementById('admin-password');
     const loginBtn = document.getElementById('login-btn');
     const errorMessage = document.getElementById('error-message');
-    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/YOUR_BIN_ID'; // Reemplaza con tu Bin ID
-    const JSONBIN_SECRET = 'YOUR_SECRET_KEY'; // Reemplaza con tu Secret Key
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41'; // Reemplaza con tu Bin ID
+    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS'; // Reemplaza con tu Secret Key
+
 
     // Verificar si ya está autenticado
     if (localStorage.getItem('adminAuthenticated') === 'true') {
+        console.log('Admin already authenticated');
         loginForm.style.display = 'none';
         adminContent.style.display = 'block';
         initializeAdmin();
     }
 
     loginBtn.addEventListener('click', () => {
+        console.log('Login button clicked');
         if (passwordInput.value === ADMIN_PASSWORD) {
             localStorage.setItem('adminAuthenticated', 'true');
             loginForm.style.display = 'none';
@@ -25,21 +29,27 @@ document.addEventListener('DOMContentLoaded', () => {
             initializeAdmin();
         } else {
             errorMessage.style.display = 'block';
+            console.error('Incorrect password');
         }
     });
 
     async function fetchStock() {
+        console.log('Fetching stock from JSONBin.io');
         try {
             const response = await fetch(JSONBIN_URL, {
                 headers: {
                     'X-Master-Key': JSONBIN_SECRET
                 }
             });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
+            console.log('Stock fetched:', data.record);
             return data.record;
         } catch (error) {
             console.error('Error fetching stock:', error);
-            return {
+            const defaultStock = {
                 'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
                 'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
                 'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
@@ -47,10 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 'sf-giants-duckbill': { '7 3/8': 1 },
                 'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
             };
+            console.log('Using default stock:', defaultStock);
+            return defaultStock;
         }
     }
 
     async function updateStock(stock) {
+        console.log('Updating stock on JSONBin.io:', stock);
         try {
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
@@ -60,14 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(stock)
             });
-            if (!response.ok) throw new Error('Failed to update stock');
-            console.log('Stock updated on JSONBin');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log('Stock updated successfully');
         } catch (error) {
             console.error('Error updating stock:', error);
         }
     }
 
     function initializeAdmin() {
+        console.log('Initializing admin');
         const stockForm = document.getElementById('stock-form');
         const stockList = document.getElementById('stock-list');
         const productSelect = document.getElementById('product');
@@ -75,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Actualizar tallas según el producto seleccionado
         function updateSizeOptions() {
+            console.log('Updating size options for product:', productSelect.value);
             const selectedProduct = productSelect.value;
             sizeSelect.innerHTML = '';
             let sizes = [];
@@ -97,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSizeOptions(); // Inicializar tallas
 
         async function loadAndUpdateStockList() {
+            console.log('Loading and updating stock list');
             const stock = await fetchStock();
             stockList.innerHTML = '';
             Object.keys(stock).forEach(product => {
@@ -109,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         stockForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('Stock form submitted');
             const product = productSelect.value;
             const size = sizeSelect.value;
             const quantity = parseInt(document.getElementById('quantity').value);
@@ -123,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Se repusieron ${quantity} unidades de ${product} (talla ${size})`);
         });
 
-        loadAndUpdateStockList();
+        loadAndUpdateStockList().catch(error => {
+            console.error('Error loading stock list:', error);
+        });
     }
 });

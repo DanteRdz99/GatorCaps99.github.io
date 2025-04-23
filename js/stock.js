@@ -1,12 +1,14 @@
 // js/stock.js
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('stock.js loaded');
+
     if (!window.cart) {
         console.error('Error: cart.js no está cargado o window.cart no está definido');
         return;
     }
 
-    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41'; // Reemplaza con tu Bin ID
-    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS'; // Reemplaza con tu Secret Key
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41';
+    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS';
 
     const products = [
         { id: 1, name: "Pirates Pittsburgh 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/PTS59F.jpg", productId: "pirates-pittsburgh" },
@@ -18,17 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     async function fetchStock() {
+        console.log('Fetching stock from JSONBin.io');
         try {
             const response = await fetch(JSONBIN_URL, {
                 headers: {
                     'X-Master-Key': JSONBIN_SECRET
                 }
             });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
+            console.log('Stock fetched:', data.record);
             return data.record;
         } catch (error) {
             console.error('Error fetching stock:', error);
-            return {
+            const defaultStock = {
                 'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
                 'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
                 'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
@@ -36,10 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 'sf-giants-duckbill': { '7 3/8': 1 },
                 'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
             };
+            console.log('Using default stock:', defaultStock);
+            return defaultStock;
         }
     }
 
     async function updateStock(stock) {
+        console.log('Updating stock on JSONBin.io:', stock);
         try {
             const response = await fetch(JSONBIN_URL, {
                 method: 'PUT',
@@ -49,16 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(stock)
             });
-            if (!response.ok) throw new Error('Failed to update stock');
-            console.log('Stock updated on JSONBin');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log('Stock updated successfully');
         } catch (error) {
             console.error('Error updating stock:', error);
+            throw error;
         }
     }
 
     async function loadStock() {
+        console.log('Loading stock');
         let stock = await fetchStock();
-        console.log('Loaded stock:', stock);
         Object.keys(stock).forEach(productId => {
             if (!stock[productId] || typeof stock[productId] !== 'object') {
                 console.warn(`Invalid stock format for ${productId}, resetting to default`);
@@ -83,18 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    function getTotalStock(productId) {
+    function getTotalStock(productId, stock) {
         const sizes = stock[productId] || {};
         return Object.values(sizes).reduce((total, qty) => total + qty, 0);
     }
 
     async function renderProducts() {
+        console.log('Rendering products');
         const stock = await loadStock();
-        console.log('Rendering products:', products);
         console.log('Current stock:', stock);
         gallery.innerHTML = '';
         products.forEach(product => {
-            const totalStock = getTotalStock(product.productId);
+            const totalStock = getTotalStock(product.productId, stock);
             const available = totalStock > 0;
             const isAdjustable = product.productId === 'sf-giants';
             console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Sizes:`, stock[product.productId]);
@@ -133,16 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             gallery.appendChild(productElement);
         });
-        attachSizeListeners();
-        attachAddToCartListeners();
+        attachSizeListeners(stock);
+        attachAddToCartListeners(); // Re-adjuntar listeners después de renderizar
     }
 
-    function attachSizeListeners() {
+    function attachSizeListeners(stock) {
+        console.log('Attaching size listeners');
         document.querySelectorAll('.size-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const item = button.closest('.gallery-item');
                 const productId = item.getAttribute('data-product-id');
                 const size = button.getAttribute('data-size');
+
                 if (!stock[productId] || stock[productId][size] <= 0) {
                     console.log(`Size ${size} not available for ${productId}`);
                     return;
@@ -163,39 +178,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function attachAddToCartListeners() {
-        const stock = await loadStock();
+        console.log('Attaching add to cart listeners');
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', async () => {
+            button.addEventListener('click', async (event) => {
+                event.preventDefault(); // Prevenir comportamiento por defecto
                 const productId = parseInt(button.dataset.id);
                 const product = products.find(p => p.id === productId);
                 const item = button.closest('.gallery-item');
-                const selectedSize = item.getAttribute('data-selected-size') || 'Ajustable';
+                const selectedSize = item.getAttribute('data-selected-size') || (product.productId === 'sf-giants' ? 'Ajustable' : null);
 
                 console.log(`Attempting to add to cart: ${product.name}, Size: ${selectedSize}`);
-                console.log(`Stock for ${product.productId}:`, stock[product.productId]);
 
                 if (!selectedSize) {
                     console.error(`No size selected for ${product.name}`);
+                    alert('Por favor, selecciona una talla.');
                     return;
                 }
 
+                const stock = await fetchStock();
+                console.log(`Stock for ${product.productId}:`, stock[product.productId]);
+
                 if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
                     console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
+                    alert('No hay stock disponible para esta talla.');
                     return;
                 }
 
                 try {
                     stock[product.productId][selectedSize] -= 1;
                     await updateStock(stock);
-                    window.cart.addToCart({ ...product, size: selectedSize });
+                    window.cart.addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, size: selectedSize });
                     console.log(`Added to cart: ${product.name} (${selectedSize})`);
-                    renderProducts();
+                    await renderProducts();
                 } catch (error) {
                     console.error('Error adding to cart:', error);
+                    alert('Hubo un error al añadir al carrito. Por favor, intenta de nuevo.');
                 }
             });
         });
     }
 
-    renderProducts();
+    renderProducts().catch(error => {
+        console.error('Error rendering products:', error);
+        alert('Error al cargar los productos. Por favor, recarga la página.');
+    });
 });
