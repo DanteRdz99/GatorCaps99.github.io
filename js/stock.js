@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (!window.cart) {
         console.error('Error: cart.js no está cargado o window.cart no está definido');
+        alert('Error: No se pudo cargar el carrito. Verifica que cart.js esté incluido.');
         return;
     }
 
@@ -14,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
     ];
 
-    // Cargar stock desde localStorage o usar predeterminado
     let stock = JSON.parse(localStorage.getItem('stock')) || {
         'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
         'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
@@ -23,24 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'sf-giants-duckbill': { '7 3/8': 1 },
         'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
     };
-
-    // Validar formato de stock
-    console.log('Loaded stock:', stock);
-    Object.keys(stock).forEach(productId => {
-        if (!stock[productId] || typeof stock[productId] !== 'object') {
-            console.warn(`Invalid stock format for ${productId}, resetting to default`);
-            stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants' 
-                ? { 'Ajustable': 1 } 
-                : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
-        }
-        Object.keys(stock[productId]).forEach(size => {
-            if (typeof stock[productId][size] !== 'number' || stock[productId][size] < 0) {
-                console.warn(`Invalid stock value for ${productId} size ${size}, setting to 0`);
-                stock[productId][size] = 0;
-            }
-        });
-    });
-    localStorage.setItem('stock', JSON.stringify(stock));
 
     const gallery = document.getElementById('gallery');
     if (!gallery) {
@@ -118,10 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.setAttribute('data-selected-size', size);
 
                 const addBtn = item.querySelector('.add-to-cart');
-                if (addBtn) {
-                    addBtn.style.display = 'block';
-                    console.log(`Add to cart button enabled for ${productId}, size: ${size}`);
-                }
+                if (addBtn) addBtn.style.display = 'block';
             });
         });
     }
@@ -135,15 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const selectedSize = item.getAttribute('data-selected-size') || 'Ajustable';
 
                 console.log(`Attempting to add to cart: ${product.name}, Size: ${selectedSize}`);
-                console.log(`Stock for ${product.productId}:`, stock[product.productId]);
 
-                if (!selectedSize) {
-                    console.error(`No size selected for ${product.name}`);
-                    return;
-                }
-
-                if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
-                    console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
+                if (!selectedSize || (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[productId][selectedSize] <= 0))) {
+                    console.log(`Invalid size selection for ${product.name}: ${selectedSize}`);
+                    alert('Por favor, selecciona una talla disponible');
                     return;
                 }
 
@@ -152,9 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('stock', JSON.stringify(stock));
                     window.cart.addToCart({ ...product, size: selectedSize });
                     console.log(`Added to cart: ${product.name} (${selectedSize})`);
+                    alert(`Se agregó al carrito: ${product.name} (${selectedSize})`);
                     renderProducts();
                 } catch (error) {
                     console.error('Error adding to cart:', error);
+                    alert('Error al añadir al carrito. Revisa la consola.');
                 }
             });
         });
