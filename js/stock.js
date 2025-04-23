@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41'; // Reemplaza con tu Bin ID
+    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS'; // Reemplaza con tu Secret Key
+
     const products = [
         { id: 1, name: "Pirates Pittsburgh 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/PTS59F.jpg", productId: "pirates-pittsburgh" },
         { id: 2, name: "Texas Rangers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/TR59F.jpg", productId: "texas-rangers" },
@@ -14,31 +17,65 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
     ];
 
-    let stock = JSON.parse(localStorage.getItem('stock')) || {
-        'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-        'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-        'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
-        'sf-giants': { 'Ajustable': 1 },
-        'sf-giants-duckbill': { '7 3/8': 1 },
-        'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
-    };
-
-    console.log('Loaded stock:', stock);
-    Object.keys(stock).forEach(productId => {
-        if (!stock[productId] || typeof stock[productId] !== 'object') {
-            console.warn(`Invalid stock format for ${productId}, resetting to default`);
-            stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants' 
-                ? { 'Ajustable': 1 } 
-                : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
+    async function fetchStock() {
+        try {
+            const response = await fetch(JSONBIN_URL, {
+                headers: {
+                    'X-Master-Key': JSONBIN_SECRET
+                }
+            });
+            const data = await response.json();
+            return data.record;
+        } catch (error) {
+            console.error('Error fetching stock:', error);
+            return {
+                'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
+                'sf-giants': { 'Ajustable': 1 },
+                'sf-giants-duckbill': { '7 3/8': 1 },
+                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
+            };
         }
-        Object.keys(stock[productId]).forEach(size => {
-            if (typeof stock[productId][size] !== 'number' || stock[productId][size] < 0) {
-                console.warn(`Invalid stock value for ${productId} size ${size}, setting to 0`);
-                stock[productId][size] = 0;
+    }
+
+    async function updateStock(stock) {
+        try {
+            const response = await fetch(JSONBIN_URL, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': JSONBIN_SECRET
+                },
+                body: JSON.stringify(stock)
+            });
+            if (!response.ok) throw new Error('Failed to update stock');
+            console.log('Stock updated on JSONBin');
+        } catch (error) {
+            console.error('Error updating stock:', error);
+        }
+    }
+
+    async function loadStock() {
+        let stock = await fetchStock();
+        console.log('Loaded stock:', stock);
+        Object.keys(stock).forEach(productId => {
+            if (!stock[productId] || typeof stock[productId] !== 'object') {
+                console.warn(`Invalid stock format for ${productId}, resetting to default`);
+                stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants'
+                    ? { 'Ajustable': 1 }
+                    : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
             }
+            Object.keys(stock[productId]).forEach(size => {
+                if (typeof stock[productId][size] !== 'number' || stock[productId][size] < 0) {
+                    console.warn(`Invalid stock value for ${productId} size ${size}, setting to 0`);
+                    stock[productId][size] = 0;
+                }
+            });
         });
-    });
-    localStorage.setItem('stock', JSON.stringify(stock));
+        await updateStock(stock);
+        return stock;
+    }
 
     const gallery = document.getElementById('gallery');
     if (!gallery) {
@@ -51,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return Object.values(sizes).reduce((total, qty) => total + qty, 0);
     }
 
-    function renderProducts() {
+    async function renderProducts() {
+        const stock = await loadStock();
         console.log('Rendering products:', products);
         console.log('Current stock:', stock);
         gallery.innerHTML = '';
@@ -124,9 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function attachAddToCartListeners() {
+    async function attachAddToCartListeners() {
+        const stock = await loadStock();
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', async () => {
                 const productId = parseInt(button.dataset.id);
                 const product = products.find(p => p.id === productId);
                 const item = button.closest('.gallery-item');
@@ -147,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 try {
                     stock[product.productId][selectedSize] -= 1;
-                    localStorage.setItem('stock', JSON.stringify(stock));
+                    await updateStock(stock);
                     window.cart.addToCart({ ...product, size: selectedSize });
                     console.log(`Added to cart: ${product.name} (${selectedSize})`);
                     renderProducts();
