@@ -106,9 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const stock = await loadStock();
         console.log('Current stock:', stock);
         gallery.innerHTML = '';
-        products.forEach(product => {
+
+        // Filtrar productos con stock mayor a 0
+        const availableProducts = products.filter(product => getTotalStock(product.productId, stock) > 0);
+
+        if (availableProducts.length === 0) {
+            gallery.innerHTML = '<p>No hay productos disponibles en este momento.</p>';
+            return;
+        }
+
+        availableProducts.forEach(product => {
             const totalStock = getTotalStock(product.productId, stock);
-            const available = totalStock > 0;
             const isAdjustable = product.productId === 'sf-giants';
             console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Sizes:`, stock[product.productId]);
 
@@ -120,9 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isAdjustable && stock[product.productId]) {
                 const sizes = stock[product.productId];
                 sizeButtons = Object.keys(sizes)
+                    .filter(size => sizes[size] > 0) // Mostrar solo tallas con stock
                     .map(size => `
-                        <button class="size-btn" data-size="${size}" ${sizes[size] <= 0 ? 'disabled' : ''}>
-                            ${sizes[size] <= 0 ? `${size} (Agotado)` : size}
+                        <button class="size-btn" data-size="${size}">
+                            ${size}
                         </button>
                     `)
                     .join('');
@@ -132,11 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${product.image}" alt="${product.name}">
                 <p class="title">${product.name}</p>
                 <p class="price">$${product.price} MXN</p>
-                <div class="size-options" style="${isAdjustable ? 'display: none;' : 'display: flex;'}">
+                <div class="size-options" style="${isAdjustable || sizeButtons === '' ? 'display: none;' : 'display: flex;'}">
                     ${sizeButtons}
                 </div>
                 <div class="button-group">
-                    <button class="add-to-cart" data-id="${product.id}" style="display: ${isAdjustable && available ? 'block' : 'none'};">
+                    <button class="add-to-cart" data-id="${product.id}" style="display: ${isAdjustable || sizeButtons !== '' ? 'block' : 'none'};">
                         Añadir al carrito
                     </button>
                     <a href="https://wa.me/+525576070822?text=Quiero%20consultar%20sobre%20${encodeURIComponent(product.name)}" target="_blank" class="whatsapp-btn">
@@ -147,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery.appendChild(productElement);
         });
         attachSizeListeners(stock);
-        attachAddToCartListeners(); // Re-adjuntar listeners después de renderizar
+        attachAddToCartListeners();
     }
 
     function attachSizeListeners(stock) {
@@ -181,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Attaching add to cart listeners');
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', async (event) => {
-                event.preventDefault(); // Prevenir comportamiento por defecto
+                event.preventDefault();
                 const productId = parseInt(button.dataset.id);
                 const product = products.find(p => p.id === productId);
                 const item = button.closest('.gallery-item');
@@ -209,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     await updateStock(stock);
                     window.cart.addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, size: selectedSize });
                     console.log(`Added to cart: ${product.name} (${selectedSize})`);
-                    await renderProducts();
+                    await renderProducts(); // Re-renderizar para eliminar productos agotados
                 } catch (error) {
                     console.error('Error adding to cart:', error);
                     alert('Hubo un error al añadir al carrito. Por favor, intenta de nuevo.');

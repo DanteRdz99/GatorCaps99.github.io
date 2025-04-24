@@ -22,12 +22,12 @@ body {
     background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
     color: var(--dark-gray);
     min-height: 100vh;
-    padding-bottom: 80px; /* Aumentado para dejar espacio para el footer */
+    padding-bottom: 80px;
 }
 
 header {
     background: var(--pure-white);
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 2px 8px var(--shadow);
     position: relative;
     z-index: 1000;
@@ -39,12 +39,12 @@ header {
     justify-content: space-between;
     max-width: 1000px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 header img.logo {
-    width: 100px;
+    width: 80px;
     height: auto;
-    margin: 0;
     padding: 5px;
     border-radius: var(--border-radius);
     border: 1px solid var(--mid-gray);
@@ -56,16 +56,17 @@ header img.logo {
 }
 
 .header-text h1 {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--pure-black);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .social-links {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    align-items: center;
 }
 
 .social-icon {
@@ -74,45 +75,53 @@ header img.logo {
 }
 
 .social-logo {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
     transition: var(--transition);
 }
 
-.social-logo:hover {
+.whatsapp-btn img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.social-logo:hover,
+.whatsapp-btn img:hover {
     transform: scale(1.1);
     filter: brightness(1.2);
 }
 
 .container {
     max-width: 1000px;
-    margin: auto;
-    padding: 20px;
+    margin: 0 auto;
+    padding: 15px;
     background: var(--pure-white);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 16px var(--deep-shadow);
-    text-align: center; /* Centrar contenido */
+    text-align: center;
 }
 
 .subtheme {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--dark-gray);
     text-align: center;
-    margin: 20px 0;
+    margin: 15px 0;
     font-style: italic;
 }
 
 /* Featured Products */
 .featured {
     background: var(--light-gray);
-    padding: 40px 20px;
+    padding: 30px 15px;
     border-top: 1px solid var(--mid-gray);
 }
 
 .featured h2 {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--pure-black);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
 
@@ -120,22 +129,22 @@ header img.logo {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .gallery-item {
     background: var(--pure-white);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
-    padding: 15px;
-    width: 200px;
+    padding: 12px;
+    width: 180px;
     box-shadow: var(--box-shadow);
     transition: var(--transition), transform 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 280px;
+    min-height: 260px;
     align-items: center;
     text-decoration: none;
     color: inherit;
@@ -149,9 +158,9 @@ header img.logo {
 
 .gallery-item img {
     width: 100%;
-    max-width: 150px;
+    max-width: 140px;
     height: auto;
-    max-height: 150px;
+    max-height: 140px;
     border-radius: var(--border-radius);
     margin: 0 auto;
     border: 1px solid var(--mid-gray);
@@ -161,7 +170,7 @@ header img.logo {
 
 .gallery-item p {
     margin: 5px 0;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--dark-gray);
     text-align: center;
 }
@@ -177,30 +186,33 @@ header img.logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
-.categories, .subcategories {
+.categories,
+.subcategories {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin: 20px 0;
-    align-items: flex-start; /* Alinea los elementos en la parte superior */
+    gap: 20px;
+    margin: 15px 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .category-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    min-height: 150px; /* Altura mínima para alinear botones */
+    gap: 8px;
+    min-height: 140px;
 }
 
 /* Logo de la liga (para páginas como nba.html, mlb.html) */
 .league-logo {
-    max-width: 200px;
-    margin: 0 auto 20px;
+    max-width: 180px;
+    margin: 0 auto 15px;
     display: block;
     object-fit: contain;
     transition: var(--transition);
@@ -208,11 +220,11 @@ header img.logo {
 
 /* Logo de la liga para categorías (en catalogo.html) */
 .category-league-logo {
-    width: 100px; /* Tamaño mediano y uniforme */
-    height: 100px; /* Altura fija para uniformidad */
+    width: 90px;
+    height: 90px;
     margin: 0 auto;
     display: block;
-    object-fit: contain; /* Mantener proporciones */
+    object-fit: contain;
     transition: var(--transition);
 }
 
@@ -223,22 +235,22 @@ header img.logo {
 /* About Section */
 .about {
     background: var(--pure-white);
-    padding: 40px 20px;
+    padding: 30px 15px;
     border-top: 1px solid var(--mid-gray);
 }
 
 .about h2 {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--pure-black);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-transform: uppercase;
 }
 
 .about p {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--dark-gray);
     max-width: 600px;
-    margin: 0 auto 15px;
+    margin: 0 auto 12px;
 }
 
 .about a {
@@ -254,7 +266,7 @@ header img.logo {
 /* Footer */
 footer {
     background: var(--pure-black);
-    padding: 20px;
+    padding: 15px;
     color: var(--light-gray);
     position: fixed;
     bottom: 0;
@@ -263,18 +275,22 @@ footer {
 }
 
 footer p {
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
 }
 
 /* Buttons */
-button, .btn, .cta-btn, .add-to-cart, .add-btn {
+button,
+.btn,
+.cta-btn,
+.add-to-cart,
+.add-btn {
     background: var(--pure-black);
     color: var(--pure-white);
     border: none;
     border-radius: var(--border-radius);
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 8px 16px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 8px var(--shadow);
@@ -283,7 +299,11 @@ button, .btn, .cta-btn, .add-to-cart, .add-btn {
     text-align: center;
 }
 
-button:hover:not(:disabled), .btn:hover:not(:disabled), .cta-btn:hover, .add-to-cart:hover, .add-btn:hover {
+button:hover:not(:disabled),
+.btn:hover:not(:disabled),
+.cta-btn:hover,
+.add-to-cart:hover,
+.add-btn:hover {
     background: var(--dark-gray);
     box-shadow: 0 4px 12px var(--deep-shadow);
     transform: translateY(-2px);
@@ -298,8 +318,8 @@ button:disabled {
 }
 
 .cta-btn {
-    font-size: 16px;
-    padding: 10px 20px;
+    font-size: 15px;
+    padding: 8px 16px;
 }
 
 .cta-btn.stock-btn {
@@ -307,8 +327,8 @@ button:disabled {
     color: var(--pure-white);
     border: none;
     text-transform: uppercase;
-    font-size: 14px;
-    padding: 8px 16px;
+    font-size: 13px;
+    padding: 7px 14px;
     box-shadow: 0 2px 8px var(--shadow);
 }
 
@@ -323,9 +343,9 @@ button:disabled {
     color: var(--pure-white);
     border: none;
     text-transform: uppercase;
-    font-size: 14px;
-    padding: 10px 20px;
-    margin: 20px auto;
+    font-size: 13px;
+    padding: 8px 16px;
+    margin: 15px auto;
     text-align: center;
     box-shadow: 0 2px 8px var(--shadow);
     display: block;
@@ -337,14 +357,18 @@ button:disabled {
     transform: translateY(-2px);
 }
 
-.add-to-cart, .add-btn, .finalize-btn, .clear-cart-btn, .size-btn {
-    font-size: 14px;
-    padding: 8px 16px;
+.add-to-cart,
+.add-btn,
+.finalize-btn,
+.clear-cart-btn,
+.size-btn {
+    font-size: 13px;
+    padding: 7px 14px;
 }
 
 .finalize-btn {
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 15px;
+    font-size: 13px;
     background: var(--pure-black);
     color: var(--pure-white);
     border: none;
@@ -357,13 +381,13 @@ button:disabled {
 }
 
 .toggle-cart-btn {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     padding: 0;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 30px;
     text-align: center;
-    margin: 0 auto 10px;
+    margin: 0 auto 8px;
     border-radius: 50%;
     border: 1px solid var(--pure-black);
     background: var(--pure-white);
@@ -381,23 +405,23 @@ button:disabled {
 /* Carrito */
 #cart-container {
     position: fixed;
-    bottom: 60px; /* Ajustado para quedar por encima del footer */
-    right: 20px;
-    width: 350px;
+    bottom: 70px;
+    right: 15px;
+    width: 300px;
     background: var(--pure-white);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
-    padding: 15px;
-    max-height: 80vh;
-    z-index: 2000; /* Mayor que el footer para evitar superposición */
+    padding: 12px;
+    max-height: 70vh;
+    z-index: 2000;
     box-shadow: 0 6px 20px var(--deep-shadow);
     transition: all 0.3s ease;
 }
 
 #cart-container.minimized {
-    width: 50px;
-    height: 50px;
-    padding: 10px;
+    width: 48px;
+    height: 48px;
+    padding: 8px;
     overflow: hidden;
     transform: translateX(0);
     opacity: 1;
@@ -405,8 +429,8 @@ button:disabled {
 
 #cart-container.visible {
     transform: translateX(0);
-    width: 350px;
-    padding: 15px;
+    width: 300px;
+    padding: 12px;
     opacity: 1;
 }
 
@@ -423,16 +447,16 @@ button:disabled {
 }
 
 .cart-items {
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px;
+    padding: 7px;
     border-bottom: 1px solid var(--mid-gray);
     background: var(--light-gray);
     border-radius: 4px;
@@ -440,29 +464,29 @@ button:disabled {
 }
 
 .cart-item img {
-    width: 60px;
+    width: 50px;
     border-radius: var(--border-radius);
 }
 
 .cart-item-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
 }
 
 .cart-item-controls button {
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 4px 8px;
     background: var(--pure-black);
     color: var(--pure-white);
     border: none;
     border-radius: var(--border-radius);
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .cart-item-controls .remove-item {
-    padding: 3px 6px; /* Botón Eliminar más pequeño */
-    font-size: 12px;
+    padding: 3px 6px;
+    font-size: 11px;
 }
 
 .cart-item-controls span {
@@ -470,33 +494,34 @@ button:disabled {
 }
 
 #cart-total {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
-    margin: 10px 0;
+    margin: 8px 0;
     color: var(--pure-black);
 }
 
-.clear-cart-btn, .finalize-btn {
+.clear-cart-btn,
+.finalize-btn {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 8px;
+    margin-top: 8px;
     background: var(--pure-black);
     color: var(--pure-white);
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .back-btn {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    left: 15px;
+    width: 36px;
+    height: 36px;
     padding: 0;
-    font-size: 20px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 36px;
     text-align: center;
     border-radius: 50%;
     border: 1px solid var(--pure-black);
@@ -514,15 +539,16 @@ button:disabled {
 }
 
 .filters {
-    margin: 20px 0;
+    margin: 15px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .filters label {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--pure-black);
 }
@@ -532,14 +558,15 @@ button:disabled {
     color: var(--pure-black);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 7px 10px;
+    font-size: 15px;
     cursor: pointer;
     box-shadow: var(--box-shadow);
     transition: var(--transition);
 }
 
-.filters select:hover, .filters select:focus {
+.filters select:hover,
+.filters select:focus {
     background: var(--pure-black);
     color: var(--pure-white);
     box-shadow: 0 4px 12px var(--deep-shadow);
@@ -551,7 +578,7 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .pagination-btn {
@@ -559,10 +586,10 @@ button:disabled {
     color: var(--pure-white);
     border: none;
     border-radius: 5px;
-    padding: 8px 12px;
-    font-size: 14px;
+    padding: 7px 10px;
+    font-size: 13px;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 8px;
     transition: var(--transition);
 }
 
@@ -578,19 +605,19 @@ button:disabled {
 }
 
 .page-number {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     color: var(--pure-black);
-    margin: 0 10px;
+    margin: 0 8px;
 }
 
 .confirm-btn {
     background: #25D366;
     color: var(--pure-white);
     border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    margin: 10px;
+    padding: 8px 16px;
+    font-size: 13px;
+    margin: 8px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px var(--shadow);
 }
@@ -604,8 +631,8 @@ button:disabled {
 .size-options {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
+    gap: 8px;
+    margin: 8px 0;
 }
 
 .size-btn {
@@ -613,8 +640,8 @@ button:disabled {
     color: var(--pure-black);
     border: 1px solid var(--pure-black);
     border-radius: var(--border-radius);
-    padding: 8px 12px;
-    font-size: 14px;
+    padding: 7px 10px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: var(--box-shadow);
@@ -641,63 +668,53 @@ button:disabled {
     box-shadow: 0 4px 12px var(--deep-shadow);
 }
 
-.whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
-
-.whatsapp-btn img {
-    width: 50px; /* Tamaño fijo para el logo */
-    height: 50px;
-    vertical-align: middle;
-}
-
-@media (max-width: 600px) {
-    #cart-container {
-        width: 280px;
-        bottom: 70px; /* Ajustado para móviles */
-        right: 10px;
-    }
-
-    #cart-container.minimized {
-        width: 50px;
-        height: 50px;
-    }
-
-    #cart-container.visible {
-        width: 280px;
-    }
-
-    .cart-item img {
-        width: 50px;
-    }
-
+/* Media Queries para móviles */
+@media (max-width: 768px) {
     .header-content {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: 10px;
+    }
+
+    header img.logo {
+        width: 70px;
     }
 
     .header-text h1 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
-    .social-links {
-        margin-top: 10px;
+    .social-logo,
+    .whatsapp-btn img {
+        width: 32px;
+        height: 32px;
     }
 
-    .social-logo {
-        width: 40px;
-        height: 40px;
+    .container {
+        padding: 10px;
     }
 
-    .featured h2, .about h2 {
-        font-size: 24px;
+    .subtheme {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    .featured {
+        padding: 20px 10px;
+    }
+
+    .featured h2,
+    .about h2 {
+        font-size: 20px;
+    }
+
+    .gallery {
+        gap: 10px;
     }
 
     .gallery-item {
-        width: 180px;
+        width: 160px;
+        min-height: 240px;
     }
 
     .gallery-item img {
@@ -705,14 +722,150 @@ button:disabled {
         max-height: 120px;
     }
 
-    .categories, .subcategories {
+    .gallery-item p {
+        font-size: 12px;
+    }
+
+    .categories,
+    .subcategories {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 15px;
+    }
+
+    .category-item {
+        min-height: 120px;
     }
 
     .category-league-logo {
-        width: 80px; /* Tamaño mediano en móviles */
-        height: 80px; /* Altura fija en móviles */
+        width: 80px;
+        height: 80px;
+    }
+
+    .league-logo {
+        max-width: 150px;
+    }
+
+    .about {
+        padding: 20px 10px;
+    }
+
+    .about p {
+        font-size: 14px;
+    }
+
+    footer {
+        padding: 12px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+
+    #cart-container {
+        width: 280px;
+        bottom: 70px;
+        right: 10px;
+        max-height: 65vh;
+        padding: 10px;
+    }
+
+    #cart-container.minimized {
+        width: 48px;
+        height: 48px;
+    }
+
+    #cart-container.visible {
+        width: 280px;
+    }
+
+    .cart-items {
+        max-height: 200px;
+    }
+
+    .cart-item img {
+        width: 40px;
+    }
+
+    .cart-item-controls button {
+        padding: 3px 7px;
+        font-size: 10px;
+    }
+
+    .cart-item-controls .remove-item {
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+
+    #cart-total {
+        font-size: 14px;
+    }
+
+    .clear-cart-btn,
+    .finalize-btn {
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filters label,
+    .filters select {
+        font-size: 14px;
+    }
+
+    .filters select {
+        padding: 6px 8px;
+    }
+
+    .pagination-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .page-number {
+        font-size: 14px;
+    }
+
+    .confirm-btn {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+
+    .size-btn {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+    .header-text h1 {
+        font-size: 18px;
+    }
+
+    .gallery-item {
+        width: 140px;
+        min-height: 220px;
+    }
+
+    .gallery-item img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    #cart-container {
+        width: 260px;
+        right: 8px;
+    }
+
+    #cart-container.visible {
+        width: 260px;
     }
 }
