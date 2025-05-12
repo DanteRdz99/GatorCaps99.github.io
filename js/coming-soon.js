@@ -3,24 +3,36 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('coming-soon.js loaded');
 
     const comingSoonProducts = [
-        {
-            name: "NY Yankees World Series 1999 BlackSky Edition A-FRAME (Ajustable)",
-            price: 450,
-            image: "imagenes/catalogo/mlb/9forty/NY1.png",
-            arrivalDate: "15 de Mayo 2025"
-        },
-        {
-            name: "Chicago White Sox 9FORTY (Ajustable)",
-            price: 450,
-            image: "imagenes/catalogo/mlb/9forty/CWS1.png",
-            arrivalDate: "15 de Mayo 2025"
-        },
-        {
-            name: "Boston Red Sox Duckbill 59FIFTY",
-            price: 450,
-            image: "imagenes/catalogo/mlb/9forty/BRS1.png",
-            arrivalDate: "15 de Mayo 2025"
-        }
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" },
+        { name: "", price: 450, image: "Imagenes/Catalogo/NextDrop/", arrivalDate: "15 de Mayo 2025" }
     ];
 
     const gallery = document.getElementById('coming-soon-gallery');
@@ -33,12 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Rendering coming soon products:', comingSoonProducts);
         gallery.innerHTML = '';
 
-        if (comingSoonProducts.length === 0) {
+        // Filtrar productos con nombre e imagen no vacíos
+        const validProducts = comingSoonProducts.filter(product => product.name && product.image);
+        
+        if (validProducts.length === 0) {
             gallery.innerHTML = '<p>No hay productos próximos a llegar en este momento.</p>';
             return;
         }
 
-        comingSoonProducts.forEach(product => {
+        validProducts.forEach(product => {
             console.log('Attempting to load image:', product.image);
             const productElement = document.createElement('div');
             productElement.classList.add('gallery-item');
