@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let stock = await fetchStock();
         Object.keys(stock).forEach(productId => {
             if (!stock[productId] || typeof stock[productId] !== 'object') {
-                console.warn(`Invalid stock format for ${productId}, resetting to default`);
+                console.warn(`InvalidODEL stock format for ${productId}, resetting to default`);
                 stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants'
                     ? { 'Ajustable': 1 }
                     : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
@@ -101,13 +101,35 @@ document.addEventListener('DOMContentLoaded', () => {
         return Object.values(sizes).reduce((total, qty) => total + qty, 0);
     }
 
+    // Función para mostrar el modal con la imagen ampliada
+    function showImageModal(imageSrc, productName) {
+        const modal = document.createElement('div');
+        modal.classList.add('image-modal');
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <img src="${imageSrc}" alt="${productName}" class="modal-image">
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Cerrar el modal al hacer clic en la X o fuera del contenido
+        modal.querySelector('.close-modal').addEventListener('click', () => {
+            modal.remove();
+        });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+    }
+
     async function renderProducts() {
         console.log('Rendering products');
         const stock = await loadStock();
         console.log('Current stock:', stock);
         gallery.innerHTML = '';
 
-        // Filtrar productos con stock mayor a 0
         const availableProducts = products.filter(product => getTotalStock(product.productId, stock) > 0);
 
         if (availableProducts.length === 0) {
@@ -128,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isAdjustable && stock[product.productId]) {
                 const sizes = stock[product.productId];
                 sizeButtons = Object.keys(sizes)
-                    .filter(size => sizes[size] > 0) // Mostrar solo tallas con stock
+                    .filter(size => sizes[size] > 0)
                     .map(size => `
                         <button class="size-btn" data-size="${size}">
                             ${size}
@@ -138,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             productElement.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${product.image}" alt="${product.name}" class="product-image" data-image="${product.image}" data-name="${product.name}">
                 <p class="title">${product.name}</p>
                 <p class="price">$${product.price} MXN</p>
                 <div class="size-options" style="${isAdjustable || sizeButtons === '' ? 'display: none;' : 'display: flex;'}">
@@ -155,6 +177,16 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             gallery.appendChild(productElement);
         });
+
+        // Añadir evento de clic para ampliar imágenes
+        document.querySelectorAll('.product-image').forEach(img => {
+            img.addEventListener('click', () => {
+                const imageSrc = img.getAttribute('data-image');
+                const productName = img.getAttribute('data-name');
+                showImageModal(imageSrc, productName);
+            });
+        });
+
         attachSizeListeners(stock);
         attachAddToCartListeners();
     }
@@ -207,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stock = await fetchStock();
                 console.log(`Stock for ${product.productId}:`, stock[product.productId]);
 
-                if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
+                if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[productId][selectedSize] <= 0)) {
                     console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
                     alert('No hay stock disponible para esta talla.');
                     return;
@@ -218,10 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     await updateStock(stock);
                     window.cart.addToCart({ id: product.id, name: product.name, price: product.price, image: product.image, size: selectedSize });
                     console.log(`Added to cart: ${product.name} (${selectedSize})`);
-                    await renderProducts(); // Re-renderizar para eliminar productos agotados
+                    await renderProducts();
                 } catch (error) {
                     console.error('Error adding to cart:', error);
-                    alert('Hubo un error al añadir al carrito. Por favor, intenta de nuevo.');
+                    alert('Hubo un error molta al añadir al carrito. Por favor, intenta de nuevo.');
                 }
             });
         });
