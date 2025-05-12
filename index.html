@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="/Imagenes/Logos/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="imagenes/logos/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GatorCaps - Gorras Exclusivas</title>
@@ -11,19 +11,19 @@
     <header>
         <div class="header-content">
             <a href="index.html">
-                <img src="Imagenes/Logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
+                <img src="imagenes/logos/LogoGatorCaps.jpg" alt="GatorCaps Logo" class="logo">
             </a>
             <div class="header-text">
                 <h1>¡Bienvenido a GatorCaps!</h1>
                 <a href="stock.html" class="cta-btn stock-btn">Stock</a>
-                <a href="coming-soon.html" class="cta-btn stock-btn">Next DRop</a> <!-- Botón añadido -->
+                <a href="coming-soon.html" class="cta-btn stock-btn">Coming Soon</a>
             </div>
             <div class="social-links">
                 <a href="https://www.instagram.com/gatorcaps99" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/instagram.png" alt="Instagram" class="social-logo">
+                    <img src="imagenes/logos/instagram.png" alt="Instagram" class="social-logo">
                 </a>
                 <a href="https://wa.me/+525576070822?text=Hola,%20me%20gustaría%20contactarte" target="_blank" class="social-icon">
-                    <img src="Imagenes/Logos/whatsapp.png" alt="WhatsApp" class="social-logo">
+                    <img src="imagenes/logos/whatsapp.png" alt="WhatsApp" class="social-logo">
                 </a>
             </div>
         </div>
@@ -33,25 +33,22 @@
         <section class="featured">
             <h2>Productos Destacados</h2>
             <div class="gallery">
-                <!-- Gorra de 9Forty -->
                 <a href="mlb_9forty.html" class="gallery-item" data-product-id="ny-yankees-9forty">
-                    <img src="Imagenes/Catalogo/MLB/9FORTY/DIAMONDS1.png" alt="Arizona DiamondBacks">
+                    <img src="imagenes/catalogo/mlb/9forty/DIAMONDS1.png" alt="Arizona DiamondBacks" class="product-image" data-image="imagenes/catalogo/mlb/9forty/DIAMONDS1.png" data-name="Arizona DiamondBacks">
                     <p class="title">Arizona DiamondBacks</p>
                 </a>
-                <!-- Gorra de Stock -->
-                <a href="stock.html" class="gallery-item" data-product-id="Delta Tigers">
-                    <img src="Imagenes/Catalogo/StockDisp/DTDB.jpg" alt="Delta Tigers">
-                    <p class="title">Delta Tigers DuckBill</p>
+    
+                <a href="stock.html" class="gallery-item" data-product-id="Atlanta Braves">
+                    <img src="imagenes/catalogo/MLB/9FORTY/BRAVES.png" alt="Atlanta Braves" class="product-image" data-image="imagenes/catalogo/stockdisp/DTDB.jpg" data-name="Delta Tigers DuckBill">
+                    <p class="title">Atlanta Braves</p>
                 </a>
-                <!-- Gorra de NBA -->
                 <a href="nba.html" class="gallery-item" data-product-id="la-lakers-nba">
-                    <img src="Imagenes/Catalogo/NBA/LAKERS3_pixian_ai.png" alt="LA Lakers NBA">
+                    <img src="imagenes/catalogo/nba/LAKERS3_pixian_ai.png" alt="LA Lakers NBA" class="product-image" data-image="imagenes/catalogo/nba/LAKERS3_pixian_ai.png" data-name="LA Lakers NBA">
                     <p class="title">LA Lakers NBA</p>
                 </a>
-                <!-- Gorra de Stock -->
-                <a href="stock.html" class="gallery-item" data-product-id="sf-giants">
-                    <img src="Imagenes/Catalogo/StockDisp/SFA.jpg" alt="SF Giants">
-                    <p class="title">SF Giants World Series (Ajustable)</p>
+                <a href="stock.html" class="gallery-item" data-product-id="LA Dodgers">
+                    <img src="imagenes/catalogo/MLB/59FIFTY/LA6.png" alt="LA Dodgers" class="product-image" data-image="imagenes/catalogo/stockdisp/SFA.jpg" data-name="SF Giants World Series (Ajustable)">
+                    <p class="title">LA Dodgers 59FIFTY</p>
                 </a>
             </div>
             <a href="catalogo.html" class="cta-btn catalog-btn">Nuestro Catálogo</a>
@@ -72,6 +69,7 @@
         <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
         <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
+    <script src="js/modal.js"></script> <!-- Añadido -->
     <script src="js/index.js"></script>
 </body>
 </html>

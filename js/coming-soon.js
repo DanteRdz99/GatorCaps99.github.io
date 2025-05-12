@@ -71,37 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             gallery.appendChild(productElement);
         });
-
-        document.querySelectorAll('.product-image').forEach(img => {
-            img.addEventListener('click', () => {
-                const imageSrc = img.getAttribute('data-image');
-                const productName = img.getAttribute('data-name');
-                console.log('Opening modal for:', imageSrc);
-                showImageModal(imageSrc, productName);
-            });
-        });
-    }
-
-    function showImageModal(imageSrc, productName) {
-        console.log('Creating modal with image:', imageSrc);
-        const modal = document.createElement('div');
-        modal.classList.add('image-modal');
-        modal.innerHTML = `
-            <div class="modal-content">
-                <span class="close-modal">×</span>
-                <img src="${imageSrc}" alt="${productName}" class="modal-image" onerror="console.warn('Failed to load modal image: ${imageSrc}');">
-            </div>
-        `;
-        document.body.appendChild(modal);
-
-        modal.querySelector('.close-modal').addEventListener('click', () => {
-            modal.remove();
-        });
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
     }
 
     renderComingSoonProducts();
