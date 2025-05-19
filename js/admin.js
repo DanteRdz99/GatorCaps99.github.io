@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('admin-password');
     const loginBtn = document.getElementById('login-btn');
     const errorMessage = document.getElementById('error-message');
-    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41'; // Reemplaza con tu Bin ID
-    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS'; // Reemplaza con tu Secret Key
+    const JSONBIN_URL = 'https://api.jsonbin.io/v3/b/68089cf28960c979a58b2b41';
+    const JSONBIN_SECRET = '$2a$10$OA/YdNdgYSjivk/QxzNPVueW2fqmV/2Bh2lXzxBM3gpcli2a6muGS';
 
-
-    // Verificar si ya está autenticado
     if (localStorage.getItem('adminAuthenticated') === 'true') {
         console.log('Admin already authenticated');
         loginForm.style.display = 'none';
@@ -55,30 +53,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
                 'sf-giants': { 'Ajustable': 1 },
                 'sf-giants-duckbill': { '7 3/8': 1 },
-                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
+                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
+                'la-angels-9forty': { 'Ajustable': 1 },
+                'delta-tigers-9forty': { 'Ajustable': 1 },
+                'florida-marlins-9forty': { 'Ajustable': 1 },
+                'la-dodgers-9forty': { 'Ajustable': 1 },
+                'la-dodgers-9forty-blue': { 'Ajustable': 1 },
+                'la-dodgers-9forty-gray': { 'Ajustable': 1 },
+                'la-dodgers-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'la-dodgers-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-9forty': { 'Ajustable': 1 },
+                'ny-yankees-9forty-blue': { 'Ajustable': 1 },
+                'ny-yankees-9forty-gray': { 'Ajustable': 1 },
+                'ny-yankees-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'san-diego-padres-9forty': { 'Ajustable': 1 },
+                'sf-giants-9forty': { 'Ajustable': 1 },
+                'sf-giants-9forty-blue': { 'Ajustable': 1 },
+                'texas-rangers-9forty': { 'Ajustable': 1 }
             };
             console.log('Using default stock:', defaultStock);
-            return defaultStock;
+            try {
+                await updateStock(defaultStock);
+                console.log('Default stock initialized in JSONBin.io');
+                return defaultStock;
+            } catch (initError) {
+                console.error('Error initializing default stock:', initError);
+                return defaultStock;
+            }
         }
     }
 
-    async function updateStock(stock) {
+    async function updateStock(stock, retries = 3, delay = 1000) {
         console.log('Updating stock on JSONBin.io:', stock);
-        try {
-            const response = await fetch(JSONBIN_URL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_SECRET
-                },
-                body: JSON.stringify(stock)
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        for (let attempt = 1; attempt <= retries; attempt++) {
+            try {
+                const response = await fetch(JSONBIN_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_SECRET
+                    },
+                    body: JSON.stringify(stock)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                console.log('Stock updated successfully');
+                return;
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed to update stock:`, error);
+                if (attempt === retries) {
+                    console.error('Max retries reached, stock update failed');
+                    throw error;
+                }
+                console.log(`Retrying in ${delay}ms...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
             }
-            console.log('Stock updated successfully');
-        } catch (error) {
-            console.error('Error updating stock:', error);
         }
     }
 
@@ -89,16 +120,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const productSelect = document.getElementById('product');
         const sizeSelect = document.getElementById('size');
 
-        // Actualizar tallas según el producto seleccionado
         function updateSizeOptions() {
             console.log('Updating size options for product:', productSelect.value);
             const selectedProduct = productSelect.value;
             sizeSelect.innerHTML = '';
             let sizes = [];
-            if (selectedProduct === 'sf-giants') {
+            if (selectedProduct.includes('9forty')) {
                 sizes = ['Ajustable'];
             } else if (selectedProduct === 'sf-giants-duckbill') {
                 sizes = ['7 3/8'];
+            } else if (selectedProduct === 'delta-tigers-duckbill') {
+                sizes = ['7 3/8', '7 1/2'];
             } else {
                 sizes = ['7 1/8', '7 3/8', '7 1/2'];
             }
@@ -111,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         productSelect.addEventListener('change', updateSizeOptions);
-        updateSizeOptions(); // Inicializar tallas
+        updateSizeOptions();
 
         async function loadAndUpdateStockList() {
             console.log('Loading and updating stock list');
@@ -132,18 +164,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const size = sizeSelect.value;
             const quantity = parseInt(document.getElementById('quantity').value);
 
+            if (quantity <= 0) {
+                alert('La cantidad debe ser mayor que 0');
+                return;
+            }
+
             const stock = await fetchStock();
+            if (!stock[product]) {
+                stock[product] = {};
+            }
             if (!stock[product][size]) {
                 stock[product][size] = 0;
             }
             stock[product][size] += quantity;
-            await updateStock(stock);
-            await loadAndUpdateStockList();
-            alert(`Se repusieron ${quantity} unidades de ${product} (talla ${size})`);
+            try {
+                await updateStock(stock);
+                await loadAndUpdateStockList();
+                alert(`Se repusieron ${quantity} unidades de ${product} (talla ${size})`);
+            } catch (error) {
+                console.error('Error updating stock:', error);
+                alert('Hubo un error al reponer el stock. Por favor, intenta de nuevo.');
+            }
         });
 
         loadAndUpdateStockList().catch(error => {
             console.error('Error loading stock list:', error);
+            alert('Error al cargar el stock. Por favor, recarga la página.');
         });
     }
 });

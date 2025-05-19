@@ -16,7 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 3, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA59F.jpg", productId: "la-dodgers" },
         { id: 4, name: "SF Giants World Series 9FORTY (Ajustable)", price: 450, image: "Imagenes/Catalogo/StockDisp/SFA.jpg", productId: "sf-giants" },
         { id: 5, name: "SF Giants Duckbill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/SFDB.jpg", productId: "sf-giants-duckbill" },
-        { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" }
+        { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" },
+        { id: 7, name: "Anaheimn Angels World Champions 20th Anniversary 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Angels1_pixian_ai.png", productId: "la-angels-9forty" },
+        { id: 8, name: "Delta Tigers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/DT1_pixian_ai.png", productId: "delta-tigers-9forty" },
+        { id: 9, name: "Florida Marlins 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Florida_pixian_ai.png", productId: "florida-marlins-9forty" },
+        { id: 10, name: "LA Dodgers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/LA1_pixian_ai.png", productId: "la-dodgers-9forty" },
+        { id: 11, name: "LA Dodgers 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/LA2_pixian_ai.png", productId: "la-dodgers-9forty-blue" },
+        { id: 12, name: "LA Dodgers 9FORTY Gray", price: 450, image: "Imagenes/Catalogo/StockDisp/LA3_pixian_ai.png", productId: "la-dodgers-9forty-gray" },
+        { id: 13, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA4_pixian_ai.png", productId: "la-dodgers-59fifty" },
+        { id: 14, name: "LA Dodgers 59FIFTY Black", price: 500, image: "Imagenes/Catalogo/StockDisp/LA5_pixian_ai.png", productId: "la-dodgers-59fifty-black" },
+        { id: 15, name: "NY Yankees 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/NY1_pixian_ai.png", productId: "ny-yankees-9forty" },
+        { id: 16, name: "NY Yankees 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/NY2_pixian_ai.png", productId: "ny-yankees-9forty-blue" },
+        { id: 17, name: "NY Yankees 9FORTY Gray", price: 450, image: "Imagenes/Catalogo/StockDisp/NY3_pixian_ai.png", productId: "ny-yankees-9forty-gray" },
+        { id: 18, name: "NY Yankees 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY4_pixian_ai.png", productId: "ny-yankees-59fifty" },
+        { id: 19, name: "NY Yankees 59FIFTY Black", price: 500, image: "Imagenes/Catalogo/StockDisp/NY5_pixian_ai.png", productId: "ny-yankees-59fifty-black" },
+        { id: 20, name: "San Diego Padres 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/SD1_pixian_ai.png", productId: "san-diego-padres-9forty" },
+        { id: 21, name: "SF Giants 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/SF1_pixian_ai.png", productId: "sf-giants-9forty" },
+        { id: 22, name: "SF Giants 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/SF2_pixian_ai.png", productId: "sf-giants-9forty-blue" },
+        { id: 23, name: "Texas Rangers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Texas1_pixian_ai.png", productId: "texas-rangers-9forty" }
     ];
 
     async function fetchStock() {
@@ -41,41 +58,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
                 'sf-giants': { 'Ajustable': 1 },
                 'sf-giants-duckbill': { '7 3/8': 1 },
-                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }
+                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
+                'la-angels-9forty': { 'Ajustable': 1 },
+                'delta-tigers-9forty': { 'Ajustable': 1 },
+                'florida-marlins-9forty': { 'Ajustable': 1 },
+                'la-dodgers-9forty': { 'Ajustable': 1 },
+                'la-dodgers-9forty-blue': { 'Ajustable': 1 },
+                'la-dodgers-9forty-gray': { 'Ajustable': 1 },
+                'la-dodgers-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'la-dodgers-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-9forty': { 'Ajustable': 1 },
+                'ny-yankees-9forty-blue': { 'Ajustable': 1 },
+                'ny-yankees-9forty-gray': { 'Ajustable': 1 },
+                'ny-yankees-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'san-diego-padres-9forty': { 'Ajustable': 1 },
+                'sf-giants-9forty': { 'Ajustable': 1 },
+                'sf-giants-9forty-blue': { 'Ajustable': 1 },
+                'texas-rangers-9forty': { 'Ajustable': 1 }
             };
             console.log('Using default stock:', defaultStock);
-            return defaultStock;
+            try {
+                await updateStock(defaultStock);
+                console.log('Default stock initialized in JSONBin.io');
+                return defaultStock;
+            } catch (initError) {
+                console.error('Error initializing default stock:', initError);
+                return defaultStock;
+            }
         }
     }
 
-    async function updateStock(stock) {
+    async function updateStock(stock, retries = 3, delay = 1000) {
         console.log('Updating stock on JSONBin.io:', stock);
-        try {
-            const response = await fetch(JSONBIN_URL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_SECRET
-                },
-                body: JSON.stringify(stock)
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        for (let attempt = 1; attempt <= retries; attempt++) {
+            try {
+                const response = await fetch(JSONBIN_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_SECRET
+                    },
+                    body: JSON.stringify(stock)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                console.log('Stock updated successfully');
+                return;
+            } catch (error) {
+                console.error(`Attempt ${attempt} failed to update stock:`, error);
+                if (attempt === retries) {
+                    console.error('Max retries reached, stock update failed');
+                    throw error;
+                }
+                console.log(`Retrying in ${delay}ms...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
             }
-            console.log('Stock updated successfully');
-        } catch (error) {
-            console.error('Error updating stock:', error);
-            throw error;
         }
     }
 
     async function loadStock() {
         console.log('Loading stock');
         let stock = await fetchStock();
-        Object.keys(stock).forEach(productId => {
+
+        products.forEach(product => {
+            const productId = product.productId;
             if (!stock[productId] || typeof stock[productId] !== 'object') {
-                console.warn(`InvalidODEL stock format for ${productId}, resetting to default`);
-                stock[productId] = products.find(p => p.productId === productId)?.productId === 'sf-giants'
+                console.warn(`No stock found for ${productId}, initializing with default`);
+                stock[productId] = product.productId.includes('9forty')
                     ? { 'Ajustable': 1 }
                     : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
             }
@@ -86,7 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-        await updateStock(stock);
+
+        try {
+            await updateStock(stock);
+            console.log('Stock validated and updated in JSONBin.io');
+        } catch (error) {
+            console.error('Error updating stock in loadStock:', error);
+        }
+
         return stock;
     }
 
@@ -101,19 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return Object.values(sizes).reduce((total, qty) => total + qty, 0);
     }
 
-    // Función para mostrar el modal con la imagen ampliada
     function showImageModal(imageSrc, productName) {
         const modal = document.createElement('div');
         modal.classList.add('image-modal');
         modal.innerHTML = `
             <div class="modal-content">
-                <span class="close-modal">&times;</span>
+                <span class="close-modal">×</span>
                 <img src="${imageSrc}" alt="${productName}" class="modal-image">
             </div>
         `;
         document.body.appendChild(modal);
 
-        // Cerrar el modal al hacer clic en la X o fuera del contenido
         modal.querySelector('.close-modal').addEventListener('click', () => {
             modal.remove();
         });
@@ -139,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         availableProducts.forEach(product => {
             const totalStock = getTotalStock(product.productId, stock);
-            const isAdjustable = product.productId === 'sf-giants';
+            const isAdjustable = product.productId.includes('9forty');
             console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Sizes:`, stock[product.productId]);
 
             const productElement = document.createElement('div');
@@ -178,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery.appendChild(productElement);
         });
 
-        // Añadir evento de clic para ampliar imágenes
         document.querySelectorAll('.product-image').forEach(img => {
             img.addEventListener('click', () => {
                 const imageSrc = img.getAttribute('data-image');
@@ -226,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productId = parseInt(button.dataset.id);
                 const product = products.find(p => p.id === productId);
                 const item = button.closest('.gallery-item');
-                const selectedSize = item.getAttribute('data-selected-size') || (product.productId === 'sf-giants' ? 'Ajustable' : null);
+                const selectedSize = item.getAttribute('data-selected-size') || (product.productId.includes('9forty') ? 'Ajustable' : null);
 
                 console.log(`Attempting to add to cart: ${product.name}, Size: ${selectedSize}`);
 
@@ -239,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stock = await fetchStock();
                 console.log(`Stock for ${product.productId}:`, stock[product.productId]);
 
-                if (product.productId !== 'sf-giants' && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[productId][selectedSize] <= 0)) {
+                if (!product.productId.includes('9forty') && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
                     console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
                     alert('No hay stock disponible para esta talla.');
                     return;
@@ -253,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     await renderProducts();
                 } catch (error) {
                     console.error('Error adding to cart:', error);
-                    alert('Hubo un error molta al añadir al carrito. Por favor, intenta de nuevo.');
+                    alert('Hubo un error al añadir al carrito. Por favor, intenta de nuevo.');
                 }
             });
         });
