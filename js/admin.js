@@ -48,26 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching stock:', error);
             const defaultStock = {
-                'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
-                'sf-giants': { 'Ajustable': 1 },
-                'sf-giants-duckbill': { '7 3/8': 1 },
-                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
-                'la-angels-9forty': { 'Ajustable': 1 },
-                'delta-tigers-9forty': { 'Ajustable': 1 },
-                'la-dodgers-9forty-blue': { 'Ajustable': 1 },
-                'la-dodgers-9forty-gray': { 'Ajustable': 1 },
-                'la-dodgers-59fifty': { 'Ajustable': 1 },
-                'la-dodgers-59fifty-black': { 'Ajustable': 1 },
-                'ny-yankees-9forty': { 'Ajustable': 1 },
-                'ny-yankees-9forty-blue': { 'Ajustable': 1 },
-                'ny-yankees-59fifty': { 'Ajustable': 1 },
-                'ny-yankees-59fifty-black': { 'Ajustable': 1 },
-                'white-sox': { 'Ajustable': 1 },
-                'san-diego-padres-9forty': { 'Ajustable': 1 },
-                'sf-giants-9forty': { 'Ajustable': 1 },
-                'texas-rangers-9forty': { 'Ajustable': 1 }
+                'la-dodgers': { '7 1/8': 0, '7 3/8': 1, '7 1/2': 0 },
+                'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 0 },
+                'texas-rangers': { '7 1/8': 0, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-9forty': { 'Ajustable': 1 }, // Subway Series 2000
+                'ny-yankees-9forty-blue': { 'Ajustable': 1 }, // World Series 2009
+                'ny-yankees-59fifty': { 'Ajustable': 1 }, // Cocoa Series 2000
+                'la-dodgers-9forty-blue': { 'Ajustable': 1 }, // All Star Game 1970 Metallic Edition
+                'la-dodgers-9forty-gray': { 'Ajustable': 1 }, // 35th Anniversary
+                'la-dodgers-59fifty': { 'Ajustable': 1 }, // Black Gold Prime Edition
+                'la-dodgers-59fifty-black': { 'Ajustable': 2 }, // #ITFDB
+                'la-angels-9forty': { 'Ajustable': 1 }, // Anaheim Angels
+                'delta-tigers-9forty': { 'Ajustable': 1 }, // Delta Tigers
+                'sf-giants': { 'Ajustable': 1 }, // SF Giants World Series
+                'san-diego-padres-9forty': { 'Ajustable': 1 }, // San Diego Padres
+                'texas-rangers-9forty': { 'Ajustable': 2 }, // Texas Rangers Anniversary
+                'la-dodgers-9forty-la50th': { 'Ajustable': 2 }, // LA Dodgers 50th Anniversary
+                'ny-yankees-59fifty-black': { 'Ajustable': 2 }, // flame logo
+                'white-sox': { 'Ajustable': 2 }, // flame logo
+                'sf-giants-duckbill': { '7 3/8': 0 }, //  stock 0
+                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 }, // stock 0
+                'sf-giants-9forty': { 'Ajustable': 0 } // stock 0
             };
             console.log('Using default stock:', defaultStock);
             try {

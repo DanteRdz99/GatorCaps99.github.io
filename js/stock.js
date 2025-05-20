@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 16, name: "NY Yankees WORLD SERIES 2009 9FORTY A-FRAME", price: 500, image: "Imagenes/Catalogo/StockDisp/NY2_pixian_ai.png", productId: "ny-yankees-9forty-blue" },
         { id: 18, name: "NY Yankees Cocoa Series 2000 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY4_pixian_ai.png", productId: "ny-yankees-59fifty" },
         { id: 19, name: "NY Yankees Red Flame Logo 1998 World Series 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY5_pixian_ai.png", productId: "ny-yankees-59fifty-black" },
-        { id: 24, name: "Chicago White Sox Flame Logo World Series Champions 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/whitesox_pixian_ai.png", productId: "white-sox" },
         { id: 20, name: "San Diego Padres Burnt Wood Edition 9Forty A Frame", price: 500, image: "Imagenes/Catalogo/StockDisp/SD1_pixian_ai.png", productId: "san-diego-padres-9forty" },
         { id: 21, name: "SF Giants All Star Game 1984 Prime Edition 9Forty", price: 500, image: "Imagenes/Catalogo/StockDisp/SF1_pixian_ai.png", productId: "sf-giants-9forty" },
         { id: 23, name: "Texas Rangers Anniversary 40th 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/Texas1_pixian_ai.png", productId: "texas-rangers-9forty" },
-        { id: 25, name: "LA Dodgers 50th Anniversary 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA50TH.jpg",  productId: "la-dodgers-9forty-la50th"}
+        { id: 24, name: "Chicago White Sox Flame Logo World Series Champions 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/whitesox_pixian_ai.png", productId: "white-sox" },
+        { id: 25, name: "LA Dodgers 50th Anniversary 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA50TH.jpg", productId: "la-dodgers-9forty-la50th" }
     ];
 
     async function fetchStock() {
@@ -51,23 +51,29 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching stock:', error);
             const defaultStock = {
-            'la-dodgers': { '7 3/8': 1 },
-            'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1 },
-            'texas-rangers': { '7 3/8': 1, '7 1/2': 1 },
-            'ny-yankees-9forty': { 'Ajustable': 1 }, // Subway Series
-            'ny-yankees-9forty-blue': { 'Ajustable': 1 }, // World Series 2000
-            'ny-yankees-59fifty': { 'Ajustable': 1 }, // Cocoa Series
-            'la-dodgers-9forty-blue': { 'Ajustable': 1 }, // All Star Metallic Edition
-            'la-dodgers-9forty-gray': { 'Ajustable': 1 }, // 35th Anniversary
-            'la-dodgers-59fifty': { 'Ajustable': 1 }, // Black Gold Prime Edition
-            'la-dodgers-59fifty-black': { 'Ajustable': 2 }, // #ITFDB
-            'la-angels-9forty': { 'Ajustable': 1 },
-            'delta-tigers-9forty': { 'Ajustable': 1 },
-            'sf-giants': { 'Ajustable': 1 },
-            'san-diego-padres-9forty': { 'Ajustable': 1 },
-            'texas-rangers-9forty': { 'Ajustable': 2 },
-            'la-dodgers-9forty-la50th': { 'Ajustable': 2 } // NUEVA entrada
-        };
+                'la-dodgers': { '7 3/8': 1 },
+                'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1 },
+                'texas-rangers': { '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-9forty': { 'Ajustable': 1 }, // Subway Series 2000
+                'ny-yankees-9forty-blue': { 'Ajustable': 1 }, // World Series 2009
+                'ny-yankees-59fifty': { 'Ajustable': 1 }, // Cocoa Series 2000
+                'la-dodgers-9forty-blue': { 'Ajustable': 1 }, // All Star Game 1970 Metallic Edition
+                'la-dodgers-9forty-gray': { 'Ajustable': 1 }, // 35th Anniversary
+                'la-dodgers-59fifty': { 'Ajustable': 1 }, // Black Gold Prime Edition
+                'la-dodgers-59fifty-black': { 'Ajustable': 2 }, // #ITFDB
+                'la-angels-9forty': { 'Ajustable': 1 }, // Anaheim Angels
+                'delta-tigers-9forty': { 'Ajustable': 1 }, // Delta Tigers
+                'sf-giants': { 'Ajustable': 1 }, // SF Giants World Series
+                'san-diego-padres-9forty': { 'Ajustable': 1 }, // San Diego Padres
+                'texas-rangers-9forty': { 'Ajustable': 2 }, // Texas Rangers Anniversary
+                'la-dodgers-9forty-la50th': { 'Ajustable': 2 }, // LA Dodgers 50th Anniversary
+                // Productos no especificados en las cantidades, manteniendo valores predeterminados
+                'sf-giants-duckbill': { '7 3/8': 1 },
+                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
+                'sf-giants-9forty': { 'Ajustable': 1 },
+                'ny-yankees-59fifty-black': { 'Ajustable': 2 },
+                'white-sox': { 'Ajustable': 2 }
+            };
 
             console.log('Using default stock:', defaultStock);
             try {
