@@ -14,26 +14,24 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 1, name: "Pirates Pittsburgh 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/PTS59F.jpg", productId: "pirates-pittsburgh" },
         { id: 2, name: "Texas Rangers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/TR59F.jpg", productId: "texas-rangers" },
         { id: 3, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA59F.jpg", productId: "la-dodgers" },
-        { id: 4, name: "SF Giants World Series 9FORTY (Ajustable)", price: 450, image: "Imagenes/Catalogo/StockDisp/SFA.jpg", productId: "sf-giants" },
+        { id: 4, name: "SF Giants World Series 9FORTY (Ajustable)", price: 500, image: "Imagenes/Catalogo/StockDisp/SFA.jpg", productId: "sf-giants" },
         { id: 5, name: "SF Giants Duckbill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/SFDB.jpg", productId: "sf-giants-duckbill" },
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" },
-        { id: 7, name: "Anaheimn Angels World Champions 20th Anniversary 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Angels1_pixian_ai.png", productId: "la-angels-9forty" },
-        { id: 8, name: "Delta Tigers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/DT1_pixian_ai.png", productId: "delta-tigers-9forty" },
-        { id: 9, name: "Florida Marlins 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Florida_pixian_ai.png", productId: "florida-marlins-9forty" },
-        { id: 10, name: "LA Dodgers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/LA1_pixian_ai.png", productId: "la-dodgers-9forty" },
-        { id: 11, name: "LA Dodgers 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/LA2_pixian_ai.png", productId: "la-dodgers-9forty-blue" },
-        { id: 12, name: "LA Dodgers 9FORTY Gray", price: 450, image: "Imagenes/Catalogo/StockDisp/LA3_pixian_ai.png", productId: "la-dodgers-9forty-gray" },
-        { id: 13, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA4_pixian_ai.png", productId: "la-dodgers-59fifty" },
-        { id: 14, name: "LA Dodgers 59FIFTY Black", price: 500, image: "Imagenes/Catalogo/StockDisp/LA5_pixian_ai.png", productId: "la-dodgers-59fifty-black" },
-        { id: 15, name: "NY Yankees 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/NY1_pixian_ai.png", productId: "ny-yankees-9forty" },
-        { id: 16, name: "NY Yankees 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/NY2_pixian_ai.png", productId: "ny-yankees-9forty-blue" },
-        { id: 17, name: "NY Yankees 9FORTY Gray", price: 450, image: "Imagenes/Catalogo/StockDisp/NY3_pixian_ai.png", productId: "ny-yankees-9forty-gray" },
-        { id: 18, name: "NY Yankees 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY4_pixian_ai.png", productId: "ny-yankees-59fifty" },
-        { id: 19, name: "NY Yankees 59FIFTY Black", price: 500, image: "Imagenes/Catalogo/StockDisp/NY5_pixian_ai.png", productId: "ny-yankees-59fifty-black" },
-        { id: 20, name: "San Diego Padres 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/SD1_pixian_ai.png", productId: "san-diego-padres-9forty" },
-        { id: 21, name: "SF Giants 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/SF1_pixian_ai.png", productId: "sf-giants-9forty" },
-        { id: 22, name: "SF Giants 9FORTY Blue", price: 450, image: "Imagenes/Catalogo/StockDisp/SF2_pixian_ai.png", productId: "sf-giants-9forty-blue" },
-        { id: 23, name: "Texas Rangers 9FORTY", price: 450, image: "Imagenes/Catalogo/StockDisp/Texas1_pixian_ai.png", productId: "texas-rangers-9forty" }
+        { id: 7, name: "Anaheim Angels World Champions 20th Anniversary 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/Angels1_pixian_ai.png", productId: "la-angels-9forty" },
+        { id: 8, name: "Delta Tigers BRIGGS STADIUM BLACK 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DT1_pixian_ai.png", productId: "delta-tigers-9forty" },
+        { id: 11, name: "LA Dodgers All Star Game 1970 Metallic Edition 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA2_pixian_ai.png", productId: "la-dodgers-9forty-blue" },
+        { id: 12, name: "LA Dodgers 9FORTY 35TH ANNIVERSARY A-FRAME", price: 500, image: "Imagenes/Catalogo/StockDisp/LA3_pixian_ai.png", productId: "la-dodgers-9forty-gray" },
+        { id: 13, name: "LA Dodgers Black Gold Prime Edition 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA4_pixian_ai.png", productId: "la-dodgers-59fifty" },
+        { id: 14, name: "LA Dodgers 9forty A-FRAME #ITFDB CAMEL/ PINK UV", price: 500, image: "Imagenes/Catalogo/StockDisp/LA5_pixian_ai.png", productId: "la-dodgers-59fifty-black" },
+        { id: 15, name: "NY Yankees SUBWAY SERIES 2000 9FORTY A-FRAME", price: 500, image: "Imagenes/Catalogo/StockDisp/NY1_pixian_ai.png", productId: "ny-yankees-9forty" },
+        { id: 16, name: "NY Yankees WORLD SERIES 2009 9FORTY A-FRAME", price: 500, image: "Imagenes/Catalogo/StockDisp/NY2_pixian_ai.png", productId: "ny-yankees-9forty-blue" },
+        { id: 18, name: "NY Yankees Cocoa Series 2000 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY4_pixian_ai.png", productId: "ny-yankees-59fifty" },
+        { id: 19, name: "NY Yankees Red Flame Logo 1998 World Series 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/NY5_pixian_ai.png", productId: "ny-yankees-59fifty-black" },
+        { id: 24, name: "Chicago White Sox Flame Logo World Series Champions 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/whitesox_pixian_ai.png", productId: "white-sox" },
+        { id: 20, name: "San Diego Padres Burnt Wood Edition 9Forty A Frame", price: 500, image: "Imagenes/Catalogo/StockDisp/SD1_pixian_ai.png", productId: "san-diego-padres-9forty" },
+        { id: 21, name: "SF Giants All Star Game 1984 Prime Edition 9Forty", price: 500, image: "Imagenes/Catalogo/StockDisp/SF1_pixian_ai.png", productId: "sf-giants-9forty" },
+        { id: 23, name: "Texas Rangers Anniversary 40th 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/Texas1_pixian_ai.png", productId: "texas-rangers-9forty" },
+        { id: 25, name: "LA Dodgers 50th Anniversary 9FORTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA50TH.jpg",  productId: "la-dodgers-9forty-la50th"}
     ];
 
     async function fetchStock() {
@@ -53,30 +51,24 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error fetching stock:', error);
             const defaultStock = {
-                'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'texas-rangers': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'la-dodgers': { '7 1/8': 1, '7 3/8': 1 },
-                'sf-giants': { 'Ajustable': 1 },
-                'sf-giants-duckbill': { '7 3/8': 1 },
-                'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
-                'la-angels-9forty': { 'Ajustable': 1 },
-                'delta-tigers-9forty': { 'Ajustable': 1 },
-                'florida-marlins-9forty': { 'Ajustable': 1 },
-                'la-dodgers-9forty': { 'Ajustable': 1 },
-                'la-dodgers-9forty-blue': { 'Ajustable': 1 },
-                'la-dodgers-9forty-gray': { 'Ajustable': 1 },
-                'la-dodgers-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'la-dodgers-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'ny-yankees-9forty': { 'Ajustable': 1 },
-                'ny-yankees-9forty-blue': { 'Ajustable': 1 },
-                'ny-yankees-9forty-gray': { 'Ajustable': 1 },
-                'ny-yankees-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'ny-yankees-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'san-diego-padres-9forty': { 'Ajustable': 1 },
-                'sf-giants-9forty': { 'Ajustable': 1 },
-                'sf-giants-9forty-blue': { 'Ajustable': 1 },
-                'texas-rangers-9forty': { 'Ajustable': 1 }
-            };
+            'la-dodgers': { '7 3/8': 1 },
+            'pirates-pittsburgh': { '7 1/8': 1, '7 3/8': 1 },
+            'texas-rangers': { '7 3/8': 1, '7 1/2': 1 },
+            'ny-yankees-9forty': { 'Ajustable': 1 }, // Subway Series
+            'ny-yankees-9forty-blue': { 'Ajustable': 1 }, // World Series 2000
+            'ny-yankees-59fifty': { 'Ajustable': 1 }, // Cocoa Series
+            'la-dodgers-9forty-blue': { 'Ajustable': 1 }, // All Star Metallic Edition
+            'la-dodgers-9forty-gray': { 'Ajustable': 1 }, // 35th Anniversary
+            'la-dodgers-59fifty': { 'Ajustable': 1 }, // Black Gold Prime Edition
+            'la-dodgers-59fifty-black': { 'Ajustable': 2 }, // #ITFDB
+            'la-angels-9forty': { 'Ajustable': 1 },
+            'delta-tigers-9forty': { 'Ajustable': 1 },
+            'sf-giants': { 'Ajustable': 1 },
+            'san-diego-padres-9forty': { 'Ajustable': 1 },
+            'texas-rangers-9forty': { 'Ajustable': 2 },
+            'la-dodgers-9forty-la50th': { 'Ajustable': 2 } // NUEVA entrada
+        };
+
             console.log('Using default stock:', defaultStock);
             try {
                 await updateStock(defaultStock);
@@ -126,9 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const productId = product.productId;
             if (!stock[productId] || typeof stock[productId] !== 'object') {
                 console.warn(`No stock found for ${productId}, initializing with default`);
-                stock[productId] = product.productId.includes('9forty')
+                stock[productId] = product.productId.includes('9forty') || product.productId.includes('59fifty') || product.productId === 'white-sox' || product.productId === 'sf-giants'
                     ? { 'Ajustable': 1 }
-                    : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
+                    : productId === 'sf-giants-duckbill'
+                        ? { '7 3/8': 1 }
+                        : productId === 'delta-tigers-duckbill'
+                            ? { '7 3/8': 1, '7 1/2': 1 }
+                            : { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 };
             }
             Object.keys(stock[productId]).forEach(size => {
                 if (typeof stock[productId][size] !== 'number' || stock[productId][size] < 0) {
@@ -195,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         availableProducts.forEach(product => {
             const totalStock = getTotalStock(product.productId, stock);
-            const isAdjustable = product.productId.includes('9forty');
+            const isAdjustable = product.productId.includes('9forty') || product.productId.includes('59fifty') || product.productId === 'white-sox' || product.productId === 'sf-giants';
             console.log(`Product: ${product.name}, Total Stock: ${totalStock}, Sizes:`, stock[product.productId]);
 
             const productElement = document.createElement('div');
@@ -281,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productId = parseInt(button.dataset.id);
                 const product = products.find(p => p.id === productId);
                 const item = button.closest('.gallery-item');
-                const selectedSize = item.getAttribute('data-selected-size') || (product.productId.includes('9forty') ? 'Ajustable' : null);
+                const selectedSize = item.getAttribute('data-selected-size') || (product.productId.includes('9forty') || product.productId.includes('59fifty') || product.productId === 'white-sox' || product.productId === 'sf-giants' ? 'Ajustable' : null);
 
                 console.log(`Attempting to add to cart: ${product.name}, Size: ${selectedSize}`);
 
@@ -294,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const stock = await fetchStock();
                 console.log(`Stock for ${product.productId}:`, stock[product.productId]);
 
-                if (!product.productId.includes('9forty') && (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0)) {
+                if (!stock[product.productId] || stock[product.productId][selectedSize] === undefined || stock[product.productId][selectedSize] <= 0) {
                     console.error(`Invalid or no stock for ${product.name}, size: ${selectedSize}`);
                     alert('No hay stock disponible para esta talla.');
                     return;

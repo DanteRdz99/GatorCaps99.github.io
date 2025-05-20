@@ -56,20 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 'delta-tigers-duckbill': { '7 3/8': 1, '7 1/2': 1 },
                 'la-angels-9forty': { 'Ajustable': 1 },
                 'delta-tigers-9forty': { 'Ajustable': 1 },
-                'florida-marlins-9forty': { 'Ajustable': 1 },
-                'la-dodgers-9forty': { 'Ajustable': 1 },
                 'la-dodgers-9forty-blue': { 'Ajustable': 1 },
                 'la-dodgers-9forty-gray': { 'Ajustable': 1 },
-                'la-dodgers-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'la-dodgers-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'la-dodgers-59fifty': { 'Ajustable': 1 },
+                'la-dodgers-59fifty-black': { 'Ajustable': 1 },
                 'ny-yankees-9forty': { 'Ajustable': 1 },
                 'ny-yankees-9forty-blue': { 'Ajustable': 1 },
-                'ny-yankees-9forty-gray': { 'Ajustable': 1 },
-                'ny-yankees-59fifty': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
-                'ny-yankees-59fifty-black': { '7 1/8': 1, '7 3/8': 1, '7 1/2': 1 },
+                'ny-yankees-59fifty': { 'Ajustable': 1 },
+                'ny-yankees-59fifty-black': { 'Ajustable': 1 },
+                'white-sox': { 'Ajustable': 1 },
                 'san-diego-padres-9forty': { 'Ajustable': 1 },
                 'sf-giants-9forty': { 'Ajustable': 1 },
-                'sf-giants-9forty-blue': { 'Ajustable': 1 },
                 'texas-rangers-9forty': { 'Ajustable': 1 }
             };
             console.log('Using default stock:', defaultStock);
@@ -125,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectedProduct = productSelect.value;
             sizeSelect.innerHTML = '';
             let sizes = [];
-            if (selectedProduct.includes('9forty')) {
+            if (selectedProduct.includes('9forty') || selectedProduct.includes('59fifty') || selectedProduct === 'white-sox' || selectedProduct === 'sf-giants') {
                 sizes = ['Ajustable'];
             } else if (selectedProduct === 'sf-giants-duckbill') {
                 sizes = ['7 3/8'];
