@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    
-<link rel="icon" href="/Imagenes/Logos/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Imagenes/Logos/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Disponible - GatorCaps</title>
@@ -19,8 +18,13 @@
             </div>
         </div>
     </header>
-    <div class="container">
-        <div class="gallery" id="gallery"></div>
+    <div class="stock-page">
+        <div class="container">
+            <section class="featured">
+                <h2>Productos Destacados</h2>
+                <div class="gallery" id="gallery"></div>
+            </section>
+        </div>
     </div>
     <div id="cart-container" class="cart-container minimized">
         <button id="toggle-cart" class="toggle-cart-btn">🛒</button>
@@ -30,6 +34,9 @@
         <button id="clear-cart" class="clear-cart-btn">Vaciar Carrito</button>
         <button id="finalize-order" class="finalize-btn">Finalizar Pedido</button>
     </div>
+    <footer>
+        <p>&copy; 2025 GatorCaps. Todos los derechos reservados.</p>
+    </footer>
     <script src="js/cart.js"></script>
     <script src="js/stock.js"></script>
     <script src="js/modal.js"></script>

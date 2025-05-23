@@ -1,0 +1,220 @@
+.stock-page .carousel {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--mid-gray);
+    margin: 0 auto;
+}
+
+.stock-page .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.stock-page .carousel-image.active {
+    opacity: 1;
+}
+
+.stock-page .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--pure-black);
+    color: var(--pure-white);
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 10;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stock-page .carousel-btn.prev {
+    left: 5px;
+}
+
+.stock-page .carousel-btn.next {
+    right: 5px;
+}
+
+.stock-page .carousel-btn:hover {
+    background: var(--dark-gray);
+    box-shadow: 0 4px 12px var(--deep-shadow);
+}
+
+.stock-page .image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    animation: fadeIn 0.3s ease;
+}
+
+.stock-page .modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    background: var(--pure-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 24px var(--deep-shadow);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stock-page .modal-carousel {
+    position: relative;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.stock-page .modal-image {
+    display: none;
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+}
+
+.stock-page .modal-image.active {
+    display: block;
+}
+
+.stock-page .modal-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--pure-black);
+    color: var(--pure-white);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.stock-page .modal-carousel-btn.prev {
+    left: 10px;
+}
+
+.stock-page .modal-carousel-btn.next {
+    right: 10px;
+}
+
+.stock-page .modal-carousel-btn:hover {
+    background: var(--dark-gray);
+    box-shadow: 0 4px 12px var(--deep-shadow);
+}
+
+.stock-page .close-modal {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--pure-black);
+    color: var(--pure-white);
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.stock-page .close-modal:hover {
+    background: var(--dark-gray);
+    transform: scale(1.1);
+}
+
+.stock-page .modal-product-name {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--pure-black);
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .stock-page .carousel {
+        height: 120px;
+    }
+
+    .stock-page .carousel-btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .stock-page .modal-content {
+        max-width: 95%;
+        padding: 5px;
+    }
+
+    .stock-page .modal-image {
+        max-height: 70vh !important;
+    }
+
+    .stock-page .modal-carousel-btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .stock-page .close-modal {
+        top: -8px;
+        right: -8px;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+    }
+
+    .stock-page .modal-product-name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stock-page .carousel {
+        height: 100px;
+    }
+
+    .stock-page .carousel-btn {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+
+    .stock-page .modal-carousel-btn {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+
+    .stock-page .modal-product-name {
+        font-size: 12px;
+    }
+}

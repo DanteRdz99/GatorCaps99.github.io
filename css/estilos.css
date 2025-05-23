@@ -25,6 +25,12 @@ body {
     padding-bottom: 80px;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
 header {
     background: var(--pure-white);
     padding: 15px;
@@ -147,6 +153,7 @@ header img.logo {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+    overflow: hidden; /* Añadido para evitar desbordamiento */
 }
 
 .gallery-item:hover {
@@ -154,7 +161,7 @@ header img.logo {
     box-shadow: 0 6px 20px var(--deep-shadow);
 }
 
-.carousel {
+.stock-page .carousel {
     position: relative;
     width: 100%;
     height: 140px;
@@ -164,23 +171,22 @@ header img.logo {
     margin: 0 auto;
 }
 
-.carousel-image {
+.stock-page .carousel-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    display: none; /* Cambiado de opacity a display para evitar apilamiento */
     cursor: pointer;
 }
 
-.carousel-image.active {
-    opacity: 1;
+.stock-page .carousel-image.active {
+    display: block;
 }
 
-.carousel-btn {
+.stock-page .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -195,15 +201,15 @@ header img.logo {
     transition: var(--transition);
 }
 
-.carousel-btn.prev {
+.stock-page .carousel-btn.prev {
     left: 5px;
 }
 
-.carousel-btn.next {
+.stock-page .carousel-btn.next {
     right: 5px;
 }
 
-.carousel-btn:hover {
+.stock-page .carousel-btn:hover {
     background: var(--dark-gray);
     box-shadow: 0 4px 12px var(--deep-shadow);
 }
@@ -897,11 +903,11 @@ button:disabled {
         min-height: 240px;
     }
 
-    .carousel {
+    .stock-page .carousel {
         height: 120px;
     }
 
-    .carousel-btn {
+    .stock-page .carousel-btn {
         padding: 5px 8px;
         font-size: 12px;
     }
@@ -1069,11 +1075,11 @@ button:disabled {
         min-height: 220px;
     }
 
-    .carousel {
+    .stock-page .carousel {
         height: 100px;
     }
 
-    .carousel-btn {
+    .stock-page .carousel-btn {
         padding: 4px 6px;
         font-size: 10px;
     }
@@ -1096,10 +1102,6 @@ button:disabled {
     #cart-container {
         width: 260px;
         right: 8px;
-    }
-
-    #cart-container.visible {
-        width: 260px;
     }
 
     .modal-carousel-btn {
