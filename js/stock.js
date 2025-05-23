@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 1, name: "Pirates Pittsburgh 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/PTS59F.jpg", productId: "pirates-pittsburgh" },
         { id: 2, name: "Texas Rangers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/TR59F.jpg", productId: "texas-rangers" },
         { id: 3, name: "LA Dodgers 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/LA59F.jpg", productId: "larichtingdodgers" },
-        { id: 4, name: "SF Giants World Series 9FORTY (Ajustable)", price: 500, images: ["Imagenes/Catalogo/stock2/SF1.jpg", "Imagenes/Catalogo/stock2/SF2.jpg", "Imagenes/Catalogo/stock2/SF3.jpg"], productId: "sf-giants" },
         { id: 5, name: "SF Giants Duckbill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/SFDB.jpg", productId: "sf-giants-duckbill" },
         { id: 6, name: "Delta Tigers DuckBill AllStar Game 59FIFTY", price: 500, image: "Imagenes/Catalogo/StockDisp/DTDB.jpg", productId: "delta-tigers-duckbill" },
         { id: 7, name: "Anaheim Angels World Champions 20th Anniversary 9FORTY", price: 500, images: ["Imagenes/Catalogo/stock2/ANG1.jpg", "Imagenes/Catalogo/stock2/ANG2.jpg", "Imagenes/Catalogo/stock2/ANG3.jpg"], productId: "la-angels-9forty" },
